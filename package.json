@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/markshepherd/IPIP-NEO-Scorer/issues"
   },
-  "homepage": "https://github.com/markshepherd/IPIP-NEO-Scorer#readme"
+  "homepage": "https://github.com/markshepherd/IPIP-NEO-Scorer#readme",
+  "dependencies": {
+    "commander": "^2.20.0"
+  }
 }
