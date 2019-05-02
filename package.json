@@ -22,5 +22,8 @@
   "homepage": "https://github.com/markshepherd/IPIP-NEO-Scorer#readme",
   "dependencies": {
     "commander": "^2.20.0"
+  },
+  "bin": {
+    "score": "./cli.js"
   }
 }
