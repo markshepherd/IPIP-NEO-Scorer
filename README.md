@@ -63,3 +63,13 @@ sanjiv_wong@yahoo.com
 
     A. Agreeableness ...
 ````
+
+# To package the app
+
+1. `cd ~/Documents/IPIP-NEO-Scorer`
+1. `pkg -t node10-macos-x64  --out-path . cli.js`
+
+This will create a mac executable `cli` in the same folder. You can also get executables for windows or linux, do `pkg --help` for details.
+
+
+
