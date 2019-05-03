@@ -25,7 +25,9 @@ const questionInfo = getItems('en');
 // and count is the number of questions associated with the given domain+facet
 //
 function printReport(emailaddress, result) {
-	console.log(`\n${emailaddress}`);
+	var outputString = "";
+
+	outputString += `\n${emailaddress}\n`;
 
 	// The template contains a list of all the domains and facets and their human-readable names. 
 	// The order of items in the template defines the order of the report.
@@ -50,15 +52,17 @@ function printReport(emailaddress, result) {
 		}
 
 		// Print the domain summary line
-		console.log(`\n    ${domain.domain}. ${domain.title}: ${totalScore} / ${totalCount * 5}`);
+		outputString += `\n    ${domain.domain}. ${domain.title}: ${totalScore} / ${totalCount * 5}\n`;
 
 		// Iterate over facets and print a line for each one.
 		for (var k = 0; k < domain.facets.length; k++) {
 			var facet = domain.facets[k];
 			const score = result[domain.domain][facet.facet] || {score: 0, count: 0};
-			console.log(`        ${facet.facet}. ${facet.title}: ${score.score} / ${score.count * 5}`);
+			outputString += `        ${facet.facet}. ${facet.title}: ${score.score} / ${score.count * 5}\n`;
 		}
 	}
+
+	return outputString;
 }
 
 // Given the text of a question and the text of an answer to that question,
@@ -85,6 +89,7 @@ function decode(question, answer) {
 // Process the csv data that comes from Survey Monkey > Analyze Results > Save As > Export File > All Rndividual Responses.
 // We 
 function doit(csvData) {
+	var outputString = "";
 	const lines = csvData.split(/[\n\r]+/);
 
 	// the first line of the csv data contains a list of all the questions 
@@ -128,19 +133,32 @@ function doit(csvData) {
 				facetScore.score += score;
 			}
 
-			printReport(emailAddress, result);
+			outputString += printReport(emailAddress, result);
 		}
 	}
+
+	return outputString;
 }
 
-if (process.argv.length !== 3) {
-	console.log('Please specify exactly 1 file.');
-	process.exit();
+var path;
+if (process.argv.length === 3) {
+	path = process.argv[2];
+} else {
+	const readline = require('readline-sync');
+	path = readline.question("Please enter path to csv file:");
+	path = path.split("\\").join("");
 }
 
-fs.readFile(process.argv[2], 'utf8', function (err, csvData) {
+fs.readFile(path, 'utf8', function (err, csvData) {
 	if (err) throw err;
-	doit(csvData);
+	const report = doit(csvData);
+	fs.writeFile("./IPIP-scores.txt", report, (err) => {
+  		if (err) {
+  			console.log('\x1b[36m%s\x1b[0m', err);
+  		} else {
+  			console.log('\x1b[36m%s\x1b[0m', `Report written to ${process.cwd()}/IPIP-scores.txt`);
+  		}
+	});
 });
 
 
