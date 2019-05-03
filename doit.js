@@ -2,7 +2,33 @@
 
 var fs = require('fs');
 const { getItems, getInfo } = require('@alheimsins/b5-johnson-120-ipip-neo-pi-r');
+const { getTemplate } = require('@alheimsins/b5-result-text');
 const questionInfo = getItems('en');
+
+function printResult(result) {
+	const data = getTemplate();
+	// console.log(JSON.stringify(data, undefined, 2));
+
+	for (var i = 0; i < data.length; i++) {
+		var domain = data[i];
+		var totalScore = 0;
+		var totalCount = 0;
+
+		for (var j = 0; j < domain.facets.length; j++) {
+			var facet = domain.facets[j];
+			const score = result[domain.domain][facet.facet] || {score: 0, count: 0};
+			totalScore += score.score;
+			totalCount += score.count;
+		}
+		console.log(`    ${domain.domain}. ${domain.title}: ${totalScore} / ${totalCount * 5}`);
+
+		for (var j = 0; j < domain.facets.length; j++) {
+			var facet = domain.facets[j];
+			const score = result[domain.domain][facet.facet] || {score: 0, count: 0};
+			console.log(`        ${facet.facet}. ${facet.title}: ${score.score} / ${score.count * 5}`);
+		}
+	}
+}
 
 // returns [domain, facet, score]
 function decode(question, answer) {
@@ -15,7 +41,7 @@ function decode(question, answer) {
 			for (var j = 0; j < info.choices.length; j++) {
 				const choice = info.choices[j];
 				if (choice.text === answer) {
-					console.log(`${question} . ${answer} ==> ${info.domain}, ${info.facet}, ${choice.score}`);
+					// console.log(`${question} . ${answer} ==> ${info.domain}, ${info.facet}, ${choice.score}`);
 					return [info.domain, info.facet, choice.score];
 				}
 			}
@@ -31,6 +57,7 @@ module.exports = function(file) {
   		if (err) throw err;
 
   		const lines = data.split(/[\n\r]+/);
+ 		// console.log(' -------------- Data ------------------');
 		// console.log(JSON.stringify(lines, undefined, 2));
 
   		// the first line of the data files contains a list of all the questions 
@@ -48,30 +75,40 @@ module.exports = function(file) {
   			const emailAddress = tokens[5];
 
   			if (emailAddress) {
-				// If the line has an email address, compute that user's score. results' looks like this:
+				// If the line has an email address, compute that user's score. result looks like this:
 				//
 				//     {domain1: {facet1: score, facet2: score, ...}, domain2: ...}
 				//
-				const results = {};		
+				const result = {};		
 
   				for (var j = 9; j < tokens.length; j++) {
   					const answer = tokens[j];
   					const question = questions[j - 9];
   					const [domain, facet, score] = decode(question, answer);
 
-  					var facetScores = results[domain];
+  					var facetScores = result[domain];
   					if (!facetScores) {
   						facetScores = {};
-						results[domain] = facetScores;
+						result[domain] = facetScores;
   					}
 
-  					facetScores[facet] = (facetScores[facet] || 0) + score;
-				}	
+  					var facetScore = facetScores[facet];
+  					if (!facetScore) {
+  						facetScore = {score: 0, count: 0};
+						facetScores[facet] = facetScore;
+  					}
 
-		  		console.log(' -------------- RESULT ------------------');
+  					facetScore.count += 1;
+  					facetScore.score += score;
+				}
+
+		  		// console.log(' -------------- raw result ------------------');
+		 		// console.log(emailAddress);
+				// console.log(JSON.stringify(result, undefined, 2));
+		  		console.log('');
+		  		console.log('');
 		  		console.log(emailAddress);
-				console.log(JSON.stringify(results, undefined, 2));  		
-
+				printResult(result);
 			}
   		}
 	});
