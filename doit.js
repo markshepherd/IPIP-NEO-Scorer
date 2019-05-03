@@ -7,7 +7,6 @@ const questionInfo = getItems('en');
 
 function printResult(result) {
 	const data = getTemplate();
-	// console.log(JSON.stringify(data, undefined, 2));
 
 	for (var i = 0; i < data.length; i++) {
 		var domain = data[i];
@@ -20,7 +19,7 @@ function printResult(result) {
 			totalScore += score.score;
 			totalCount += score.count;
 		}
-		console.log(`    ${domain.domain}. ${domain.title}: ${totalScore} / ${totalCount * 5}`);
+		console.log(`\n    ${domain.domain}. ${domain.title}: ${totalScore} / ${totalCount * 5}`);
 
 		for (var j = 0; j < domain.facets.length; j++) {
 			var facet = domain.facets[j];
@@ -32,16 +31,12 @@ function printResult(result) {
 
 // returns [domain, facet, score]
 function decode(question, answer) {
-	// console.log(JSON.stringify([question, answer], undefined, 2));
-
-	// search items
 	for (var i = 0; i < questionInfo.length; i++) {
 		const info = questionInfo[i];
 		if (info.text === question) {
 			for (var j = 0; j < info.choices.length; j++) {
 				const choice = info.choices[j];
 				if (choice.text === answer) {
-					// console.log(`${question} . ${answer} ==> ${info.domain}, ${info.facet}, ${choice.score}`);
 					return [info.domain, info.facet, choice.score];
 				}
 			}
@@ -51,14 +46,10 @@ function decode(question, answer) {
 }
 
 module.exports = function(file) {
-	// console.log(JSON.stringify(items, undefined, 2));
-
 	fs.readFile(file, 'utf8', function (err, data) {
   		if (err) throw err;
 
   		const lines = data.split(/[\n\r]+/);
- 		// console.log(' -------------- Data ------------------');
-		// console.log(JSON.stringify(lines, undefined, 2));
 
   		// the first line of the data files contains a list of all the questions 
 		const firstLineTokens = lines[0].split(/,/);
@@ -66,8 +57,6 @@ module.exports = function(file) {
 		for (var k = 9; k < firstLineTokens.length; k++) {
 			questions.push(firstLineTokens[k]);
 		}
-		// console.log('questions ----');
-		// console.log(JSON.stringify(questions, undefined, 2));
 
 		// Process each line of the file
 		for (var i = 1; i < lines.length; i++) {
@@ -75,10 +64,8 @@ module.exports = function(file) {
   			const emailAddress = tokens[5];
 
   			if (emailAddress) {
-				// If the line has an email address, compute that user's score. result looks like this:
-				//
-				//     {domain1: {facet1: score, facet2: score, ...}, domain2: ...}
-				//
+				// If the line has an email address, compute that user's score.
+				// result looks like -- {domain1: {facet1: score, facet2: score, ...}, domain2: ...}
 				const result = {};		
 
   				for (var j = 9; j < tokens.length; j++) {
@@ -102,10 +89,6 @@ module.exports = function(file) {
   					facetScore.score += score;
 				}
 
-		  		// console.log(' -------------- raw result ------------------');
-		 		// console.log(emailAddress);
-				// console.log(JSON.stringify(result, undefined, 2));
-		  		console.log('');
 		  		console.log('');
 		  		console.log(emailAddress);
 				printResult(result);

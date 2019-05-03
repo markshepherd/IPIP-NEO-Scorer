@@ -1,17 +1,10 @@
 #!/usr/bin/env node
 'use strict';
-const program = require('commander');
 const doit = require('./doit');
 
-program
-  .version('0.0.1')
-  .description('Scores answers from IPIP NEO survey.')
-  .option('-f, --foo', 'Blah B')
-  .parse(process.argv);
-
-if (program.args.length !== 1) {
+if (process.argv.length !== 3) {
 	console.log('Please specify exactly 1 file.');
 	process.exit();
 }
 
-doit(program.args[0]);
+doit(process.argv[2]);
