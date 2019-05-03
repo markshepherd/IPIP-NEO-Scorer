@@ -35,14 +35,14 @@ function createOneReport(emailaddress, scores) {
 
 	// Iterate over the domains in the template
 	for (var i = 0; i < template.length; i++) {
-		var domain = template[i];
+		const domain = template[i];
 
 		// Iterate over the facets of this domain. Accumulate the score and count
 		// of each facet into a total score and count for this domain.
 		var totalScore = 0;
 		var totalCount = 0;
 		for (var j = 0; j < domain.facets.length; j++) {
-			var facet = domain.facets[j];
+			const facet = domain.facets[j];
 
 			// Grab the scores data for this domain+facet; just use zero if no data.
 			const score = scores[domain.domain][facet.facet] || {score: 0, count: 0};
@@ -57,7 +57,7 @@ function createOneReport(emailaddress, scores) {
 
 		// Iterate over facets and print a line for each facet.
 		for (var k = 0; k < domain.facets.length; k++) {
-			var facet = domain.facets[k];
+			const facet = domain.facets[k];
 			const score = scores[domain.domain][facet.facet] || {score: 0, count: 0};
 			outputString += `        ${facet.facet}. ${facet.title}: ${score.score} / ${score.count * 5}\n`;
 		}
