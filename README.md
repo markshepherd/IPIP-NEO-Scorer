@@ -69,7 +69,7 @@ sanjiv_wong@yahoo.com
 1. `cd ~/Documents/IPIP-NEO-Scorer`
 1. `pkg -t node10-macos-x64  --output ./IPIP-Scorer cli.js`
 
-This will create a mac executable `IPIP-Scorer` in the same folder. You can also get executables for windows or linux, do `pkg --help` for details.
+This will create a mac executable `IPIP-Scorer` in the same folder. You can also get executables for windows or linux, do `pkg --help` for more info.
 
 
 
