@@ -21,7 +21,7 @@ Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") proje
     
 # To run the app
 
-1. Extract the data
+1. Extract the data from survey monkey
     1. go to https://www.surveymonkey.com
     1. go to the `Johnson 120 IPIP-NEO-PI-R` project
     1. go to `Analyze Results`
@@ -29,20 +29,19 @@ Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") proje
     1. select File Format `XLS`
     1. do `Export`
     1. when it says `Your export is complete`, click `Download`
-1. Grab the data file
+1. Find the data file
     1. in Finder, go to the `Downloads` folder
     1. locate the file you just downloaded, it will be called something like `Data_All_190503.zip`
     1. double click the downloaded file to unzip it
     1. open the resulting folder, it will be called something like `Data_All_190503`
     1. open the `CSV` folder
-    1. copy the file `Johnson 120 IPIP-NEO-PI-R.csv`
-    1. go to the folder `Documents > IPIP-NEO-Scorer`
-    1. paste the file
-1. Generate the report. In Terminal, do
-    1. `cd ~/Documents/IPIP-NEO-Scorer`
-    1. `./cli.js "Johnson 120 IPIP-NEO-PI-R.csv" > scores.txt`
+1. Generate the report.
+    1. in Terminal do `cd ~/Documents/IPIP-NEO-Scorer`
+    1. do `./cli.js`
+    
+    When it prompts for a filename, drag in the file `Johnson 120 IPIP-NEO-PI-R.csv` from the `csv` folder, and hit Return.
 
-You should now have a file called `scores.txt` in your `Documents > IPIP-NEO-Scorer` folder. This file contains all the domain and facet scores for each email address that submitted a survey. Surveys that are not associated with a user email address wiil not be included in the report. You can double click this file to view it in TextEdit, or do whatever you need to do with it. Here's what the report looks like:
+This will create a file called `IPIP Scores.txt` in your Desktop folder. This file contains all the domain and facet scores for each email address that submitted a survey. Surveys that are not associated with a user email address wiil not be included in the report. You can double click this file to view it in TextEdit, or do whatever you need to do with it. Here's what the report looks like:
 
 ````
 jane_smith_123@gmail.com
@@ -70,7 +69,7 @@ sanjiv_wong@yahoo.com
 1. `cd ~/Documents/IPIP-NEO-Scorer`
 1. `pkg -t node10-macos-x64 --output ./IPIP-Scorer cli.js`
 
-This will create a mac executable `IPIP-Scorer` in the same folder. You can also get executables for windows or linux, do `pkg --help` for more info.
+This will create a mac executable `IPIP-Scorer` in the same folder. If you want executables for windows or linux, `pkg --help` will tell you how.
 
 
 
