@@ -34,6 +34,28 @@ Node JS command-line app to process response data exported from the survey "John
     1. copy the file `Johnson 120 IPIP-NEO-PI-R.csv`
     1. go to the folder `Documents > IPIP-NEO-Scorer`
     1. paste the file
-1. In Terminal, do `./cli.js Johnson 120 IPIP-NEO-PI-R.csv > scores.txt`
+1. Generate the report. In Terminal, do
+    1. `cd ~/Documents/IPIP-NEO-Scorer`
+    1. `./cli.js "Johnson 120 IPIP-NEO-PI-R.csv" > scores.txt`
 
-You should now have a file called `scores.txt` in your `Documents > IPIP-NEO-Scorer` folder. You can double click this file to view it in TextEdit, or do whatever you need to do with it.
+You should now have a file called `scores.txt` in your `Documents > IPIP-NEO-Scorer` folder. This file contains all the domain and facet scores for each email address that submitted a survey. Surveys that are not associated with a user email address wiil not be included in the report. You can double click this file to view it in TextEdit, or do whatever you need to do with it. Here's what the report looks like:
+
+````
+jane_smith_123@gmail.com
+
+    A. Agreeableness: 92 / 120
+        1. Trust: 8 / 20
+        2. Morality: 20 / 20
+        3. ....
+
+    E. Extraversion: 48 / 120
+        1. Friendliness: 12 / 20
+        2. Gregariousness: 12 / 20
+        3. ...
+        
+    ...
+    
+sanjiv_wong@yahoo.com
+
+    A. Agreeableness ...
+````
