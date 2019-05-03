@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/markshepherd/IPIP-NEO-Scorer#readme",
   "dependencies": {
+    "@alheimsins/b5-johnson-120-ipip-neo-pi-r": "^2.1.5",
+    "b5-calculate-score": "^1.0.4",
     "commander": "^2.20.0"
   },
   "bin": {
