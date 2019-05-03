@@ -192,16 +192,17 @@ function main() {
 	// of the standalone app created by pkg.
 	const reset = "\x1b[0m";
 	const highlight = "\x1b[36m";
-	const highlight2 = "\x1b[32m"
+	const highlight2 = "\x1b[32m";
+	const bright = "\x1b[1m";
 
-	console.log(highlight + '--- Scorer for Johnson 120 IPIP-NEO-PI-R survey results ---\n' + instructions + reset);
+	console.log(`${highlight}--- Scorer for Johnson 120 IPIP-NEO-PI-R survey results ---\n${instructions}${reset}`);
 
 	// Find the path we're reading from. It might be a command-line parameter, or we might have to prompt for it.
 	var csvPath;
 	if (process.argv.length === 3) {
 		csvPath = process.argv[2];
 	} else {
-		csvPath = readline.question(highlight + "Please enter location of csv file:" + reset);
+		csvPath = readline.question(`${highlight}Please enter location of csv file:${reset}`);
 		// remove any extra backslash characters that are added into the path string when a user drags a file from finder to consolewindow.
 		csvPath = csvPath.split("\\").join(""); 
 	}
@@ -219,9 +220,10 @@ function main() {
 		const outputPath = path.join(os.homedir(), 'Desktop', 'IPIP-scores.txt')
 		fs.writeFile(outputPath, report, (err) => {
 	  		if (err) {
-				console.log(highlight2 + err + reset);
+				console.log(`${highlight2}err${reset}`);
 	  		} else {
-				console.log(highlight2 + `\nReport written to ${outputPath}\n` + reset);
+	  			console.log(`${highlight2}\nReport file ${highlight}${bright}IPIP-scores.txt${reset}${highlight2} written to Desktop\n${reset}`);
+				console.log(`(${outputPath})\n`);
 	  		}
 		});
 	});
