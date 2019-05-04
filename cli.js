@@ -45,7 +45,7 @@ function createOneReport(emailaddress, scores) {
 			const facet = domain.facets[j];
 
 			// Grab the scores data for this domain+facet; just use zero if no data.
-			const score = scores[domain.domain][facet.facet] || {score: 0, count: 0};
+			const score = scores[domain.domain] && scores[domain.domain][facet.facet] || {score: 0, count: 0};
 
 			// Collect our information
 			totalScore += score.score;
@@ -58,7 +58,7 @@ function createOneReport(emailaddress, scores) {
 		// Iterate over facets and print a line for each facet.
 		for (var k = 0; k < domain.facets.length; k++) {
 			const facet = domain.facets[k];
-			const score = scores[domain.domain][facet.facet] || {score: 0, count: 0};
+			const score = scores[domain.domain] && scores[domain.domain][facet.facet] || {score: 0, count: 0};
 			outputString += `        ${facet.facet}. ${facet.title}: ${score.score} / ${score.count * 5}\n`;
 		}
 	}
@@ -84,8 +84,8 @@ function getScoreInfoForAnswer(question, answer) {
 			}
 		}
 	}
-	// Question or answer not found. Return harmless data.
-	return ['XXX', 1, 4];
+	// Question or answer not found.
+	return [null, null, null];
 }
 
 // Analyzes the csv data and creates a report. The report is returned in the form of a string.
@@ -129,23 +129,25 @@ function createReport(csvData) {
 				const question = questions[j - 9];
 				const [domain, facet, score] = getScoreInfoForAnswer(question, answer);
 
-				// Find the scores for this domain. If it doesn't yet exist, create it.
-				var facetScores = scores[domain];
-				if (!facetScores) {
-					facetScores = {};
-					scores[domain] = facetScores;
-				}
+				if (domain && facet && score) {
+					// Find the scores for this domain. If it doesn't yet exist, create it.
+					var facetScores = scores[domain];
+					if (!facetScores) {
+						facetScores = {};
+						scores[domain] = facetScores;
+					}
 
-				// Find the score for this facet. If it doesn't yet exist, create it.
-				var facetScore = facetScores[facet];
-				if (!facetScore) {
-					facetScore = {score: 0, count: 0};
-					facetScores[facet] = facetScore;
-				}
+					// Find the score for this facet. If it doesn't yet exist, create it.
+					var facetScore = facetScores[facet];
+					if (!facetScore) {
+						facetScore = {score: 0, count: 0};
+						facetScores[facet] = facetScore;
+					}
 
-				// Aggregate this answer's score into the facet's score.
-				facetScore.count += 1;
-				facetScore.score += score;
+					// Aggregate this answer's score into the facet's score.
+					facetScore.count += 1;
+					facetScore.score += score;
+				}
 			}
 
 			// The aggregated data is complete. Generate a report for this user.
