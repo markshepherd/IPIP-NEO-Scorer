@@ -4,7 +4,9 @@
   "description": "Scorer for IPIP NEO survey results.",
   "main": "cli.js",
   "scripts": {
-    "test": "TBD"
+    "start": "node cli.js",
+    "test": "node test/test.js",
+    "dev": "node cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\""
   },
   "repository": {
     "type": "git",
