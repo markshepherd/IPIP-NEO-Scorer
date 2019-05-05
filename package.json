@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node cli.js",
     "test": "node test/test.js",
-    "dev": "node cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\""
+    "dev": "node cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
+    "debug": "node --inspect-brk cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\""
   },
   "repository": {
     "type": "git",

@@ -10,38 +10,6 @@ const { getTemplate } = require('@alheimsins/b5-result-text');
 // - what domain and facet the question is associated with
 // - what score is assigned to each possible answer
 const questionInfo = getItems('en');
-// const info = getInfo();
-// debugger;
-
-// function calcVariance(arrayOfNumbers) {
-// 	if (arrayOfNumbers.length <= 1) {
-// 		return 0;
-// 	}
-// 	let sum = 0;
-// 	for (let i = 0; i < arrayOfNumbers.length; i++) {
-// 		sum += arrayOfNumbers[i];
-// 	}
-// 	const mean = sum / arrayOfNumbers.length;
-// 	let sumOfSquares = 0;
-// 	for (let j = 0; j < arrayOfNumbers.length; j++) {
-// 		const diff = arrayOfNumbers[j] - mean;
-// 		sumOfSquares += diff * diff;
-// 	}
-// 	const variance = sumOfSquares / arrayOfNumbers.length;
-// 	const standardDeviation = Math.sqrt(variance);
-
-// 	return {mean, variance, standardDeviation};
-// }
-
-// function calcSpread(arrayOfNumbers) {
-// 	let low = 999;
-// 	let high = -999;
-// 	for (let number of arrayOfNumbers) {
-// 		if (number < low) low = number;
-// 		if (number > high) high = number;
-// 	}
-// 	return high - low;
-// }
 
 // returns Boolean, true if consistent, false if inconsistent
 // todo: generalize this so it works for any survey, not just johnson 120.
@@ -56,73 +24,6 @@ function calcConsistency(arrayOfNumbers) {
 	}
 	if (lowCount === 0 || highCount === 0) return 'none';
 	return (lowCount === 2 && highCount === 2) ? 'bad' : 'some';
-}
-
-// Create a report for one completed survey by one user. The report is 
-// returned in the form of a string.
-//
-// 'scores' is the user's aggregated score for all domains and facets, in the form
-//   {
-//      domain1: {
-//		  facet1: {score: <num>, count: <num>},
-//		  facet2: {...},``
-//        ...
-//      domain2: {
-//	      ....
-//   }
-// 'score' is the total score across all questions for the given domain+facet
-// and 'count' is the number of questions associated with the given domain+facet
-//
-
-function createOneReport(emailaddress, scores) {
-	let outputString = "";
-
-	outputString += `\n${emailaddress}\n`;
-
-	// Fetch the template which contains a list of all the domains and facets, including their human-readable names. 
-	// The order of items in the template defines the order of the report.
-	const template = getTemplate();
-
-	// Iterate over the domains in the template
-	for (let i = 0; i < template.length; i++) {
-		const domain = template[i];
-
-		// Iterate over the facets of this domain. Accumulate the score and count
-		// of each facet into a total score and count for this domain.
-		let totalScore = 0;
-		let totalCount = 0;
-		for (let j = 0; j < domain.facets.length; j++) {
-			const facet = domain.facets[j];
-
-			// Grab the scores data for this domain+facet; just use zero if no data.
-			const facetScore = scores[domain.domain] && scores[domain.domain][facet.facet] || {score: 0, count: 0};
-
-			// Collect our information
-			totalScore += facetScore.score;
-			totalCount += facetScore.count;
-		}
-
-		// Print the domain summary line
-		outputString += `\n    ${domain.domain}. ${domain.title}: ${totalScore} / ${totalCount * 5}\n`;
-
-		// Iterate over facets and print a line for each facet.
-		for (let k = 0; k < domain.facets.length; k++) {
-			const facet = domain.facets[k];
-			const facetScore = scores[domain.domain] && scores[domain.domain][facet.facet] || {score: 0, count: 0, scores: []};
-			const inconsistency = calcConsistency(facetScore.scores);
-			// const variance = calcVariance(facetScore.scores);
-			// const spread = calcSpread(facetScore.scores);
-			// const scoreString = JSON.stringify({scores: facetScore.scores, variance: variance.variance});
-			// const scoreString = inconsistency !== 'none' ? `scores: ${facetScore.scores} variance: ${variance.variance} spread: ${spread} inconsistency: ${inconsistency}` : '';
-			const scoreString = inconsistency !== 'none' ? `scores: ${facetScore.scores} inconsistency: ${inconsistency}` : '';
-			// const scoreString = facetScore.scores.join(", ");
-			// console.log(scoreString);
-			// console.log(JSON.stringify({scoreString: scoreString, scores: facetScore.scores}, undefined, 2))
-			outputString += `        ${facet.facet}. ${facet.title}: ${facetScore.score} / ${facetScore.count * 5}     ${scoreString}\n`;
-		}
-	}
-
-	return outputString;
 }
 
 // For a given question and answer to that question, 
@@ -147,16 +48,28 @@ function getScoreInfoForAnswer(question, answer) {
 	return [null, null, null];
 }
 
-// Analyzes the csv data and creates a report. The report is returned in the form of a string.
-function createReport(csvData) {
-	let outputString = "";
+
+// Input: csvData
+//
+// Output: info extracted from csv data, in the form:
+//  {
+//		questions: [question1, question2, ...], 
+//		answers: {
+//			user1: [answer1, answer2, ...], 
+//			user2: etc...
+//		}
+//	}
+//
+// We only extract data for users for which there is an email address.
+function extractQuestionsAndAnswers(csvData) {
+	const questions = [];
+	const answers = {};
 
 	// Split the input csv data into lines.
 	const lines = csvData.split(/[\n\r]+/);
 
 	// The first line of the csv data contains a list of all the questions.
 	const firstLineTokens = lines[0].split(/,/);
-	const questions = [];
 	for (let k = 9; k < firstLineTokens.length; k++) {
 		questions.push(firstLineTokens[k]);
 	}
@@ -170,34 +83,58 @@ function createReport(csvData) {
 		const emailAddress = tokens[5];
 
 		if (emailAddress) {
-			// If the line has an email address, compute that user's score.
-			// We ignore lines that don't have an email address.
+			const answersForThisUser = [];
+			for (let j = 9; j < tokens.length; j++) {
+				answersForThisUser.push(tokens[j]);
+			}
+			answers[emailAddress] = answersForThisUser;
+		}
+	}
 
-			// Here is where the "data analysis" happens.
-			// 	input: array of {question, answer}
-			//  result: {score, count} for each facet of each domain
-			// 
+	return {questions, answers};
+}
+
+// Input: question/answer info from extractQuestionsAndAnswers()
+//
+// Output: the aggregated score for all users, domains and facets, in the form
+// {
+//		email1: {
+//	       domain1: {
+//		      facet1: {score: <score>, count: <count>, scores: [], inconsistency: xxxx},
+//			  facet2: {...},
+//            ...},
+//         domain2: { 
+//			  facet1: { ... },
+//			  ...
+//	    },
+//		email2: { ... }
+//		...
+//   }
+// where <score> is the total score across all questions for the given domain+facet
+// and <count> is the number of answered questions associated with the given domain+facet
+//
+function aggregate(info) {
+	const allScores = [];
+
+	for (var emailAddress in info.answers) {
+		if (info.answers.hasOwnProperty(emailAddress)) {
+			const answersForThisUser = info.answers[emailAddress];
+			const scoresForThisUser = {};		
+
 			// Loop over the answers to all the questions. For each answer,
 			// we determine which domain/facet it relates to, then we add that 
 			// answer's score into the total score for that domain/facet for that user.
-			// This data is accumulated in the 'scores' data structure which looks like this:
-			// {
-			//		domain1: {facet1: {score: xxx, count, xxx}, facet2: ...}, 
-			//		domain2: ...
-			//	}
-			const scores = {};		
-
-			for (let j = 9; j < tokens.length; j++) {
-				const answer = tokens[j];
-				const question = questions[j - 9];
+			for (let i = 0; i < answersForThisUser.length; i++) {
+				const answer = answersForThisUser[i];
+				const question = info.questions[i];
 				const [domain, facet, score] = getScoreInfoForAnswer(question, answer);
 
 				if (domain && facet && score) {
 					// Find the scores for this domain. If it doesn't yet exist, create it.
-					let facetScores = scores[domain];
+					let facetScores = scoresForThisUser[domain];
 					if (!facetScores) {
 						facetScores = {};
-						scores[domain] = facetScores;
+						scoresForThisUser[domain] = facetScores;
 					}
 
 					// Find the score for this facet. If it doesn't yet exist, create it.
@@ -214,12 +151,101 @@ function createReport(csvData) {
 				}
 			}
 
-			// The analysis is complete. The aggregated data for this user is in 'scores'. Generate a report.
-			outputString += createOneReport(emailAddress, scores);
+			allScores[emailAddress] = scoresForThisUser;
 		}
 	}
 
+	return allScores;
+}
+
+// Input: aggregated scores, from aggregate()
+// 
+// Output:
+// - inconsistency field for every facet is added to allScores 
+// - per-domain annotation containing score and count
+//
+function analyze(allScores) {
+	const annotations = {};
+	for (var emailAddress in allScores) {
+		if (allScores.hasOwnProperty(emailAddress)) {
+			const annotationsForThisUser = {};
+			const scores = allScores[emailAddress];
+
+			for (var domain in scores) {
+				if (scores.hasOwnProperty(domain)) {
+					const facets = scores[domain];
+
+					let totalScore = 0;
+					let totalCount = 0;
+
+					for (var facet in facets) {
+						if (facets.hasOwnProperty(facet)) {
+							const facetScore = facets[facet];
+							totalScore += facetScore.score;
+							totalCount += facetScore.count;
+							facetScore.inconsistency = calcConsistency(facetScore.scores);
+						}
+					}
+					annotationsForThisUser[domain] = {score: totalScore, count: totalCount};
+				}
+			}
+			annotations[emailAddress] = annotationsForThisUser;
+		}
+	}
+
+	return annotations;
+}
+
+// Create a summary report of scores and warning for all users. The report is in the form of a character string.
+function summaryReport(allScores, annotations) {
+	let outputString = "";
+
+	for (var emailAddress in allScores) {
+		if (allScores.hasOwnProperty(emailAddress)) {
+			const annotationsForThisUser = annotations[emailAddress];
+			const scoresForThisUser = allScores[emailAddress];
+
+			outputString += `\n${emailAddress}\n`;
+
+			// Fetch the template which contains a list of all the domains and facets, including their human-readable names. 
+			// The order of items in the template defines the order of the report.
+			const template = getTemplate();
+
+			// Iterate over the domains in the template
+			for (let i = 0; i < template.length; i++) {
+				const domain = template[i];
+				const domainScore = annotationsForThisUser[domain.domain] || {score: 0, count: 0};
+				const facetScores = scoresForThisUser[domain.domain] || {};
+
+				// Print the domain summary line
+				outputString += `\n    ${domain.domain}. ${domain.title}: ${domainScore.score} / ${domainScore.count * 5}\n`;
+
+				// Iterate over facets and print a line for each facet.
+				for (let k = 0; k < domain.facets.length; k++) {
+					const facet = domain.facets[k];
+					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: [], inconsistency: 'none'};
+					const scoreString = facetScore.inconsistency !== 'none' 
+						? `scores: ${facetScore.scores} inconsistency: ${facetScore.inconsistency}` : '';
+					outputString += 
+						`        ${facet.facet}. ${facet.title}: ${facetScore.score} / ${facetScore.count * 5}     ${scoreString}\n`;
+				}
+			}
+		}
+	}
 	return outputString;
 }
 
-module.exports = createReport;
+function doit(csvData) {
+	const info = extractQuestionsAndAnswers(csvData);
+
+	const allScores = aggregate(info);
+
+	const annotations = analyze(allScores);
+
+	const report = summaryReport(allScores, annotations);
+
+	return report;
+}
+
+module.exports = doit;
+

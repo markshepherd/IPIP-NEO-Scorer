@@ -3,7 +3,7 @@
 
 const createReport = require('./analyze');
 
-// Here's the main program. This is the only code that deals with the outside world (file system, user interaction, ...)
+// Here's the main program. This is where we handle all interfacing with the outside world (file system, user interaction, ...)
 const readline = require('readline-sync');
 const fs = require('fs');
 const path = require('path');
