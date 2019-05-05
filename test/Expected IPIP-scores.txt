@@ -253,84 +253,84 @@ bob.skiview.loop@gmail.com
 
 a@b.com
 
-    A. Agreeableness: 83 / 120
-        1. Trust: 14 / 20     scores: 4,4,4,2 inconsistency: some
-        2. Morality: 11 / 20     scores: 2,2,3,4 inconsistency: some
-        3. Altruism: 14 / 20     
-        4. Cooperation: 14 / 20     scores: 2,4,4,4 inconsistency: some
-        5. Modesty: 13 / 20     scores: 3,2,4,4 inconsistency: some
-        6. Sympathy: 17 / 20     
+    A. Agreeableness: 96 / 120
+        1. Trust: 16 / 20     
+        2. Morality: 19 / 20     
+        3. Altruism: 16 / 20     
+        4. Cooperation: 18 / 20     
+        5. Modesty: 11 / 20     scores: 2,2,2,5 inconsistency: some
+        6. Sympathy: 16 / 20     
 
-    E. Extraversion: 64 / 110
-        1. Friendliness: 5 / 10     
-        2. Gregariousness: 14 / 20     scores: 4,4,2,4 inconsistency: some
-        3. Assertiveness: 8 / 20     
-        4. Activity Level: 13 / 20     scores: 4,3,2,4 inconsistency: some
-        5. Excitement-Seeking: 11 / 20     scores: 1,4,3,3 inconsistency: some
-        6. Cheerfulness: 13 / 20     scores: 4,4,3,2 inconsistency: some
+    E. Extraversion: 74 / 115
+        1. Friendliness: 10 / 15     
+        2. Gregariousness: 11 / 20     scores: 2,3,2,4 inconsistency: some
+        3. Assertiveness: 11 / 20     
+        4. Activity Level: 15 / 20     
+        5. Excitement-Seeking: 12 / 20     scores: 4,4,2,2 inconsistency: bad
+        6. Cheerfulness: 15 / 20     
 
-    N. Neuroticism: 74 / 120
-        1. Anxiety: 9 / 20     
-        2. Anger: 14 / 20     scores: 4,4,4,2 inconsistency: some
-        3. Depression: 10 / 20     scores: 2,2,2,4 inconsistency: some
-        4. Self-Consciousness: 14 / 20     scores: 4,4,2,4 inconsistency: some
-        5. Immoderation: 14 / 20     scores: 4,2,4,4 inconsistency: some
-        6. Vulnerability: 13 / 20     
+    N. Neuroticism: 73 / 120
+        1. Anxiety: 12 / 20     scores: 3,3,2,4 inconsistency: some
+        2. Anger: 16 / 20     
+        3. Depression: 8 / 20     
+        4. Self-Consciousness: 13 / 20     scores: 4,3,2,4 inconsistency: some
+        5. Immoderation: 9 / 20     
+        6. Vulnerability: 15 / 20     
 
-    C. Conscientiousness: 82 / 120
-        1. Self-Efficacy: 14 / 20     scores: 4,4,4,2 inconsistency: some
-        2. Orderliness: 15 / 20     scores: 1,4,5,5 inconsistency: some
+    C. Conscientiousness: 91 / 120
+        1. Self-Efficacy: 16 / 20     
+        2. Orderliness: 14 / 20     scores: 2,4,4,4 inconsistency: some
         3. Dutifulness: 16 / 20     
-        4. Achievement-Striving: 12 / 20     scores: 1,2,4,5 inconsistency: bad
-        5. Self-Discipline: 15 / 20     scores: 4,4,2,5 inconsistency: some
-        6. Cautiousness: 10 / 20     scores: 1,2,3,4 inconsistency: some
+        4. Achievement-Striving: 16 / 20     
+        5. Self-Discipline: 13 / 20     
+        6. Cautiousness: 16 / 20     
 
-    O. Openness To Experience: 71 / 120
-        1. Imagination: 13 / 20     
-        2. Artistic Interests: 11 / 20     scores: 2,3,2,4 inconsistency: some
-        3. Emotionality: 11 / 20     
-        4. Adventurousness: 11 / 20     scores: 4,2,2,3 inconsistency: some
-        5. Intellect: 14 / 20     scores: 4,2,4,4 inconsistency: some
-        6. Liberalism: 11 / 20     scores: 3,4,2,2 inconsistency: some
+    O. Openness To Experience: 91 / 120
+        1. Imagination: 16 / 20     
+        2. Artistic Interests: 15 / 20     
+        3. Emotionality: 14 / 20     
+        4. Adventurousness: 16 / 20     
+        5. Intellect: 13 / 20     scores: 3,2,4,4 inconsistency: some
+        6. Liberalism: 17 / 20     
 
 random@random.com
 
-    A. Agreeableness: 70 / 120
-        1. Trust: 12 / 20     scores: 5,1,4,2 inconsistency: bad
-        2. Morality: 14 / 20     scores: 4,5,4,1 inconsistency: some
-        3. Altruism: 12 / 20     scores: 1,4,5,2 inconsistency: bad
-        4. Cooperation: 10 / 20     
-        5. Modesty: 6 / 20     
-        6. Sympathy: 16 / 20     scores: 1,5,5,5 inconsistency: some
+    A. Agreeableness: 54 / 120
+        1. Trust: 10 / 20     scores: 1,5,2,2 inconsistency: some
+        2. Morality: 10 / 20     scores: 2,2,5,1 inconsistency: some
+        3. Altruism: 5 / 20     
+        4. Cooperation: 8 / 20     scores: 2,4,1,1 inconsistency: some
+        5. Modesty: 12 / 20     scores: 5,3,2,2 inconsistency: some
+        6. Sympathy: 9 / 20     scores: 1,2,5,1 inconsistency: some
 
-    E. Extraversion: 72 / 110
-        1. Friendliness: 7 / 10     scores: 2,5 inconsistency: some
-        2. Gregariousness: 10 / 20     scores: 1,3,1,5 inconsistency: some
-        3. Assertiveness: 16 / 20     scores: 1,5,5,5 inconsistency: some
-        4. Activity Level: 15 / 20     scores: 5,1,4,5 inconsistency: some
-        5. Excitement-Seeking: 11 / 20     scores: 2,5,3,1 inconsistency: some
-        6. Cheerfulness: 13 / 20     scores: 5,4,2,2 inconsistency: bad
+    E. Extraversion: 78 / 115
+        1. Friendliness: 10 / 15     scores: 4,4,2 inconsistency: some
+        2. Gregariousness: 8 / 20     scores: 4,1,2,1 inconsistency: some
+        3. Assertiveness: 18 / 20     
+        4. Activity Level: 15 / 20     scores: 3,2,5,5 inconsistency: some
+        5. Excitement-Seeking: 11 / 20     scores: 3,5,1,2 inconsistency: some
+        6. Cheerfulness: 16 / 20     
 
-    N. Neuroticism: 77 / 120
-        1. Anxiety: 13 / 20     scores: 3,2,3,5 inconsistency: some
-        2. Anger: 14 / 20     scores: 2,3,5,4 inconsistency: some
-        3. Depression: 13 / 20     scores: 2,5,2,4 inconsistency: bad
-        4. Self-Consciousness: 12 / 20     scores: 5,2,2,3 inconsistency: some
-        5. Immoderation: 17 / 20     
-        6. Vulnerability: 8 / 20     
+    N. Neuroticism: 78 / 120
+        1. Anxiety: 7 / 20     
+        2. Anger: 14 / 20     scores: 1,3,5,5 inconsistency: some
+        3. Depression: 16 / 20     scores: 1,5,5,5 inconsistency: some
+        4. Self-Consciousness: 15 / 20     scores: 5,1,4,5 inconsistency: some
+        5. Immoderation: 11 / 20     scores: 2,1,3,5 inconsistency: some
+        6. Vulnerability: 15 / 20     scores: 5,4,2,4 inconsistency: some
 
-    C. Conscientiousness: 60 / 120
-        1. Self-Efficacy: 12 / 20     scores: 1,5,2,4 inconsistency: bad
-        2. Orderliness: 12 / 20     scores: 4,2,5,1 inconsistency: bad
-        3. Dutifulness: 5 / 20     
-        4. Achievement-Striving: 8 / 20     scores: 4,2,1,1 inconsistency: some
-        5. Self-Discipline: 8 / 20     
-        6. Cautiousness: 15 / 20     scores: 5,4,5,1 inconsistency: some
+    C. Conscientiousness: 73 / 120
+        1. Self-Efficacy: 12 / 20     scores: 2,3,5,2 inconsistency: some
+        2. Orderliness: 11 / 20     scores: 2,1,4,4 inconsistency: bad
+        3. Dutifulness: 14 / 20     scores: 5,2,4,3 inconsistency: some
+        4. Achievement-Striving: 13 / 20     scores: 3,1,5,4 inconsistency: some
+        5. Self-Discipline: 10 / 20     scores: 3,2,4,1 inconsistency: some
+        6. Cautiousness: 13 / 20     scores: 4,3,1,5 inconsistency: some
 
-    O. Openness To Experience: 72 / 120
-        1. Imagination: 14 / 20     scores: 4,4,2,4 inconsistency: some
-        2. Artistic Interests: 8 / 20     scores: 4,1,2,1 inconsistency: some
-        3. Emotionality: 14 / 20     scores: 5,3,1,5 inconsistency: some
-        4. Adventurousness: 13 / 20     scores: 3,4,1,5 inconsistency: some
-        5. Intellect: 13 / 20     scores: 3,1,5,4 inconsistency: some
-        6. Liberalism: 10 / 20     scores: 3,4,2,1 inconsistency: some
+    O. Openness To Experience: 70 / 120
+        1. Imagination: 14 / 20     scores: 5,1,4,4 inconsistency: some
+        2. Artistic Interests: 8 / 20     scores: 2,1,4,1 inconsistency: some
+        3. Emotionality: 12 / 20     scores: 1,4,5,2 inconsistency: bad
+        4. Adventurousness: 10 / 20     
+        5. Intellect: 10 / 20     scores: 5,1,1,3 inconsistency: some
+        6. Liberalism: 16 / 20     scores: 1,5,5,5 inconsistency: some
