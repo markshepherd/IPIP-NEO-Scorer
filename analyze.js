@@ -152,10 +152,10 @@ function extractQuestionsAndAnswers(csvData) {
 //         domain2: { 
 //            facet1: { ... },
 //            ...
-//		},
-//		email2: { ... }
-//		...
-//   }
+//      },
+//      email2: { ... }
+//      ...
+// }
 // where <score> is the total score across all questions for the given domain+facet
 // and <count> is the number of answered questions associated with the given domain+facet
 //
