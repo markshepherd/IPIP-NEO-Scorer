@@ -98,7 +98,7 @@ function makeAnswerImage(answers) {
 //  {
 //		questions: [question1, question2, ...], 
 //		answers: {
-//			user1: {time: nnn, answers: [answer1, answer2, ...]}, 
+//			user1: {elapsedSeconds: nnn, answers: [answer1, answer2, ...]}, 
 //			user2: etc...
 //		}
 //	}
@@ -144,15 +144,15 @@ function extractQuestionsAndAnswers(csvData) {
 //
 // Output: for each user, the aggregated score for each domain and facet, in the form
 // {
-//		email1: {
-//	       domain1: {
-//		      facet1: {score: <score>, count: <count>, scores: [], inconsistency: xxxx},
-//			  facet2: {...},
+//     email1: {
+//         domain1: {
+//            facet1: {score: <score>, count: <count>, scores: [], inconsistency: xxxx},
+//            facet2: {...},
 //            ...},
 //         domain2: { 
-//			  facet1: { ... },
-//			  ...
-//	    },
+//            facet1: { ... },
+//            ...
+//		},
 //		email2: { ... }
 //		...
 //   }
