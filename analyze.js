@@ -3,14 +3,18 @@
 
 const { getItems } = require('@alheimsins/b5-johnson-120-ipip-neo-pi-r');
 const { getTemplate } = require('@alheimsins/b5-result-text');
+
 // const choices = require(`@alheimsins/b5-johnson-120-ipip-neo-pi-r/data/en/choices`)
+// pkg doesn't handle the above require(), so we'll just do brute force
+const choices = ['Very Inaccurate', 'Moderately Inaccurate', 'Neither Accurate Nor Inaccurate', 'Moderately Accurate', 'Very Accurate'];
+
 
 // questionInfo contains information about each question:
 // - what domain and facet the question is associated with
 // - what score is assigned to each possible answer
 const questionInfo = getItems('en');
 
-// returns Boolean, true if consistent, false if inconsistent
+// returns true if consistent, false if inconsistent
 // todo: generalize this so it works for any survey, not just johnson 120.
 function calcConsistency(arrayOfNumbers) {
 	const mid = 3;
@@ -48,7 +52,6 @@ function getScoreInfoForAnswer(question, answer) {
 }
 
 function getAnswerIndex(answer) {
-	const choices = ['Very Inaccurate', 'Moderately Inaccurate', 'Neither Accurate Nor Inaccurate', 'Moderately Accurate', 'Very Accurate'];
 	for (let i = 0; i < choices.length; i++) {
 		if (choices[i] === answer) {
 			return i;
@@ -146,12 +149,17 @@ function extractQuestionsAndAnswers(csvData) {
 // {
 //     email1: {
 //         domain1: {
-//            facet1: {score: <score>, count: <count>, scores: [], inconsistency: xxxx},
-//            facet2: {...},
-//            ...},
+//            score: {score, count},
+//            facets: {
+//              facet1: {score: <score>, count: <count>, scores: [], inconsistency: xxxx},
+//              facet2: {...},
+//              ...
+//            }
+//         },
 //         domain2: { 
-//            facet1: { ... },
-//            ...
+//            score: ....,
+//            facets: ....
+//         }
 //      },
 //      email2: { ... }
 //      ...
@@ -179,15 +187,15 @@ function aggregate(info) {
 					// Find the scores for this domain. If it doesn't yet exist, create it.
 					let facetScores = scoresForThisUser[domain];
 					if (!facetScores) {
-						facetScores = {};
+						facetScores = {score: {score: 0, count: 0}, facets: {}};
 						scoresForThisUser[domain] = facetScores;
 					}
 
 					// Find the score for this facet. If it doesn't yet exist, create it.
-					let facetScore = facetScores[facet];
+					let facetScore = facetScores.facets[facet];
 					if (!facetScore) {
 						facetScore = {score: 0, count: 0, scores: []};
-						facetScores[facet] = facetScore;
+						facetScores.facets[facet] = facetScore;
 					}
 
 					// Aggregate this answer's score into the facet's score.
@@ -220,7 +228,7 @@ function analyze(allScores, info) {
 
 			for (let domain in scores) {
 				if (scores.hasOwnProperty(domain)) {
-					const facets = scores[domain];
+					const facets = scores[domain].facets;
 
 					let totalScore = 0;
 					let totalCount = 0;
@@ -234,7 +242,7 @@ function analyze(allScores, info) {
 							facetScore.inconsistency = calcConsistency(facetScore.scores);
 						}
 					}
-					annotationsForThisUser[domain] = {score: totalScore, count: totalCount};
+					scores[domain].score = {score: totalScore, count: totalCount};
 				}
 			}
 			annotationsForThisUser.missingAnswers = info.questions.length - answerCount;
@@ -269,8 +277,9 @@ function summaryReport(allScores, annotations) {
 			// Iterate over the domains in the template
 			for (let i = 0; i < template.length; i++) {
 				const domain = template[i];
-				const domainScore = annotationsForThisUser[domain.domain] || {score: 0, count: 0};
-				const facetScores = scoresForThisUser[domain.domain] || {};
+				const scoresForThisDomain = scoresForThisUser[domain.domain] || {};
+				const domainScore = scoresForThisDomain.score || {score: 0, count: 0};
+				const facetScores = scoresForThisDomain.facets || {};
 
 				// Print the domain summary line
 				outputString += `\n    ${domain.domain}. ${domain.title}: ${domainScore.score} / ${domainScore.count * 5}\n`;
