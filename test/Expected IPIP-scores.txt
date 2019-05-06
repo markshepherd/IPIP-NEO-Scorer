@@ -1,5 +1,22 @@
 
-alixgshepherd@gmail.com
+
+
+alixgshepherd@gmail.com        111 missing answers
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   ....X   ....X   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   ....X   .....   .....   .....
+   ....X   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   X....   .....   .....   .....   .....   X....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   X....
+   .....   X....   X....   .....   .....   .....   .....   .....
 
     A. Agreeableness: 5 / 5
         1. Trust: 0 / 0     
@@ -41,7 +58,24 @@ alixgshepherd@gmail.com
         5. Intellect: 0 / 0     
         6. Liberalism: 0 / 0     
 
-mark.e.shepherd@gmail.com
+
+
+mark.e.shepherd@gmail.com 
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
 
     A. Agreeableness: 52 / 120
         1. Trust: 16 / 20     scores: 5,5,5,1 inconsistency: some
@@ -51,8 +85,8 @@ mark.e.shepherd@gmail.com
         5. Modesty: 4 / 20     
         6. Sympathy: 12 / 20     scores: 5,5,1,1 inconsistency: bad
 
-    E. Extraversion: 95 / 115
-        1. Friendliness: 11 / 15     scores: 5,5,1 inconsistency: some
+    E. Extraversion: 96 / 120
+        1. Friendliness: 12 / 20     scores: 5,5,1,1 inconsistency: bad
         2. Gregariousness: 12 / 20     scores: 5,5,1,1 inconsistency: bad
         3. Assertiveness: 16 / 20     scores: 5,5,5,1 inconsistency: some
         4. Activity Level: 16 / 20     scores: 5,5,5,1 inconsistency: some
@@ -83,7 +117,24 @@ mark.e.shepherd@gmail.com
         5. Intellect: 8 / 20     scores: 5,1,1,1 inconsistency: some
         6. Liberalism: 12 / 20     scores: 5,5,1,1 inconsistency: bad
 
-mark.skiview.loop@gmail.com
+
+
+mark.skiview.loop@gmail.com 
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
 
     A. Agreeableness: 92 / 120
         1. Trust: 8 / 20     scores: 1,1,1,5 inconsistency: some
@@ -93,8 +144,8 @@ mark.skiview.loop@gmail.com
         5. Modesty: 20 / 20     
         6. Sympathy: 12 / 20     scores: 1,1,5,5 inconsistency: bad
 
-    E. Extraversion: 43 / 115
-        1. Friendliness: 7 / 15     scores: 1,1,5 inconsistency: some
+    E. Extraversion: 48 / 120
+        1. Friendliness: 12 / 20     scores: 1,1,5,5 inconsistency: bad
         2. Gregariousness: 12 / 20     scores: 1,1,5,5 inconsistency: bad
         3. Assertiveness: 8 / 20     scores: 1,1,1,5 inconsistency: some
         4. Activity Level: 8 / 20     scores: 1,1,1,5 inconsistency: some
@@ -125,7 +176,24 @@ mark.skiview.loop@gmail.com
         5. Intellect: 16 / 20     scores: 1,5,5,5 inconsistency: some
         6. Liberalism: 12 / 20     scores: 1,1,5,5 inconsistency: bad
 
-marke.junkmail@gmail.com
+
+
+marke.junkmail@gmail.com 
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
 
     A. Agreeableness: 72 / 120
         1. Trust: 12 / 20     
@@ -135,8 +203,8 @@ marke.junkmail@gmail.com
         5. Modesty: 12 / 20     
         6. Sympathy: 12 / 20     
 
-    E. Extraversion: 69 / 115
-        1. Friendliness: 9 / 15     
+    E. Extraversion: 72 / 120
+        1. Friendliness: 12 / 20     
         2. Gregariousness: 12 / 20     
         3. Assertiveness: 12 / 20     
         4. Activity Level: 12 / 20     
@@ -167,7 +235,24 @@ marke.junkmail@gmail.com
         5. Intellect: 12 / 20     
         6. Liberalism: 12 / 20     
 
-bob.e.shepherd@gmail.com
+
+
+bob.e.shepherd@gmail.com 
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
 
     A. Agreeableness: 62 / 120
         1. Trust: 14 / 20     scores: 4,4,4,2 inconsistency: some
@@ -177,8 +262,8 @@ bob.e.shepherd@gmail.com
         5. Modesty: 8 / 20     
         6. Sympathy: 12 / 20     scores: 4,4,2,2 inconsistency: bad
 
-    E. Extraversion: 82 / 115
-        1. Friendliness: 10 / 15     scores: 4,4,2 inconsistency: some
+    E. Extraversion: 84 / 120
+        1. Friendliness: 12 / 20     scores: 4,4,2,2 inconsistency: bad
         2. Gregariousness: 12 / 20     scores: 4,4,2,2 inconsistency: bad
         3. Assertiveness: 14 / 20     scores: 4,4,4,2 inconsistency: some
         4. Activity Level: 14 / 20     scores: 4,4,4,2 inconsistency: some
@@ -209,7 +294,24 @@ bob.e.shepherd@gmail.com
         5. Intellect: 10 / 20     scores: 4,2,2,2 inconsistency: some
         6. Liberalism: 12 / 20     scores: 4,4,2,2 inconsistency: bad
 
-bob.skiview.loop@gmail.com
+
+
+bob.skiview.loop@gmail.com 
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
 
     A. Agreeableness: 82 / 120
         1. Trust: 10 / 20     scores: 2,2,2,4 inconsistency: some
@@ -219,8 +321,8 @@ bob.skiview.loop@gmail.com
         5. Modesty: 16 / 20     
         6. Sympathy: 12 / 20     scores: 2,2,4,4 inconsistency: bad
 
-    E. Extraversion: 56 / 115
-        1. Friendliness: 8 / 15     scores: 2,2,4 inconsistency: some
+    E. Extraversion: 60 / 120
+        1. Friendliness: 12 / 20     scores: 2,2,4,4 inconsistency: bad
         2. Gregariousness: 12 / 20     scores: 2,2,4,4 inconsistency: bad
         3. Assertiveness: 10 / 20     scores: 2,2,2,4 inconsistency: some
         4. Activity Level: 10 / 20     scores: 2,2,2,4 inconsistency: some
@@ -251,7 +353,24 @@ bob.skiview.loop@gmail.com
         5. Intellect: 14 / 20     scores: 2,4,4,4 inconsistency: some
         6. Liberalism: 12 / 20     scores: 2,2,4,4 inconsistency: bad
 
-a@b.com
+
+
+a@b.com 
+   ..X..   ...X.   ..X..   ..X..   .X...   .X...   ...X.   .X...
+   ..X..   ...X.   ...X.   ...X.   ..X..   ...X.   ..X..   ..X..
+   ...X.   ...X.   ...X.   .X...   ...X.   .X...   ...X.   .X...
+   ...X.   X....   ...X.   .X...   ...X.   .X...   .X...   X....
+   ...X.   ...X.   ...X.   ...X.   ...X.   .X...   ...X.   .X...
+   ...X.   X....   ...X.   ...X.   ...X.   ..X..   .X...   ..X..
+   .X...   ...X.   ..X..   ...X.   ...X.   .X...   .X...   .X...
+   ...X.   ..X..   ...X.   ...X.   ..X..   .X...   .X...   .X...
+   X....   ...X.   .X...   ...X.   X....   ...X.   X....   X....
+   .X...   ..X..   .X...   ...X.   .X...   ..X..   .X...   ..X..
+   .X...   ...X.   .X...   ...X.   .X...   ..X..   ...X.   .X...
+   ..X..   ..X..   ..X..   ...X.   ..X..   ...X.   ...X.   ...X.
+   ...X.   ....X   ...X.   ...X.   ..X..   X....   ..X..   ..X..
+   ...X.   ....X   ...X.   ...X.   .X...   ..X..   .X...   .X...
+   ...X.   .X...   ...X.   .X...   .X...   .X...   .X...   .X...
 
     A. Agreeableness: 96 / 120
         1. Trust: 16 / 20     
@@ -261,8 +380,8 @@ a@b.com
         5. Modesty: 11 / 20     scores: 2,2,2,5 inconsistency: some
         6. Sympathy: 16 / 20     
 
-    E. Extraversion: 74 / 115
-        1. Friendliness: 10 / 15     
+    E. Extraversion: 77 / 120
+        1. Friendliness: 13 / 20     
         2. Gregariousness: 11 / 20     scores: 2,3,2,4 inconsistency: some
         3. Assertiveness: 11 / 20     
         4. Activity Level: 15 / 20     
@@ -293,7 +412,24 @@ a@b.com
         5. Intellect: 13 / 20     scores: 3,2,4,4 inconsistency: some
         6. Liberalism: 17 / 20     
 
-random@random.com
+
+
+random@random.com 
+   ..X..   ....X   .X...   X....   X....   ...X.   X....   X....
+   ...X.   ..X..   ...X.   .X...   .X...   ....X   ...X.   X....
+   ....X   ..X..   X....   ...X.   ...X.   ...X.   ...X.   ..X..
+   X....   ...X.   ....X   .X...   .X...   ....X   ...X.   ....X
+   .X...   ..X..   ..X..   X....   ....X   X....   .X...   .X...
+   X....   .X...   ..X..   ....X   ....X   ..X..   X....   X....
+   ...X.   ..X..   X....   ....X   ...X.   X....   ....X   .X...
+   .X...   ....X   X....   ....X   .X...   ....X   ....X   ..X..
+   ...X.   X....   ...X.   ..X..   X....   ...X.   ....X   ...X.
+   .X...   ..X..   ....X   .X...   .X...   .X...   .X...   ....X
+   X....   ....X   ....X   ...X.   ....X   .X...   X....   .X...
+   ....X   ..X..   ..X..   ...X.   ....X   ...X.   X....   ....X
+   X....   X....   ...X.   ....X   X....   X....   ...X.   X....
+   .X...   X....   X....   .X...   ....X   X....   ....X   ....X
+   ....X   .X...   .X...   ..X..   .X...   ....X   ..X..   X....
 
     A. Agreeableness: 54 / 120
         1. Trust: 10 / 20     scores: 1,5,2,2 inconsistency: some
@@ -303,8 +439,8 @@ random@random.com
         5. Modesty: 12 / 20     scores: 5,3,2,2 inconsistency: some
         6. Sympathy: 9 / 20     scores: 1,2,5,1 inconsistency: some
 
-    E. Extraversion: 78 / 115
-        1. Friendliness: 10 / 15     scores: 4,4,2 inconsistency: some
+    E. Extraversion: 82 / 120
+        1. Friendliness: 14 / 20     scores: 4,4,4,2 inconsistency: some
         2. Gregariousness: 8 / 20     scores: 4,1,2,1 inconsistency: some
         3. Assertiveness: 18 / 20     
         4. Activity Level: 15 / 20     scores: 3,2,5,5 inconsistency: some

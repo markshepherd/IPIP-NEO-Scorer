@@ -3,8 +3,7 @@
 
 const { getItems } = require('@alheimsins/b5-johnson-120-ipip-neo-pi-r');
 const { getTemplate } = require('@alheimsins/b5-result-text');
-
-// const choices = require(`@alheimsins/b5-johnson-120-ipip-neo-pi-r/data/en/choices`)
+const choices = require(`@alheimsins/b5-johnson-120-ipip-neo-pi-r/data/en/choices`)
 
 // questionInfo contains information about each question:
 // - what domain and facet the question is associated with
@@ -48,6 +47,38 @@ function getScoreInfoForAnswer(question, answer) {
 	return [null, null, null];
 }
 
+function getAnswerIndex(answer) {
+	for (let i = 0; i < choices.plus.length; i++) {
+		let choice = choices.plus[i];
+		if (choice.text === answer) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+function makeAnswerImage(answers) {
+	const height = 15;
+	let image = [];
+	for (let i = 0; i < height; i++) {
+		image.push('');
+	}
+
+	let nextAnswerIndex = 0;
+
+	/* eslint-disable-next-line no-constant-condition */
+	while (true) {
+		for (let i = 0; i < height; i++) {	
+			const index = getAnswerIndex(answers[nextAnswerIndex++]);
+			image[i] += "   " + ((index < 0) ? '.....' : (".".repeat(index) + "X" + ".".repeat(4 - index)));
+
+			if (nextAnswerIndex >= answers.length) {
+				return image.join('\n');
+			}
+		}
+	}
+}
+
 
 // Input: csvData
 //
@@ -55,7 +86,7 @@ function getScoreInfoForAnswer(question, answer) {
 //  {
 //		questions: [question1, question2, ...], 
 //		answers: {
-//			user1: [answer1, answer2, ...], 
+//			user1: {time: nnn, answers: [answer1, answer2, ...]}, 
 //			user2: etc...
 //		}
 //	}
@@ -87,7 +118,7 @@ function extractQuestionsAndAnswers(csvData) {
 			for (let j = 9; j < tokens.length; j++) {
 				answersForThisUser.push(tokens[j]);
 			}
-			answers[emailAddress] = answersForThisUser;
+			answers[emailAddress] = {time: 0, answers: answersForThisUser};
 		}
 	}
 
@@ -96,7 +127,7 @@ function extractQuestionsAndAnswers(csvData) {
 
 // Input: question/answer info from extractQuestionsAndAnswers()
 //
-// Output: the aggregated score for all users, domains and facets, in the form
+// Output: for each user, the aggregated score for each domain and facet, in the form
 // {
 //		email1: {
 //	       domain1: {
@@ -116,9 +147,9 @@ function extractQuestionsAndAnswers(csvData) {
 function aggregate(info) {
 	const allScores = [];
 
-	for (var emailAddress in info.answers) {
+	for (let emailAddress in info.answers) {
 		if (info.answers.hasOwnProperty(emailAddress)) {
-			const answersForThisUser = info.answers[emailAddress];
+			const answersForThisUser = info.answers[emailAddress].answers;
 			const scoresForThisUser = {};		
 
 			// Loop over the answers to all the questions. For each answer,
@@ -164,31 +195,35 @@ function aggregate(info) {
 // - inconsistency field for every facet is added to allScores 
 // - per-domain annotation containing score and count
 //
-function analyze(allScores) {
+function analyze(allScores, info) {
 	const annotations = {};
-	for (var emailAddress in allScores) {
+	for (let emailAddress in allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
+			let answerCount = 0;
 			const annotationsForThisUser = {};
 			const scores = allScores[emailAddress];
 
-			for (var domain in scores) {
+			for (let domain in scores) {
 				if (scores.hasOwnProperty(domain)) {
 					const facets = scores[domain];
 
 					let totalScore = 0;
 					let totalCount = 0;
 
-					for (var facet in facets) {
+					for (let facet in facets) {
 						if (facets.hasOwnProperty(facet)) {
 							const facetScore = facets[facet];
 							totalScore += facetScore.score;
 							totalCount += facetScore.count;
+							answerCount += facetScore.count;
 							facetScore.inconsistency = calcConsistency(facetScore.scores);
 						}
 					}
 					annotationsForThisUser[domain] = {score: totalScore, count: totalCount};
 				}
 			}
+			annotationsForThisUser.missingAnswers = info.questions.length - answerCount;
+			annotationsForThisUser.image = makeAnswerImage(info.answers[emailAddress].answers);
 			annotations[emailAddress] = annotationsForThisUser;
 		}
 	}
@@ -200,12 +235,12 @@ function analyze(allScores) {
 function summaryReport(allScores, annotations) {
 	let outputString = "";
 
-	for (var emailAddress in allScores) {
+	for (let emailAddress in allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
 			const annotationsForThisUser = annotations[emailAddress];
 			const scoresForThisUser = allScores[emailAddress];
-
-			outputString += `\n${emailAddress}\n`;
+			const userComments = (annotationsForThisUser.missingAnswers > 0) ? `       ${annotationsForThisUser.missingAnswers} missing answers` : '';
+			outputString += `\n\n\n${emailAddress} ${userComments}\n${annotationsForThisUser.image}\n`;
 
 			// Fetch the template which contains a list of all the domains and facets, including their human-readable names. 
 			// The order of items in the template defines the order of the report.
@@ -235,17 +270,17 @@ function summaryReport(allScores, annotations) {
 	return outputString;
 }
 
-function doit(csvData) {
+function analyzeAndReport(csvData) {
 	const info = extractQuestionsAndAnswers(csvData);
 
 	const allScores = aggregate(info);
 
-	const annotations = analyze(allScores);
+	const annotations = analyze(allScores, info);
 
 	const report = summaryReport(allScores, annotations);
 
 	return report;
 }
 
-module.exports = doit;
+module.exports = analyzeAndReport;
 
