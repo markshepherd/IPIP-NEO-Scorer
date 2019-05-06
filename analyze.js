@@ -8,7 +8,6 @@ const { getTemplate } = require('@alheimsins/b5-result-text');
 // pkg doesn't handle the above require(), so we'll just do brute force
 const choices = ['Very Inaccurate', 'Moderately Inaccurate', 'Neither Accurate Nor Inaccurate', 'Moderately Accurate', 'Very Accurate'];
 
-
 // questionInfo contains information about each question:
 // - what domain and facet the question is associated with
 // - what score is assigned to each possible answer
@@ -51,6 +50,7 @@ function getScoreInfoForAnswer(question, answer) {
 	return [null, null, null];
 }
 
+// For a given answer, find out it's index, where "Very Inaccurate" is 1, "Moderately Inaccurate" is 2, and so on.
 function getAnswerIndex(answer) {
 	for (let i = 0; i < choices.length; i++) {
 		if (choices[i] === answer) {
@@ -60,29 +60,14 @@ function getAnswerIndex(answer) {
 	return -1;
 }
 
-/*
-function getAnswerIndex(answer) {
-	for (let i = 0; i < choices.plus.length; i++) {
-		let choice = choices.plus[i];
-		if (choice.text === answer) {
-			return i;
-		}
-	}
-	return -1;
-}
-*/
-
+// Create a schematic image of all the answers so a user can see illegal patterns in the answers. The image
+// is in the form of an ASCII-art character string.
 function makeAnswerImage(answers) {
 	const height = 15;
-	let image = [];
-	for (let i = 0; i < height; i++) {
-		image.push('');
-	}
-
+	const image = Array(height).fill("");
 	let nextAnswerIndex = 0;
 
-	/* eslint-disable-next-line no-constant-condition */
-	while (true) {
+	for (;;) {
 		for (let i = 0; i < height; i++) {	
 			const index = getAnswerIndex(answers[nextAnswerIndex++]);
 			image[i] += "   " + ((index < 0) ? '.....' : (".".repeat(index) + "X" + ".".repeat(4 - index)));
@@ -94,7 +79,8 @@ function makeAnswerImage(answers) {
 	}
 }
 
-
+// Parse the input data and put it into a usable format.
+//
 // Input: csvData
 //
 // Output: info extracted from csv data, in the form:
@@ -143,23 +129,30 @@ function extractQuestionsAndAnswers(csvData) {
 	return {questions, answers};
 }
 
+// Compute the domain and facet scores based on the input data.
+//
 // Input: question/answer info from extractQuestionsAndAnswers()
 //
 // Output: for each user, the aggregated score for each domain and facet, in the form
 // {
 //     email1: {
-//         domain1: {
-//            score: {score, count},
-//            facets: {
-//              facet1: {score: <score>, count: <count>, scores: [], inconsistency: xxxx},
-//              facet2: {...},
-//              ...
-//            }
-//         },
-//         domain2: { 
-//            score: ....,
-//            facets: ....
-//         }
+//         missingAnswers: number,
+//         image: string,
+//         suspiciousDuration: number,
+//         scores: {
+//             domain1: {
+//                score: {score, count},
+//                facets: {
+//                  facet1: {score: <score>, count: <count>, scores: [], inconsistency: xxxx},
+//                  facet2: {...},
+//                  ...
+//                }
+//             },
+//             domain2: { 
+//                score: ....,
+//                facets: ....
+//             }
+//          },
 //      },
 //      email2: { ... }
 //      ...
@@ -173,7 +166,7 @@ function aggregate(info) {
 	for (let emailAddress in info.answers) {
 		if (info.answers.hasOwnProperty(emailAddress)) {
 			const answersForThisUser = info.answers[emailAddress].answers;
-			const scoresForThisUser = {};		
+			const dataForThisUser = {scores: {}};		
 
 			// Loop over the answers to all the questions. For each answer,
 			// we determine which domain/facet it relates to, then we add that 
@@ -185,10 +178,10 @@ function aggregate(info) {
 
 				if (domain && facet && score) {
 					// Find the scores for this domain. If it doesn't yet exist, create it.
-					let facetScores = scoresForThisUser[domain];
+					let facetScores = dataForThisUser.scores[domain];
 					if (!facetScores) {
 						facetScores = {score: {score: 0, count: 0}, facets: {}};
-						scoresForThisUser[domain] = facetScores;
+						dataForThisUser.scores[domain] = facetScores;
 					}
 
 					// Find the score for this facet. If it doesn't yet exist, create it.
@@ -205,26 +198,27 @@ function aggregate(info) {
 				}
 			}
 
-			allScores[emailAddress] = scoresForThisUser;
+			allScores[emailAddress] = dataForThisUser;
 		}
 	}
 
 	return allScores;
 }
 
+// Derive various interesting information from the domain & facet scores and input data. Add the info into the allScores data structure.
+//
 // Input: aggregated scores, from aggregate()
 // 
-// Output:
-// - inconsistency field for every facet is added to allScores 
-// - per-domain annotation containing score and count
-//
+// Output: various items added to allScores
+// - results of checks for missing answers, suspicious duration, and answer consistency
+// - a schematic image of all the answers so a user can see illegal patterns in the answers.
+// - score totals for each domain
 function analyze(allScores, info) {
-	const annotations = {};
 	for (let emailAddress in allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
 			let answerCount = 0;
-			const annotationsForThisUser = {};
-			const scores = allScores[emailAddress];
+			const userData = allScores[emailAddress];
+			const scores = userData.scores;
 
 			for (let domain in scores) {
 				if (scores.hasOwnProperty(domain)) {
@@ -245,30 +239,27 @@ function analyze(allScores, info) {
 					scores[domain].score = {score: totalScore, count: totalCount};
 				}
 			}
-			annotationsForThisUser.missingAnswers = info.questions.length - answerCount;
-			annotationsForThisUser.image = makeAnswerImage(info.answers[emailAddress].answers);
+			userData.missingAnswers = info.questions.length - answerCount;
+			userData.image = makeAnswerImage(info.answers[emailAddress].answers);
 			// console.log(`elapsedSeconds = ${info.answers[emailAddress].elapsedSeconds}`);
 			if (info.answers[emailAddress].elapsedSeconds < 300) {
-				annotationsForThisUser.suspiciousDuration = info.answers[emailAddress].elapsedSeconds;
+				userData.suspiciousDuration = info.answers[emailAddress].elapsedSeconds;
 			}
-			annotations[emailAddress] = annotationsForThisUser;
 		}
 	}
-
-	return annotations;
 }
 
-// Create a summary report of scores and warning for all users. The report is in the form of a character string.
-function summaryReport(allScores, annotations) {
+// Create a summary report of scores and warnings for all users. We return the report in the form of a character string.
+function summaryReport(allScores) {
 	let outputString = "";
 
 	for (let emailAddress in allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
-			const annotationsForThisUser = annotations[emailAddress];
-			const scoresForThisUser = allScores[emailAddress];
-			let userComments = (annotationsForThisUser.missingAnswers > 0) ? `       *** ${annotationsForThisUser.missingAnswers} missing answers` : '';
-			userComments += annotationsForThisUser.suspiciousDuration ? `       *** Completed too quickly - ${annotationsForThisUser.suspiciousDuration} seconds.` : '';
-			outputString += `\n\n\n${emailAddress} ${userComments}\n\n${annotationsForThisUser.image}\n`;
+			const userData = allScores[emailAddress];
+			const scoresForThisUser = userData.scores;
+			let userComments = (userData.missingAnswers > 0) ? `       *** ${userData.missingAnswers} missing answers` : '';
+			userComments += userData.suspiciousDuration ? `       *** Completed too quickly - ${userData.suspiciousDuration} seconds.` : '';
+			outputString += `\n\n\n${emailAddress} ${userComments}\n\n${userData.image}\n`;
 
 			// Fetch the template which contains a list of all the domains and facets, including their human-readable names. 
 			// The order of items in the template defines the order of the report.
@@ -299,16 +290,15 @@ function summaryReport(allScores, annotations) {
 	return outputString;
 }
 
+// Analyze the answers and return a summary report.
 function analyzeAndReport(csvData) {
 	const info = extractQuestionsAndAnswers(csvData);
 
 	const allScores = aggregate(info);
 
-	const annotations = analyze(allScores, info);
+	analyze(allScores, info);
 
-	const report = summaryReport(allScores, annotations);
-
-	return report;
+	return summaryReport(allScores);
 }
 
 module.exports = analyzeAndReport;
