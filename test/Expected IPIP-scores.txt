@@ -1,0 +1,480 @@
+
+
+
+alixgshepherd@gmail.com        *** 111 missing answers       *** Completed too quickly - 10 seconds.
+
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   ....X   ....X   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   ....X   .....   .....   .....
+   ....X   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   X....   .....   .....   .....   .....   X....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   .....
+   .....   .....   .....   .....   .....   .....   .....   X....
+   .....   X....   X....   .....   .....   .....   .....   .....
+
+    A. Agreeableness: 5 / 5
+        1. Trust: 0 / 0        
+        2. Morality: 0 / 0        
+        3. Altruism: 0 / 0        
+        4. Cooperation: 0 / 0        
+        5. Modesty: 0 / 0        
+        6. Sympathy: 5 / 5        
+
+    E. Extraversion: 0 / 0
+        1. Friendliness: 0 / 0        
+        2. Gregariousness: 0 / 0        
+        3. Assertiveness: 0 / 0        
+        4. Activity Level: 0 / 0        
+        5. Excitement-Seeking: 0 / 0        
+        6. Cheerfulness: 0 / 0        
+
+    N. Neuroticism: 7 / 15
+        1. Anxiety: 0 / 0        
+        2. Anger: 5 / 5        
+        3. Depression: 1 / 5        
+        4. Self-Consciousness: 0 / 0        
+        5. Immoderation: 0 / 0        
+        6. Vulnerability: 1 / 5        
+
+    C. Conscientiousness: 11 / 15
+        1. Self-Efficacy: 5 / 5        
+        2. Orderliness: 0 / 0        
+        3. Dutifulness: 1 / 5        
+        4. Achievement-Striving: 0 / 0        
+        5. Self-Discipline: 0 / 0        
+        6. Cautiousness: 5 / 5        
+
+    O. Openness To Experience: 6 / 10
+        1. Imagination: 5 / 5        
+        2. Artistic Interests: 0 / 0        
+        3. Emotionality: 0 / 0        
+        4. Adventurousness: 1 / 5        
+        5. Intellect: 0 / 0        
+        6. Liberalism: 0 / 0        
+
+
+
+mark.e.shepherd@gmail.com        *** Completed too quickly - 174 seconds.
+
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+   ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
+
+    A. Agreeableness: 52 / 120
+        1. Trust: 16 / 20        *** minor inconsistency; scores are 5,5,5,1
+        2. Morality: 4 / 20        
+        3. Altruism: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+        4. Cooperation: 4 / 20        
+        5. Modesty: 4 / 20        
+        6. Sympathy: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+
+    E. Extraversion: 96 / 120
+        1. Friendliness: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+        2. Gregariousness: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+        3. Assertiveness: 16 / 20        *** minor inconsistency; scores are 5,5,5,1
+        4. Activity Level: 16 / 20        *** minor inconsistency; scores are 5,5,5,1
+        5. Excitement-Seeking: 20 / 20        
+        6. Cheerfulness: 20 / 20        
+
+    N. Neuroticism: 92 / 120
+        1. Anxiety: 20 / 20        
+        2. Anger: 16 / 20        *** minor inconsistency; scores are 5,5,5,1
+        3. Depression: 16 / 20        *** minor inconsistency; scores are 5,5,5,1
+        4. Self-Consciousness: 16 / 20        *** minor inconsistency; scores are 5,5,5,1
+        5. Immoderation: 8 / 20        *** minor inconsistency; scores are 5,1,1,1
+        6. Vulnerability: 16 / 20        *** minor inconsistency; scores are 5,5,5,1
+
+    C. Conscientiousness: 68 / 120
+        1. Self-Efficacy: 20 / 20        
+        2. Orderliness: 8 / 20        *** minor inconsistency; scores are 5,1,1,1
+        3. Dutifulness: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+        4. Achievement-Striving: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+        5. Self-Discipline: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+        6. Cautiousness: 4 / 20        
+
+    O. Openness To Experience: 72 / 120
+        1. Imagination: 20 / 20        
+        2. Artistic Interests: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+        3. Emotionality: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+        4. Adventurousness: 8 / 20        *** minor inconsistency; scores are 5,1,1,1
+        5. Intellect: 8 / 20        *** minor inconsistency; scores are 5,1,1,1
+        6. Liberalism: 12 / 20        *** bad inconsistency; scores are 5,5,1,1
+
+
+
+mark.skiview.loop@gmail.com        *** Completed too quickly - 201 seconds.
+
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+   X....   X....   X....   X....   X....   X....   X....   X....
+
+    A. Agreeableness: 92 / 120
+        1. Trust: 8 / 20        *** minor inconsistency; scores are 1,1,1,5
+        2. Morality: 20 / 20        
+        3. Altruism: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+        4. Cooperation: 20 / 20        
+        5. Modesty: 20 / 20        
+        6. Sympathy: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+
+    E. Extraversion: 48 / 120
+        1. Friendliness: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+        2. Gregariousness: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+        3. Assertiveness: 8 / 20        *** minor inconsistency; scores are 1,1,1,5
+        4. Activity Level: 8 / 20        *** minor inconsistency; scores are 1,1,1,5
+        5. Excitement-Seeking: 4 / 20        
+        6. Cheerfulness: 4 / 20        
+
+    N. Neuroticism: 52 / 120
+        1. Anxiety: 4 / 20        
+        2. Anger: 8 / 20        *** minor inconsistency; scores are 1,1,1,5
+        3. Depression: 8 / 20        *** minor inconsistency; scores are 1,1,1,5
+        4. Self-Consciousness: 8 / 20        *** minor inconsistency; scores are 1,1,1,5
+        5. Immoderation: 16 / 20        *** minor inconsistency; scores are 1,5,5,5
+        6. Vulnerability: 8 / 20        *** minor inconsistency; scores are 1,1,1,5
+
+    C. Conscientiousness: 76 / 120
+        1. Self-Efficacy: 4 / 20        
+        2. Orderliness: 16 / 20        *** minor inconsistency; scores are 1,5,5,5
+        3. Dutifulness: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+        4. Achievement-Striving: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+        5. Self-Discipline: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+        6. Cautiousness: 20 / 20        
+
+    O. Openness To Experience: 72 / 120
+        1. Imagination: 4 / 20        
+        2. Artistic Interests: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+        3. Emotionality: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+        4. Adventurousness: 16 / 20        *** minor inconsistency; scores are 1,5,5,5
+        5. Intellect: 16 / 20        *** minor inconsistency; scores are 1,5,5,5
+        6. Liberalism: 12 / 20        *** bad inconsistency; scores are 1,1,5,5
+
+
+
+marke.junkmail@gmail.com 
+
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
+
+    A. Agreeableness: 72 / 120
+        1. Trust: 12 / 20        
+        2. Morality: 12 / 20        
+        3. Altruism: 12 / 20        
+        4. Cooperation: 12 / 20        
+        5. Modesty: 12 / 20        
+        6. Sympathy: 12 / 20        
+
+    E. Extraversion: 72 / 120
+        1. Friendliness: 12 / 20        
+        2. Gregariousness: 12 / 20        
+        3. Assertiveness: 12 / 20        
+        4. Activity Level: 12 / 20        
+        5. Excitement-Seeking: 12 / 20        
+        6. Cheerfulness: 12 / 20        
+
+    N. Neuroticism: 72 / 120
+        1. Anxiety: 12 / 20        
+        2. Anger: 12 / 20        
+        3. Depression: 12 / 20        
+        4. Self-Consciousness: 12 / 20        
+        5. Immoderation: 12 / 20        
+        6. Vulnerability: 12 / 20        
+
+    C. Conscientiousness: 72 / 120
+        1. Self-Efficacy: 12 / 20        
+        2. Orderliness: 12 / 20        
+        3. Dutifulness: 12 / 20        
+        4. Achievement-Striving: 12 / 20        
+        5. Self-Discipline: 12 / 20        
+        6. Cautiousness: 12 / 20        
+
+    O. Openness To Experience: 72 / 120
+        1. Imagination: 12 / 20        
+        2. Artistic Interests: 12 / 20        
+        3. Emotionality: 12 / 20        
+        4. Adventurousness: 12 / 20        
+        5. Intellect: 12 / 20        
+        6. Liberalism: 12 / 20        
+
+
+
+bob.e.shepherd@gmail.com        *** Completed too quickly - 174 seconds.
+
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
+
+    A. Agreeableness: 62 / 120
+        1. Trust: 14 / 20        *** minor inconsistency; scores are 4,4,4,2
+        2. Morality: 8 / 20        
+        3. Altruism: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+        4. Cooperation: 8 / 20        
+        5. Modesty: 8 / 20        
+        6. Sympathy: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+
+    E. Extraversion: 84 / 120
+        1. Friendliness: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+        2. Gregariousness: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+        3. Assertiveness: 14 / 20        *** minor inconsistency; scores are 4,4,4,2
+        4. Activity Level: 14 / 20        *** minor inconsistency; scores are 4,4,4,2
+        5. Excitement-Seeking: 16 / 20        
+        6. Cheerfulness: 16 / 20        
+
+    N. Neuroticism: 82 / 120
+        1. Anxiety: 16 / 20        
+        2. Anger: 14 / 20        *** minor inconsistency; scores are 4,4,4,2
+        3. Depression: 14 / 20        *** minor inconsistency; scores are 4,4,4,2
+        4. Self-Consciousness: 14 / 20        *** minor inconsistency; scores are 4,4,4,2
+        5. Immoderation: 10 / 20        *** minor inconsistency; scores are 4,2,2,2
+        6. Vulnerability: 14 / 20        *** minor inconsistency; scores are 4,4,4,2
+
+    C. Conscientiousness: 70 / 120
+        1. Self-Efficacy: 16 / 20        
+        2. Orderliness: 10 / 20        *** minor inconsistency; scores are 4,2,2,2
+        3. Dutifulness: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+        4. Achievement-Striving: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+        5. Self-Discipline: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+        6. Cautiousness: 8 / 20        
+
+    O. Openness To Experience: 72 / 120
+        1. Imagination: 16 / 20        
+        2. Artistic Interests: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+        3. Emotionality: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+        4. Adventurousness: 10 / 20        *** minor inconsistency; scores are 4,2,2,2
+        5. Intellect: 10 / 20        *** minor inconsistency; scores are 4,2,2,2
+        6. Liberalism: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+
+
+
+bob.skiview.loop@gmail.com        *** Completed too quickly - 201 seconds.
+
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+   .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
+
+    A. Agreeableness: 82 / 120
+        1. Trust: 10 / 20        *** minor inconsistency; scores are 2,2,2,4
+        2. Morality: 16 / 20        
+        3. Altruism: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+        4. Cooperation: 16 / 20        
+        5. Modesty: 16 / 20        
+        6. Sympathy: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+
+    E. Extraversion: 60 / 120
+        1. Friendliness: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+        2. Gregariousness: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+        3. Assertiveness: 10 / 20        *** minor inconsistency; scores are 2,2,2,4
+        4. Activity Level: 10 / 20        *** minor inconsistency; scores are 2,2,2,4
+        5. Excitement-Seeking: 8 / 20        
+        6. Cheerfulness: 8 / 20        
+
+    N. Neuroticism: 62 / 120
+        1. Anxiety: 8 / 20        
+        2. Anger: 10 / 20        *** minor inconsistency; scores are 2,2,2,4
+        3. Depression: 10 / 20        *** minor inconsistency; scores are 2,2,2,4
+        4. Self-Consciousness: 10 / 20        *** minor inconsistency; scores are 2,2,2,4
+        5. Immoderation: 14 / 20        *** minor inconsistency; scores are 2,4,4,4
+        6. Vulnerability: 10 / 20        *** minor inconsistency; scores are 2,2,2,4
+
+    C. Conscientiousness: 74 / 120
+        1. Self-Efficacy: 8 / 20        
+        2. Orderliness: 14 / 20        *** minor inconsistency; scores are 2,4,4,4
+        3. Dutifulness: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+        4. Achievement-Striving: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+        5. Self-Discipline: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+        6. Cautiousness: 16 / 20        
+
+    O. Openness To Experience: 72 / 120
+        1. Imagination: 8 / 20        
+        2. Artistic Interests: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+        3. Emotionality: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+        4. Adventurousness: 14 / 20        *** minor inconsistency; scores are 2,4,4,4
+        5. Intellect: 14 / 20        *** minor inconsistency; scores are 2,4,4,4
+        6. Liberalism: 12 / 20        *** bad inconsistency; scores are 2,2,4,4
+
+
+
+a@b.com 
+
+   ..X..   ...X.   ..X..   ..X..   .X...   .X...   ...X.   .X...
+   ..X..   ...X.   ...X.   ...X.   ..X..   ...X.   ..X..   ..X..
+   ...X.   ...X.   ...X.   .X...   ...X.   .X...   ...X.   .X...
+   ...X.   X....   ...X.   .X...   ...X.   .X...   .X...   X....
+   ...X.   ...X.   ...X.   ...X.   ...X.   .X...   ...X.   .X...
+   ...X.   X....   ...X.   ...X.   ...X.   ..X..   .X...   ..X..
+   .X...   ...X.   ..X..   ...X.   ...X.   .X...   .X...   .X...
+   ...X.   ..X..   ...X.   ...X.   ..X..   .X...   .X...   .X...
+   X....   ...X.   .X...   ...X.   X....   ...X.   X....   X....
+   .X...   ..X..   .X...   ...X.   .X...   ..X..   .X...   ..X..
+   .X...   ...X.   .X...   ...X.   .X...   ..X..   ...X.   .X...
+   ..X..   ..X..   ..X..   ...X.   ..X..   ...X.   ...X.   ...X.
+   ...X.   ....X   ...X.   ...X.   ..X..   X....   ..X..   ..X..
+   ...X.   ....X   ...X.   ...X.   .X...   ..X..   .X...   .X...
+   ...X.   .X...   ...X.   .X...   .X...   .X...   .X...   .X...
+
+    A. Agreeableness: 96 / 120
+        1. Trust: 16 / 20        
+        2. Morality: 19 / 20        
+        3. Altruism: 16 / 20        
+        4. Cooperation: 18 / 20        
+        5. Modesty: 11 / 20        *** minor inconsistency; scores are 2,2,2,5
+        6. Sympathy: 16 / 20        
+
+    E. Extraversion: 77 / 120
+        1. Friendliness: 13 / 20        
+        2. Gregariousness: 11 / 20        *** minor inconsistency; scores are 2,3,2,4
+        3. Assertiveness: 11 / 20        
+        4. Activity Level: 15 / 20        
+        5. Excitement-Seeking: 12 / 20        *** bad inconsistency; scores are 4,4,2,2
+        6. Cheerfulness: 15 / 20        
+
+    N. Neuroticism: 73 / 120
+        1. Anxiety: 12 / 20        *** minor inconsistency; scores are 3,3,2,4
+        2. Anger: 16 / 20        
+        3. Depression: 8 / 20        
+        4. Self-Consciousness: 13 / 20        *** minor inconsistency; scores are 4,3,2,4
+        5. Immoderation: 9 / 20        
+        6. Vulnerability: 15 / 20        
+
+    C. Conscientiousness: 91 / 120
+        1. Self-Efficacy: 16 / 20        
+        2. Orderliness: 14 / 20        *** minor inconsistency; scores are 2,4,4,4
+        3. Dutifulness: 16 / 20        
+        4. Achievement-Striving: 16 / 20        
+        5. Self-Discipline: 13 / 20        
+        6. Cautiousness: 16 / 20        
+
+    O. Openness To Experience: 91 / 120
+        1. Imagination: 16 / 20        
+        2. Artistic Interests: 15 / 20        
+        3. Emotionality: 14 / 20        
+        4. Adventurousness: 16 / 20        
+        5. Intellect: 13 / 20        *** minor inconsistency; scores are 3,2,4,4
+        6. Liberalism: 17 / 20        
+
+
+
+random@random.com 
+
+   ..X..   ....X   .X...   X....   X....   ...X.   X....   X....
+   ...X.   ..X..   ...X.   .X...   .X...   ....X   ...X.   X....
+   ....X   ..X..   X....   ...X.   ...X.   ...X.   ...X.   ..X..
+   X....   ...X.   ....X   .X...   .X...   ....X   ...X.   ....X
+   .X...   ..X..   ..X..   X....   ....X   X....   .X...   .X...
+   X....   .X...   ..X..   ....X   ....X   ..X..   X....   X....
+   ...X.   ..X..   X....   ....X   ...X.   X....   ....X   .X...
+   .X...   ....X   X....   ....X   .X...   ....X   ....X   ..X..
+   ...X.   X....   ...X.   ..X..   X....   ...X.   ....X   ...X.
+   .X...   ..X..   ....X   .X...   .X...   .X...   .X...   ....X
+   X....   ....X   ....X   ...X.   ....X   .X...   X....   .X...
+   ....X   ..X..   ..X..   ...X.   ....X   ...X.   X....   ....X
+   X....   X....   ...X.   ....X   X....   X....   ...X.   X....
+   .X...   X....   X....   .X...   ....X   X....   ....X   ....X
+   ....X   .X...   .X...   ..X..   .X...   ....X   ..X..   X....
+
+    A. Agreeableness: 54 / 120
+        1. Trust: 10 / 20        *** minor inconsistency; scores are 1,5,2,2
+        2. Morality: 10 / 20        *** minor inconsistency; scores are 2,2,5,1
+        3. Altruism: 5 / 20        
+        4. Cooperation: 8 / 20        *** minor inconsistency; scores are 2,4,1,1
+        5. Modesty: 12 / 20        *** minor inconsistency; scores are 5,3,2,2
+        6. Sympathy: 9 / 20        *** minor inconsistency; scores are 1,2,5,1
+
+    E. Extraversion: 82 / 120
+        1. Friendliness: 14 / 20        *** minor inconsistency; scores are 4,4,4,2
+        2. Gregariousness: 8 / 20        *** minor inconsistency; scores are 4,1,2,1
+        3. Assertiveness: 18 / 20        
+        4. Activity Level: 15 / 20        *** minor inconsistency; scores are 3,2,5,5
+        5. Excitement-Seeking: 11 / 20        *** minor inconsistency; scores are 3,5,1,2
+        6. Cheerfulness: 16 / 20        
+
+    N. Neuroticism: 78 / 120
+        1. Anxiety: 7 / 20        
+        2. Anger: 14 / 20        *** minor inconsistency; scores are 1,3,5,5
+        3. Depression: 16 / 20        *** minor inconsistency; scores are 1,5,5,5
+        4. Self-Consciousness: 15 / 20        *** minor inconsistency; scores are 5,1,4,5
+        5. Immoderation: 11 / 20        *** minor inconsistency; scores are 2,1,3,5
+        6. Vulnerability: 15 / 20        *** minor inconsistency; scores are 5,4,2,4
+
+    C. Conscientiousness: 73 / 120
+        1. Self-Efficacy: 12 / 20        *** minor inconsistency; scores are 2,3,5,2
+        2. Orderliness: 11 / 20        *** bad inconsistency; scores are 2,1,4,4
+        3. Dutifulness: 14 / 20        *** minor inconsistency; scores are 5,2,4,3
+        4. Achievement-Striving: 13 / 20        *** minor inconsistency; scores are 3,1,5,4
+        5. Self-Discipline: 10 / 20        *** minor inconsistency; scores are 3,2,4,1
+        6. Cautiousness: 13 / 20        *** minor inconsistency; scores are 4,3,1,5
+
+    O. Openness To Experience: 70 / 120
+        1. Imagination: 14 / 20        *** minor inconsistency; scores are 5,1,4,4
+        2. Artistic Interests: 8 / 20        *** minor inconsistency; scores are 2,1,4,1
+        3. Emotionality: 12 / 20        *** bad inconsistency; scores are 1,4,5,2
+        4. Adventurousness: 10 / 20        
+        5. Intellect: 10 / 20        *** minor inconsistency; scores are 5,1,1,3
+        6. Liberalism: 16 / 20        *** minor inconsistency; scores are 1,5,5,5

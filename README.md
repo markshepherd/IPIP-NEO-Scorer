@@ -71,5 +71,15 @@ sanjiv_wong@yahoo.com
 
 This will create a mac executable `IPIP-Scorer` in the same folder. If you want executables for windows or linux, `pkg --help` will tell you how.
 
+# Development notes
+
+`npm start` runs the analyzer and prompts for an input csv file
+
+`npm run dev` runs the analyzer on the input file `test/Johnson xxxx.csv`
+
+`npm test` runs the test suite, and gives a pass/fail result on the console. DO THIS BEFORE EVERY COMMIT!
+
+
+
 
 
