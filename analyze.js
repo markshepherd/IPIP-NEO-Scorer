@@ -3,7 +3,7 @@
 
 const { getItems } = require('@alheimsins/b5-johnson-120-ipip-neo-pi-r');
 const { getTemplate } = require('@alheimsins/b5-result-text');
-const choices = require(`@alheimsins/b5-johnson-120-ipip-neo-pi-r/data/en/choices`)
+// const choices = require(`@alheimsins/b5-johnson-120-ipip-neo-pi-r/data/en/choices`)
 
 // questionInfo contains information about each question:
 // - what domain and facet the question is associated with
@@ -22,7 +22,7 @@ function calcConsistency(arrayOfNumbers) {
 		if (number > mid) highCount++;
 	}
 	if (lowCount === 0 || highCount === 0) return 'none';
-	return (lowCount === 2 && highCount === 2) ? 'bad' : 'some';
+	return (lowCount === 2 && highCount === 2) ? 'bad' : 'minor';
 }
 
 // For a given question and answer to that question, 
@@ -48,6 +48,17 @@ function getScoreInfoForAnswer(question, answer) {
 }
 
 function getAnswerIndex(answer) {
+	const choices = ['Very Inaccurate', 'Moderately Inaccurate', 'Neither Accurate Nor Inaccurate', 'Moderately Accurate', 'Very Accurate'];
+	for (let i = 0; i < choices.length; i++) {
+		if (choices[i] === answer) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+/*
+function getAnswerIndex(answer) {
 	for (let i = 0; i < choices.plus.length; i++) {
 		let choice = choices.plus[i];
 		if (choice.text === answer) {
@@ -56,6 +67,7 @@ function getAnswerIndex(answer) {
 	}
 	return -1;
 }
+*/
 
 function makeAnswerImage(answers) {
 	const height = 15;
@@ -112,13 +124,16 @@ function extractQuestionsAndAnswers(csvData) {
 		// It's a CSV file, so tokens are separated by commas.
 		const tokens = lines[i].split(/,/);
 		const emailAddress = tokens[5];
-
+		const startTime = Date.parse(tokens[2]);
+		const endTime = Date.parse(tokens[3]);
+		const elapsedSeconds = (endTime - startTime) / 1000;
+		
 		if (emailAddress) {
 			const answersForThisUser = [];
 			for (let j = 9; j < tokens.length; j++) {
 				answersForThisUser.push(tokens[j]);
 			}
-			answers[emailAddress] = {time: 0, answers: answersForThisUser};
+			answers[emailAddress] = {elapsedSeconds: elapsedSeconds, answers: answersForThisUser};
 		}
 	}
 
@@ -224,6 +239,10 @@ function analyze(allScores, info) {
 			}
 			annotationsForThisUser.missingAnswers = info.questions.length - answerCount;
 			annotationsForThisUser.image = makeAnswerImage(info.answers[emailAddress].answers);
+			// console.log(`elapsedSeconds = ${info.answers[emailAddress].elapsedSeconds}`);
+			if (info.answers[emailAddress].elapsedSeconds < 300) {
+				annotationsForThisUser.suspiciousDuration = info.answers[emailAddress].elapsedSeconds;
+			}
 			annotations[emailAddress] = annotationsForThisUser;
 		}
 	}
@@ -239,8 +258,9 @@ function summaryReport(allScores, annotations) {
 		if (allScores.hasOwnProperty(emailAddress)) {
 			const annotationsForThisUser = annotations[emailAddress];
 			const scoresForThisUser = allScores[emailAddress];
-			const userComments = (annotationsForThisUser.missingAnswers > 0) ? `       ${annotationsForThisUser.missingAnswers} missing answers` : '';
-			outputString += `\n\n\n${emailAddress} ${userComments}\n${annotationsForThisUser.image}\n`;
+			let userComments = (annotationsForThisUser.missingAnswers > 0) ? `       *** ${annotationsForThisUser.missingAnswers} missing answers` : '';
+			userComments += annotationsForThisUser.suspiciousDuration ? `       *** Completed too quickly - ${annotationsForThisUser.suspiciousDuration} seconds.` : '';
+			outputString += `\n\n\n${emailAddress} ${userComments}\n\n${annotationsForThisUser.image}\n`;
 
 			// Fetch the template which contains a list of all the domains and facets, including their human-readable names. 
 			// The order of items in the template defines the order of the report.
@@ -260,9 +280,9 @@ function summaryReport(allScores, annotations) {
 					const facet = domain.facets[k];
 					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: [], inconsistency: 'none'};
 					const scoreString = facetScore.inconsistency !== 'none' 
-						? `scores: ${facetScore.scores} inconsistency: ${facetScore.inconsistency}` : '';
+						? `*** ${facetScore.inconsistency} inconsistency; scores are ${facetScore.scores}` : '';
 					outputString += 
-						`        ${facet.facet}. ${facet.title}: ${facetScore.score} / ${facetScore.count * 5}     ${scoreString}\n`;
+						`        ${facet.facet}. ${facet.title}: ${facetScore.score} / ${facetScore.count * 5}        ${scoreString}\n`;
 				}
 			}
 		}

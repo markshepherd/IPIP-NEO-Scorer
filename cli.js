@@ -2,6 +2,7 @@
 'use strict';
 
 const createReport = require('./analyze');
+const packageJson = require('./package.json');
 
 // Here's the main program. This is where we handle all interfacing with the outside world (file system, user interaction, ...)
 const readline = require('readline-sync');
@@ -43,7 +44,7 @@ function main() {
 	const highlight2 = "\x1b[32m";
 	const bright = "\x1b[1m";
 
-	console.log(`${highlight}--- Scorer for Johnson 120 IPIP-NEO-PI-R survey results ---\n${instructions}${reset}`);
+	console.log(`${highlight}--- Scorer ${packageJson.version} for Johnson 120 IPIP-NEO-PI-R survey ---\n${instructions}${reset}`);
 
 	// Find the path we're reading from. It might be a command-line parameter, or we might have to prompt for it.
 	let csvPath;
