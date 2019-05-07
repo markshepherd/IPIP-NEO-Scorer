@@ -16,9 +16,9 @@ const questionInfo = getItems('en');
 // This function taken from https://github.com/zrrrzzt/b5-calculate-score/blob/master/lib/reduce-factors.js
 function calculateFlavor(score, count) {
 	const average = score / count;
-	if (average > 3) {
+	if (average > 3.5) {
 		return 'high';
-	} else if (average < 3) {
+	} else if (average < 2.5) {
 		return 'low';
 	}
 	return 'neutral';
