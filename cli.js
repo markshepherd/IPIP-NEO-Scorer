@@ -36,13 +36,17 @@ To get the data:
 `;
 
 const resultDescription = `
-Scores.csv - this spreadsheet contains each user's 5 domain scores and 30 facet scores
+Scores.csv
+- a spreadsheet containing each user's 5 domain scores and 30 facet scores
 
-Report.txt - this report gives each user's scores, with annotations to help evaluate reliability
+Report.txt
+- a report giving each user's scores, annotated to help evaluate reliability
 
-<email-address>.pdf - for each user, a detailed custom-generated report explaining the user's scores.
+<email-address>.pdf
+- for each user, a detailed custom report explaining the user's scores
 
-Survey Answers.csv - this is a copy of the input data file
+Survey Answers.csv
+- a copy of the input data file
 `;
 
 /* eslint-disable no-console */
