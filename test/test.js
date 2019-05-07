@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-const createReport = require('../analyze');
+const analyzeCSV = require('../analyze');
+const { summaryReport } = require('../report');
 
 const fs = require('fs');
 
@@ -16,7 +17,8 @@ const reset = "\x1b[0m";
 function runTest() {
 	fs.readFile(csvPath, 'utf8', function (err, csvData) {
 		if (err) throw err;
-		const report = createReport(csvData);
+		const allScores = analyzeCSV(csvData);
+		const report = summaryReport(allScores);
 
 		fs.readFile(expectedPath, 'utf8', function (err, expectedReport) {
 			if (err) throw err;

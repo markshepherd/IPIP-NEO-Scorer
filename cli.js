@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-const createReport = require('./analyze');
+const analyzeCSV = require('./analyze');
+const { summaryReport } = require('./report');
 const packageJson = require('./package.json');
 
 // Here's the main program. This is where we handle all interfacing with the outside world (file system, user interaction, ...)
@@ -58,14 +59,17 @@ function main() {
 
 	// Now the action begins ... 
 
-	// First, read the data file
+	// Read the data file
 	fs.readFile(csvPath, 'utf8', function (err, csvData) {
 		if (err) throw err;
 
-		// Second, create the report
-		const report = createReport(csvData);
+		// Analyze the data
+		const allScores = analyzeCSV(csvData);
 
-		// Third, write the report to the output file
+		// Create the report
+		const report = summaryReport(allScores);
+
+		// Write the report to the output file
 		const outputPath = path.join(os.homedir(), 'Desktop', 'IPIP-scores.txt')
 		fs.writeFile(outputPath, report, (err) => {
 			if (err) {
