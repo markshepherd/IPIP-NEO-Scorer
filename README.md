@@ -67,10 +67,13 @@ sanjiv_wong@yahoo.com
 
 `npm start` runs the analyzer and prompts for an input csv file
 
+`npm run lint` runs the linter on all js files. DO THIS BEFORE EVERY COMMIT!
+
 `npm test` runs the test suite, and gives a pass/fail result on the console. DO THIS BEFORE EVERY COMMIT!
 
 `npm run dev` runs the analyzer on the input file `test/Johnson xxxx.csv`
 
-`npm run debug` runs the analyzer on the input file `test/Johnson xxxx.csv`
+`npm run debug` runs the analyzer on the input file `test/Johnson xxxx.csv`, connects to debugger
 
-`npm run package` creates a stand-alone mac app packaged in a zip file. When you unzip, you get a folder containing (1) the mac executable `IPIP-Scorer`, and (2) a sub-folder called chromium. These 2 items must be kept together in the same folder; the executable expect to find chromium there. If you want executables for windows or linux, take a look at `pkg --help`.
+`npm run package` creates a stand-alone mac app packaged in a zip file. When you unzip, you get a folder containing (1) the mac executable `IPIP-Scorer`, and (2) a sub-folder called chromium. These 2 items must be kept together in the same folder; the executable expects to find chromium there. If you want executables for windows or linux, take a look at `pkg --help`.
+
