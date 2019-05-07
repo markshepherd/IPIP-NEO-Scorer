@@ -234,9 +234,10 @@ function analyze(allScores, info) {
 							totalCount += facetScore.count;
 							answerCount += facetScore.count;
 							facetScore.inconsistency = calcConsistency(facetScore.scores);
+							facetScore.flavor = 'low';
 						}
 					}
-					scores[domain].score = {score: totalScore, count: totalCount};
+					scores[domain].score = {score: totalScore, count: totalCount, flavor: 'high'};
 				}
 			}
 			userData.missingAnswers = info.questions.length - answerCount;

@@ -2,7 +2,7 @@
 'use strict';
 
 const analyzeCSV = require('./analyze');
-const { summaryReport } = require('./report');
+const { summaryReport, makePDF } = require('./report');
 const packageJson = require('./package.json');
 
 // Here's the main program. This is where we handle all interfacing with the outside world (file system, user interaction, ...)
@@ -35,11 +35,10 @@ To get the data:
 `;
 
 /* eslint-disable no-console */
-function main() {
-
-	// Fun with console colors. For more, see https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color.
-	// We color our messages so that they stand out from all the spam the appears in the console window
-	// of the standalone app created by pkg.
+async function main() {
+	// We color our messages so that they stand out from all the spam that appears in the console window
+	// of the standalone app created by 'pkg'.
+	// For more colors, see https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
 	const reset = "\x1b[0m";
 	const highlight = "\x1b[36m";
 	const highlight2 = "\x1b[32m";
@@ -60,25 +59,27 @@ function main() {
 	// Now the action begins ... 
 
 	// Read the data file
-	fs.readFile(csvPath, 'utf8', function (err, csvData) {
-		if (err) throw err;
+	const csvData = fs.readFileSync(csvPath, 'utf8');
+	// if (err) throw err;
 
-		// Analyze the data
-		const allScores = analyzeCSV(csvData);
+	// Analyze the data
+	const allScores = analyzeCSV(csvData);
 
-		// Create the report
-		const report = summaryReport(allScores);
+	// Make the PDFs
+	await makePDF(allScores);
 
-		// Write the report to the output file
-		const outputPath = path.join(os.homedir(), 'Desktop', 'IPIP-scores.txt')
-		fs.writeFile(outputPath, report, (err) => {
-			if (err) {
-				console.log(`${highlight2}err${reset}`);
-			} else {
-				console.log(`${highlight2}\nReport file ${highlight}${bright}IPIP-scores.txt${reset}${highlight2} written to Desktop\n${reset}`);
-				console.log(`(${outputPath})\n`);
-			}
-		});
+	// Create the report
+	const report = summaryReport(allScores);
+
+	// Write the report to the output file
+	const outputPath = path.join(os.homedir(), 'Desktop', 'IPIP-scores.txt')
+	fs.writeFile(outputPath, report, (err) => {
+		if (err) {
+			console.log(`${highlight2}err${reset}`);
+		} else {
+			console.log(`${highlight2}\nReport file ${highlight}${bright}IPIP-scores.txt${reset}${highlight2} written to Desktop\n${reset}`);
+			console.log(`(${outputPath})\n`);
+		}
 	});
 }
 /* eslint-enable no-console */

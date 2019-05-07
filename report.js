@@ -1,8 +1,127 @@
 #!/usr/bin/env node
 'use strict';
 
-const { getTemplate } = require('@alheimsins/b5-result-text');
+const { getTemplate, getDomain } = require('@alheimsins/b5-result-text');
 const moment = require('moment');
+const puppeteer = require('puppeteer');
+const ejs = require('ejs');
+const path = require('path');
+const os = require('os');
+const fs = require('fs');
+
+/*
+  "emailAddress": "alixgshepherd@gmail.com",
+  "time": "5/3/19 14:19",
+  "domains": [
+    {
+      "name": "Ddddddd",
+      "shortDescription": "Xxx. Xxx. Xxx. Xxx. ",
+      "longDescription": "Yyy yyy. Yyy yyy. Yyy yyy. Yyy yyy. ",
+      "score": {score: nnn, max: nnn, flavor: 'high'},
+      "yourScoreDescription": "Your medium score means xxx.",
+      "facets": [
+        {
+          "name": "Ffffff",
+      	  "score": {score: nnn, max: nnn, flavor: 'high'}
+          "description": "Zzzzz. Zzzzz. Zzzzz. Zzzzz. ",
+        },
+*/
+
+const oneUserPDFTemplate = `
+<html>
+<head>
+<title>IPIP Scores for <%= emailAddress %> - <%= time %></title>
+</head>
+<body>
+<h1>IPIP Scores for <%= emailAddress %></h1>
+<p><%= time %></p>
+<% domains.forEach(function (domain) { -%>
+	<h2><%= domain.name %></h2>
+	<p><%= domain.shortDescription %></p>
+	<p>Score: <%= domain.score.score %> / <%= domain.score.max %> - <%= domain.score.flavor %><p>
+	<p><%= domain.yourScoreDescription %></p>
+	<% domain.facets.forEach(function (facet) { -%>
+		<h4><%= facet.name %></h4>
+		<p>Score: <%= facet.score.score %> / <%= facet.score.max %> - <%= facet.score.flavor %><p>
+		<p><%= facet.description %></p>
+	<% }) -%>
+<% }) -%>
+</body>
+</html>
+`;
+
+/* eslint-disable no-console */
+async function makePDF(allScores) {
+	// debugger;
+	// workaround because 'pkg' doesn't handle embedded chromium properly
+	// inspired by https://github.com/rocklau/pkg-puppeteer/blob/master/index.js
+	const chromiumExecutablePath = (typeof process.pkg !== 'undefined')
+	? puppeteer.executablePath().replace(
+		/^.*?\/node_modules\/puppeteer\/\.local-chromium/,
+		path.join(path.dirname(process.execPath), 'chromium'))
+	: puppeteer.executablePath();
+
+	console.log(`chromiumExecutablePath = ${chromiumExecutablePath}`);
+
+	const browser = await puppeteer.launch({executablePath: chromiumExecutablePath, headless: true});
+	const page = await browser.newPage();
+
+	for (let emailAddress in allScores) {
+		if (allScores.hasOwnProperty(emailAddress)) {
+			const userData = allScores[emailAddress];
+			const time = moment(new Date(userData.time)).format('MMM D, Y h:mma');
+			const params = {emailAddress: emailAddress, time: time, domains: []};
+
+			for (let domain in userData.scores) {
+				if (userData.scores.hasOwnProperty(domain)) {
+					const domainData = userData.scores[domain];
+					const domainStrings = getDomain({language: 'en', domain: domain});
+					const yourScoreDescription = domainStrings.results.find(function(info) {
+						return info.score === domainData.score.flavor;
+					}).text;
+
+					const domainParams = {
+						name: domainStrings.title,
+						score: {score: domainData.score.score, max: domainData.score.count * 5, flavor: domainData.score.flavor},
+						shortDescription: domainStrings.shortDescription,
+						longDescription: domainStrings.description,
+						yourScoreDescription: yourScoreDescription,
+						facets: []
+					};
+
+					for (let facet in domainData.facets) {
+						if (domainData.facets.hasOwnProperty(facet)) {
+							const facetData = domainData.facets[facet];
+							const facetStrings = domainStrings.facets[facet - 1];
+							const facetParams = {
+								name: facetStrings.title,
+								description: facetStrings.text,
+								score: {score: facetData.score, max: facetData.count * 5, flavor: facetData.flavor},
+							}
+							domainParams.facets.push(facetParams)
+						}
+					}
+
+					params.domains.push(domainParams);
+				}
+			}
+
+			const html = ejs.render(oneUserPDFTemplate, params, {});
+			const outputFileName = path.join(os.tmpdir(), emailAddress.replace("@", "_")); // uniqueFilename(os.tmpdir()) + '.html';
+			const err = fs.writeFileSync(outputFileName + '.html', html);
+			if (err) {
+				console.log(err);
+			} else {
+				const gotoFile = 'file://' + outputFileName + '.html';
+				console.log("going to file " + gotoFile);
+				await page.goto(gotoFile, {waitUntil: 'networkidle2'});
+				await page.pdf({path: outputFileName + '.pdf', format: 'Letter'});
+			}
+		}
+	}
+	await browser.close();
+}
+/* eslint-enable no-console */
 
 // Create a summary report of scores and warnings for all users. We return the report in the form of a character string.
 function summaryReport(allScores) {
@@ -14,7 +133,7 @@ function summaryReport(allScores) {
 			const scoresForThisUser = userData.scores;
 			let userComments = (userData.missingAnswers > 0) ? `       *** ${userData.missingAnswers} missing answers` : '';
 			userComments += userData.suspiciousDuration ? `       *** Completed too quickly - ${userData.suspiciousDuration} seconds.` : '';
-			let time = moment(new Date(userData.time)).format('M/D/YY H:mm');
+			const time = moment(new Date(userData.time)).format('M/D/YY H:mm');
 			outputString += `\n\n\n${emailAddress}  ${time} ${userComments}\n\n${userData.image}\n`;
 
 			// Fetch the template which contains a list of all the domains and facets, including their human-readable names. 
@@ -46,4 +165,4 @@ function summaryReport(allScores) {
 	return outputString;
 }
 
-module.exports = {summaryReport};
+module.exports = {summaryReport, makePDF};
