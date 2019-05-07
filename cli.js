@@ -2,7 +2,7 @@
 'use strict';
 
 const analyzeCSV = require('./analyze');
-const { summaryReport, makePDF, exportRawData } = require('./report');
+const { summaryReport, makePDF, exportScores } = require('./report');
 const packageJson = require('./package.json');
 
 // Here's the main program. This is where we handle all interfacing with the outside world (file system, user interaction, ...)
@@ -84,7 +84,7 @@ async function main() {
 
 	// Read the data file
 	const csvData = fs.readFileSync(csvPath, 'utf8');
-	fs.writeFile(path.join(outputFolder, 'Survey answers.csv'), csvData, (err) => {
+	fs.writeFile(path.join(outputFolder, 'Survey Answers.csv'), csvData, (err) => {
 		if (err) {
 			console.log(`${highlight2}${err}${reset}`);
 		}
@@ -98,15 +98,15 @@ async function main() {
 
 	// Create the report and write it to the output file
 	const report = summaryReport(allScores);
-	fs.writeFile(path.join(outputFolder, 'Summary Report.txt'), report, (err) => {
+	fs.writeFile(path.join(outputFolder, 'Report.txt'), report, (err) => {
 		if (err) {
 			console.log(`${highlight2}e${err}${reset}`);
 		}
 	});
 
 	// Export the raw data in csv format
-	const rawData = exportRawData(allScores);
-	fs.writeFile(path.join(outputFolder, 'Raw Data.csv'), rawData, (err) => {
+	const exportedScores = exportScores(allScores);
+	fs.writeFile(path.join(outputFolder, 'Scores.csv'), exportedScores, (err) => {
 		if (err) {
 			console.log(`${highlight2}e${err}${reset}`);
 		}

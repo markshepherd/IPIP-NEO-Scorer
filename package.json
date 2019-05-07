@@ -8,7 +8,8 @@
     "test": "node test/test.js",
     "dev": "node cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
     "debug": "node --inspect-brk cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
-    "package": "source package"
+    "package": "source package",
+    "lint": "eslint *.js && eslint test/*.js"
   },
   "repository": {
     "type": "git",

@@ -6,7 +6,6 @@ const moment = require('moment');
 const puppeteer = require('puppeteer');
 const ejs = require('ejs');
 const path = require('path');
-const os = require('os');
 const fs = require('fs');
 
 /*
@@ -171,8 +170,12 @@ function summaryReport(allScores) {
 	return outputString;
 }
 
+function percentScore(score) {
+	return Math.round((score.count ? (score.score / (score.count * 5)) : 0) * 100);
+}
+
 // Create a summary report of scores and warnings for all users. We return the report in the form of a character string.
-function exportRawData(allScores) {
+function exportScores(allScores) {
 	const lines = [];
 
 	// Create the title line
@@ -184,13 +187,10 @@ function exportRawData(allScores) {
 		const domain = template[i];
 
 		values.push(domain.title);
-		values.push('');
 
 		for (let k = 0; k < domain.facets.length; k++) {
 			const facet = domain.facets[k];
 			values.push(facet.title);
-			values.push('');
-			values.push('');
 		}
 	}
 	lines.push(values.join(','));
@@ -211,15 +211,12 @@ function exportRawData(allScores) {
 				const domainScore = scoresForThisDomain.score || {score: 0, count: 0, flavor: 'low'};
 				const facetScores = scoresForThisDomain.facets || {};
 
-				values.push(domainScore.score);
-				values.push(domainScore.count);
+				values.push(percentScore(domainScore));
 
 				for (let k = 0; k < domain.facets.length; k++) {
 					const facet = domain.facets[k];
 					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: []};
-					values.push(facetScore.score);
-					values.push(facetScore.count);
-					values.push('"' + facetScore.scores + '"');
+					values.push(percentScore(facetScore));
 				}
 			}
 
@@ -229,4 +226,4 @@ function exportRawData(allScores) {
 	return lines.join('\n');
 }
 
-module.exports = {summaryReport, makePDF, exportRawData};
+module.exports = {summaryReport, makePDF, exportScores};
