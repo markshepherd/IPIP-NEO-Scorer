@@ -41,7 +41,11 @@ Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") proje
     
     When it prompts for a filename, drag in the file `Johnson 120 IPIP-NEO-PI-R.csv` from the `csv` folder, and hit Return.
 
-This will create a file called `IPIP Scores.txt` in your Desktop folder. This file contains all the domain and facet scores for each email address that submitted a survey. Surveys that are not associated with a user email address wiil not be included in the report. You can double click this file to view it in TextEdit, or do whatever you need to do with it. Here's what the report looks like:
+This will create a folder called `IPIP Scores` in your Documents folder. Each time you run the app it creates a new sub-folder with a unique timestamp name. The folder contains various documents derived from the survey answers:
+* Scores.csv - a concise data file giving each user's 5 domain scores and 30 facet scores.
+* Report.txt - a summary report giving each user's domain and facet scores, along with annotations that help you evaluate how reliable the answers are.
+* *email-address*.pdf - for each user there is a PDF file with the email address as the file name. This is a detailed report, custom-generated for each user, that explains each of the user's domain and facet scores.
+* Survey Answers.csv - a copy of the input data file.
 
 ````
 jane_smith_123@gmail.com
