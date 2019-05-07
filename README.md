@@ -41,31 +41,11 @@ Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") proje
     
     When it prompts for a filename, drag in the file `Johnson 120 IPIP-NEO-PI-R.csv` from the `csv` folder, and hit Return.
 
-This will create a folder called `IPIP Scores` in your Documents folder. Each time you run the app it creates a new sub-folder with a unique timestamp name. The folder contains various documents derived from the survey answers:
-* Scores.csv - a concise data file giving each user's 5 domain scores and 30 facet scores.
+This will create a folder called `IPIP Scores` in your Documents folder. Each time you run the app it creates a new sub-folder with a unique timestamp name, and adds various documents derived from the survey answers:
+* Scores.csv - a concise data file giving each user's 5 domain scores and 30 facet scores
 * Report.txt - a summary report giving each user's domain and facet scores, along with annotations that help you evaluate how reliable the answers are.
 * *email-address*.pdf - for each user there is a PDF file with the email address as the file name. This is a detailed report, custom-generated for each user, that explains each of the user's domain and facet scores.
-* Survey Answers.csv - a copy of the input data file.
-
-````
-jane_smith_123@gmail.com
-
-    A. Agreeableness: 92 / 120
-        1. Trust: 8 / 20
-        2. Morality: 20 / 20
-        3. ....
-
-    E. Extraversion: 48 / 120
-        1. Friendliness: 12 / 20
-        2. Gregariousness: 12 / 20
-        3. ...
-        
-    ...
-    
-sanjiv_wong@yahoo.com
-
-    A. Agreeableness ...
-````
+* Survey Answers.csv - a copy of the input data file
 
 # Development notes
 
