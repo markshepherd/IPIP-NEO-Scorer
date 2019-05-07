@@ -12,6 +12,18 @@ const choices = ['Very Inaccurate', 'Moderately Inaccurate', 'Neither Accurate N
 // - what score is assigned to each possible answer
 const questionInfo = getItems('en');
 
+// Given a score and a count, calculate the flavor. Works for domains and facets.
+// This function taken from https://github.com/zrrrzzt/b5-calculate-score/blob/master/lib/reduce-factors.js
+function calculateFlavor(score, count) {
+	const average = score / count;
+	if (average > 3) {
+		return 'high';
+	} else if (average < 3) {
+		return 'low';
+	}
+	return 'neutral';
+}
+
 // returns true if consistent, false if inconsistent
 // todo: generalize this so it works for any survey, not just johnson 120.
 function calcConsistency(arrayOfNumbers) {
@@ -234,10 +246,10 @@ function analyze(allScores, info) {
 							totalCount += facetScore.count;
 							answerCount += facetScore.count;
 							facetScore.inconsistency = calcConsistency(facetScore.scores);
-							facetScore.flavor = 'low';
+							facetScore.flavor = calculateFlavor(facetScore.score, facetScore.count);
 						}
 					}
-					scores[domain].score = {score: totalScore, count: totalCount, flavor: 'high'};
+					scores[domain].score = {score: totalScore, count: totalCount, flavor: calculateFlavor(totalScore, totalCount)};
 				}
 			}
 			userData.missingAnswers = info.questions.length - answerCount;

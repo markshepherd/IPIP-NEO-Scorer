@@ -31,6 +31,11 @@ const oneUserPDFTemplate = `
 <html>
 <head>
 <title>IPIP Scores for <%= emailAddress %> - <%= time %></title>
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>
 </head>
 <body>
 <h1>IPIP Scores for <%= emailAddress %></h1>
@@ -52,16 +57,16 @@ const oneUserPDFTemplate = `
 
 /* eslint-disable no-console */
 async function makePDF(allScores) {
-	// debugger;
-	// workaround because 'pkg' doesn't handle embedded chromium properly
-	// inspired by https://github.com/rocklau/pkg-puppeteer/blob/master/index.js
+	// When we use 'pkg' to create a stand-alone executable of this app, 'pkg' fails to include 
+	// the chromium binary that's in the puppeteer node module. (It gives you a message telling you this).
+	// As a workaround, our 'package' script explicitly copies the chromium folder into the folder
+	// that contains the executable, and the following code tells puppeteer where to find chromium.
+	// This workaround was inspired by https://github.com/rocklau/pkg-puppeteer/blob/master/index.js
 	const chromiumExecutablePath = (typeof process.pkg !== 'undefined')
 	? puppeteer.executablePath().replace(
 		/^.*?\/node_modules\/puppeteer\/\.local-chromium/,
 		path.join(path.dirname(process.execPath), 'chromium'))
 	: puppeteer.executablePath();
-
-	console.log(`chromiumExecutablePath = ${chromiumExecutablePath}`);
 
 	const browser = await puppeteer.launch({executablePath: chromiumExecutablePath, headless: true});
 	const page = await browser.newPage();
@@ -144,20 +149,20 @@ function summaryReport(allScores) {
 			for (let i = 0; i < template.length; i++) {
 				const domain = template[i];
 				const scoresForThisDomain = scoresForThisUser[domain.domain] || {};
-				const domainScore = scoresForThisDomain.score || {score: 0, count: 0};
+				const domainScore = scoresForThisDomain.score || {score: 0, count: 0, flavor: 'low'};
 				const facetScores = scoresForThisDomain.facets || {};
 
 				// Print the domain summary line
-				outputString += `\n    ${domain.domain}. ${domain.title}: ${domainScore.score} / ${domainScore.count * 5}\n`;
+				outputString += `\n    ${domain.domain}. ${domain.title}: ${domainScore.score} / ${domainScore.count * 5} ${domainScore.flavor}\n`;
 
 				// Iterate over facets and print a line for each facet.
 				for (let k = 0; k < domain.facets.length; k++) {
 					const facet = domain.facets[k];
-					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: [], inconsistency: 'none'};
+					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: [], inconsistency: 'none', flavor: 'low'};
 					const scoreString = facetScore.inconsistency !== 'none' 
 						? `*** ${facetScore.inconsistency} inconsistency; scores are ${facetScore.scores}` : '';
 					outputString += 
-						`        ${facet.facet}. ${facet.title}: ${facetScore.score} / ${facetScore.count * 5}        ${scoreString}\n`;
+						`        ${facet.facet}. ${facet.title}: ${facetScore.score} / ${facetScore.count * 5} ${facetScore.flavor}        ${scoreString}\n`;
 				}
 			}
 		}
