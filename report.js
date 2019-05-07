@@ -56,7 +56,7 @@ body {
 `;
 
 /* eslint-disable no-console */
-async function makePDF(allScores) {
+async function makePDF(allScores, outputFolder) {
 	// When we use 'pkg' to create a stand-alone executable of this app, 'pkg' fails to include 
 	// the chromium binary that's in the puppeteer node module. (It gives you a message telling you this).
 	// As a workaround, our 'package' script explicitly copies the chromium folder into the folder
@@ -73,6 +73,7 @@ async function makePDF(allScores) {
 
 	for (let emailAddress in allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
+			process.stdout.write('. '); // write to the console without a newline
 			const userData = allScores[emailAddress];
 			const time = moment(new Date(userData.time)).format('MMM D, Y h:mma');
 			const params = {emailAddress: emailAddress, time: time, domains: []};
@@ -112,15 +113,15 @@ async function makePDF(allScores) {
 			}
 
 			const html = ejs.render(oneUserPDFTemplate, params, {});
-			const outputFileName = path.join(os.tmpdir(), emailAddress.replace("@", "_")); // uniqueFilename(os.tmpdir()) + '.html';
+			const outputFileName = path.join(outputFolder, emailAddress.replace("@", "_")); // uniqueFilename(os.tmpdir()) + '.html';
 			const err = fs.writeFileSync(outputFileName + '.html', html);
 			if (err) {
 				console.log(err);
 			} else {
 				const gotoFile = 'file://' + outputFileName + '.html';
-				console.log("going to file " + gotoFile);
 				await page.goto(gotoFile, {waitUntil: 'networkidle2'});
 				await page.pdf({path: outputFileName + '.pdf', format: 'Letter'});
+				fs.unlinkSync(outputFileName + '.html');
 			}
 		}
 	}
@@ -170,4 +171,62 @@ function summaryReport(allScores) {
 	return outputString;
 }
 
-module.exports = {summaryReport, makePDF};
+// Create a summary report of scores and warnings for all users. We return the report in the form of a character string.
+function exportRawData(allScores) {
+	const lines = [];
+
+	// Create the title line
+	const values = [];
+	values.push('');
+	values.push('');
+	const template = getTemplate();
+	for (let i = 0; i < template.length; i++) {
+		const domain = template[i];
+
+		values.push(domain.title);
+		values.push('');
+
+		for (let k = 0; k < domain.facets.length; k++) {
+			const facet = domain.facets[k];
+			values.push(facet.title);
+			values.push('');
+			values.push('');
+		}
+	}
+	lines.push(values.join(','));
+
+	for (let emailAddress in allScores) {
+		if (allScores.hasOwnProperty(emailAddress)) {
+			const values = [];
+			const userData = allScores[emailAddress];
+			const scoresForThisUser = userData.scores;
+
+			values.push(emailAddress);
+			values.push(moment(new Date(userData.time)).format('M/D/Y HH:mm'));
+
+			const template = getTemplate();
+			for (let i = 0; i < template.length; i++) {
+				const domain = template[i];
+				const scoresForThisDomain = scoresForThisUser[domain.domain] || {};
+				const domainScore = scoresForThisDomain.score || {score: 0, count: 0, flavor: 'low'};
+				const facetScores = scoresForThisDomain.facets || {};
+
+				values.push(domainScore.score);
+				values.push(domainScore.count);
+
+				for (let k = 0; k < domain.facets.length; k++) {
+					const facet = domain.facets[k];
+					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: []};
+					values.push(facetScore.score);
+					values.push(facetScore.count);
+					values.push('"' + facetScore.scores + '"');
+				}
+			}
+
+			lines.push(values.join(','));
+		}
+	}
+	return lines.join('\n');
+}
+
+module.exports = {summaryReport, makePDF, exportRawData};

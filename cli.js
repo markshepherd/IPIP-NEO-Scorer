@@ -2,11 +2,12 @@
 'use strict';
 
 const analyzeCSV = require('./analyze');
-const { summaryReport, makePDF } = require('./report');
+const { summaryReport, makePDF, exportRawData } = require('./report');
 const packageJson = require('./package.json');
 
 // Here's the main program. This is where we handle all interfacing with the outside world (file system, user interaction, ...)
 const readline = require('readline-sync');
+const moment = require('moment');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -56,6 +57,29 @@ async function main() {
 		csvPath = csvPath.split("\\").join(""); 
 	}
 
+	// Create a folder for the results
+	const timeDate = moment(new Date()).format('MMM D Y h.mm a');
+	const outputFolder = path.join(os.homedir(), 'Documents', 'IPIP Scores', timeDate);
+	const oututFolderDescription = `Documents > IPIP Scores > ${timeDate}`;
+	try {
+		fs.mkdirSync(outputFolder, { recursive: true });
+    } catch (err) {
+		if (err.code !== 'EEXIST') {
+			throw err;
+
+			// Not sure if we need this...
+			// To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.
+			// if (err.code === 'ENOENT') { // Throw the original parentDir error on curDir `ENOENT` failure.
+			// 	`EACCES: permission denied, mkdir '${outputFolder}'`);
+			// }
+
+			// const caughtErr = ['EACCES', 'EPERM', 'EISDIR'].indexOf(err.code) > -1;
+			// if (!caughtErr || caughtErr && curDir === path.resolve(targetDir)) {
+			// 	throw err; // Throw if it's just the last created dir.
+			// }
+		}
+    }
+
 	// Now the action begins ... 
 
 	// Read the data file
@@ -66,21 +90,25 @@ async function main() {
 	const allScores = analyzeCSV(csvData);
 
 	// Make the PDFs
-	await makePDF(allScores);
+	await makePDF(allScores, outputFolder);
 
-	// Create the report
+	// Create the report and write it to the output file
 	const report = summaryReport(allScores);
-
-	// Write the report to the output file
-	const outputPath = path.join(os.homedir(), 'Desktop', 'IPIP-scores.txt')
-	fs.writeFile(outputPath, report, (err) => {
+	fs.writeFile(path.join(outputFolder, 'Summary Report.txt'), report, (err) => {
 		if (err) {
-			console.log(`${highlight2}err${reset}`);
-		} else {
-			console.log(`${highlight2}\nReport file ${highlight}${bright}IPIP-scores.txt${reset}${highlight2} written to Desktop\n${reset}`);
-			console.log(`(${outputPath})\n`);
+			console.log(`${highlight2}e${err}${reset}`);
 		}
 	});
+
+	// Export the raw data in csv format
+	const rawData = exportRawData(allScores);
+	fs.writeFile(path.join(outputFolder, 'Raw Data.csv'), rawData, (err) => {
+		if (err) {
+			console.log(`${highlight2}e${err}${reset}`);
+		}
+	});
+	
+	console.log(`${highlight2}\nResults are in ${highlight}${bright}${oututFolderDescription}${reset}${highlight2}\n${reset}`);
 }
 /* eslint-enable no-console */
 
