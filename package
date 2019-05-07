@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -x 
+rm -rf IPIP_Scorer
+rm IPIP_Scorer.zip
+mkdir IPIP_Scorer
+pkg -t node10-macos-x64 --output ./IPIP_Scorer/IPIP-Scorer cli.js
+cp -r node_modules/puppeteer/.local-chromium/ IPIP_Scorer/chromium
+zip --quiet -r IPIP_Scorer.zip IPIP_Scorer

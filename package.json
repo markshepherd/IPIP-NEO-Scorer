@@ -7,7 +7,8 @@
     "start": "node cli.js",
     "test": "node test/test.js",
     "dev": "node cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
-    "debug": "node --inspect-brk cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\""
+    "debug": "node --inspect-brk cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
+    "package": "source package"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "readline-sync": "^1.4.9"
   },
   "devDependencies": {
+    "pkg": "^4.3.8",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.17.2",
