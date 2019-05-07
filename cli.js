@@ -84,7 +84,11 @@ async function main() {
 
 	// Read the data file
 	const csvData = fs.readFileSync(csvPath, 'utf8');
-	// if (err) throw err;
+	fs.writeFile(path.join(outputFolder, 'Survey answers.csv'), csvData, (err) => {
+		if (err) {
+			console.log(`${highlight2}${err}${reset}`);
+		}
+	});
 
 	// Analyze the data
 	const allScores = analyzeCSV(csvData);
