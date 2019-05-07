@@ -35,6 +35,20 @@ To get the data:
 - click in this window, then press Return
 `;
 
+const resultDescription = `
+Scores.csv
+- a spreadsheet containing each user's 5 domain scores and 30 facet scores
+
+Report.txt
+- a report giving each user's scores, annotated to help evaluate reliability
+
+<email-address>.pdf
+- for each user, a detailed custom report explaining the user's scores
+
+Survey Answers.csv
+- a copy of the input data file
+`;
+
 /* eslint-disable no-console */
 async function main() {
 	// We color our messages so that they stand out from all the spam that appears in the console window
@@ -112,7 +126,9 @@ async function main() {
 		}
 	});
 	
-	console.log(`${highlight2}\nResults are in ${highlight}${bright}${oututFolderDescription}${reset}${highlight2}\n${reset}`);
+	console.log(`${highlight2}\n\nResults are in ${highlight}${bright}${oututFolderDescription}${reset}${highlight2}\n${reset}`);
+	console.log(`${highlight}${resultDescription}${reset}`);
+
 }
 /* eslint-enable no-console */
 
