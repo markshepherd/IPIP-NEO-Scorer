@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 'use strict';
 
-const createReport = require('./analyze');
+const analyzeCSV = require('./analyze');
+const { summaryReport, makePDF, exportScores } = require('./report');
 const packageJson = require('./package.json');
 
 // Here's the main program. This is where we handle all interfacing with the outside world (file system, user interaction, ...)
 const readline = require('readline-sync');
+const moment = require('moment');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -34,11 +36,10 @@ To get the data:
 `;
 
 /* eslint-disable no-console */
-function main() {
-
-	// Fun with console colors. For more, see https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color.
-	// We color our messages so that they stand out from all the spam the appears in the console window
-	// of the standalone app created by pkg.
+async function main() {
+	// We color our messages so that they stand out from all the spam that appears in the console window
+	// of the standalone app created by 'pkg'.
+	// For more colors, see https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
 	const reset = "\x1b[0m";
 	const highlight = "\x1b[36m";
 	const highlight2 = "\x1b[32m";
@@ -56,26 +57,62 @@ function main() {
 		csvPath = csvPath.split("\\").join(""); 
 	}
 
+	// Create a folder for the results
+	const timeDate = moment(new Date()).format('MMM D Y h.mm a');
+	const outputFolder = path.join(os.homedir(), 'Documents', 'IPIP Scores', timeDate);
+	const oututFolderDescription = `Documents > IPIP Scores > ${timeDate}`;
+	try {
+		fs.mkdirSync(outputFolder, { recursive: true });
+    } catch (err) {
+		if (err.code !== 'EEXIST') {
+			throw err;
+
+			// Not sure if we need this...
+			// To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.
+			// if (err.code === 'ENOENT') { // Throw the original parentDir error on curDir `ENOENT` failure.
+			// 	`EACCES: permission denied, mkdir '${outputFolder}'`);
+			// }
+
+			// const caughtErr = ['EACCES', 'EPERM', 'EISDIR'].indexOf(err.code) > -1;
+			// if (!caughtErr || caughtErr && curDir === path.resolve(targetDir)) {
+			// 	throw err; // Throw if it's just the last created dir.
+			// }
+		}
+    }
+
 	// Now the action begins ... 
 
-	// First, read the data file
-	fs.readFile(csvPath, 'utf8', function (err, csvData) {
-		if (err) throw err;
-
-		// Second, create the report
-		const report = createReport(csvData);
-
-		// Third, write the report to the output file
-		const outputPath = path.join(os.homedir(), 'Desktop', 'IPIP-scores.txt')
-		fs.writeFile(outputPath, report, (err) => {
-			if (err) {
-				console.log(`${highlight2}err${reset}`);
-			} else {
-				console.log(`${highlight2}\nReport file ${highlight}${bright}IPIP-scores.txt${reset}${highlight2} written to Desktop\n${reset}`);
-				console.log(`(${outputPath})\n`);
-			}
-		});
+	// Read the data file
+	const csvData = fs.readFileSync(csvPath, 'utf8');
+	fs.writeFile(path.join(outputFolder, 'Survey Answers.csv'), csvData, (err) => {
+		if (err) {
+			console.log(`${highlight2}${err}${reset}`);
+		}
 	});
+
+	// Analyze the data
+	const allScores = analyzeCSV(csvData);
+
+	// Make the PDFs
+	await makePDF(allScores, outputFolder);
+
+	// Create the report and write it to the output file
+	const report = summaryReport(allScores);
+	fs.writeFile(path.join(outputFolder, 'Report.txt'), report, (err) => {
+		if (err) {
+			console.log(`${highlight2}e${err}${reset}`);
+		}
+	});
+
+	// Export the raw data in csv format
+	const exportedScores = exportScores(allScores);
+	fs.writeFile(path.join(outputFolder, 'Scores.csv'), exportedScores, (err) => {
+		if (err) {
+			console.log(`${highlight2}e${err}${reset}`);
+		}
+	});
+	
+	console.log(`${highlight2}\nResults are in ${highlight}${bright}${oututFolderDescription}${reset}${highlight2}\n${reset}`);
 }
 /* eslint-enable no-console */
 

@@ -7,7 +7,9 @@
     "start": "node cli.js",
     "test": "node test/test.js",
     "dev": "node cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
-    "debug": "node --inspect-brk cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\""
+    "debug": "node --inspect-brk cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
+    "package": "source package",
+    "lint": "eslint *.js && eslint test/*.js"
   },
   "repository": {
     "type": "git",
@@ -26,9 +28,13 @@
   "dependencies": {
     "@alheimsins/b5-johnson-120-ipip-neo-pi-r": "^2.1.5",
     "@alheimsins/b5-result-text": "^1.7.1",
+    "ejs": "^2.6.1",
+    "moment": "^2.24.0",
+    "puppeteer": "^1.15.0",
     "readline-sync": "^1.4.9"
   },
   "devDependencies": {
+    "pkg": "^4.3.8",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.17.2",
