@@ -113,8 +113,13 @@ function extractQuestionsAndAnswers(csvData) {
 
 	// The first line of the csv data contains a list of all the questions.
 	const firstLineTokens = lines[0].split(/,/);
+	const questionColumns = [];
 	for (let k = 9; k < firstLineTokens.length; k++) {
-		questions.push(firstLineTokens[k]);
+		if (firstLineTokens[k] !== '') {
+			// We're only interested in columns that have a non-null question.
+			questions.push(firstLineTokens[k]);
+			questionColumns.push(k);
+		}
 	}
 
 	// Each subsequent line of the csv represents one completed survey by one user. 
@@ -130,8 +135,8 @@ function extractQuestionsAndAnswers(csvData) {
 		
 		if (emailAddress) {
 			const answersForThisUser = [];
-			for (let j = 9; j < tokens.length; j++) {
-				answersForThisUser.push(tokens[j]);
+			for (let column of questionColumns) {
+				answersForThisUser.push(tokens[column]);
 			}
 			answers[emailAddress] = {time: startTime, elapsedSeconds: elapsedSeconds, answers: answersForThisUser};
 		}
