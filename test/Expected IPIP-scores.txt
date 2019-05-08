@@ -538,3 +538,63 @@ c@d.com  5/4/19 18:51
         4. Adventurousness: 8 / 20 low        
         5. Intellect: 11 / 20 neutral        *** minor inconsistency; scores are 3,4,2,2
         6. Liberalism: 7 / 20 low        
+
+
+
+mark.e.shepherd@gmail.com-1557338316000  5/8/19 10:58 
+
+   ..X..   ..X..   ..X..   ..X..   .X...   .X...   ...X.   X....
+   ..X..   ...X.   ...X.   ...X.   ..X..   ...X.   .X...   .X...
+   ...X.   ....X   ...X.   .X...   ...X.   .X...   ...X.   .X...
+   ..X..   X....   ...X.   .X...   ..X..   .X...   ..X..   X....
+   ...X.   ...X.   ...X.   ...X.   ...X.   .X...   ...X.   X....
+   ..X..   X....   ..X..   ...X.   ..X..   ..X..   ..X..   ..X..
+   .X...   ...X.   ..X..   ...X.   ..X..   .X...   .X...   .X...
+   ....X   ..X..   ...X.   ..X..   ..X..   .X...   X....   .X...
+   X....   ..X..   X....   ...X.   X....   ...X.   X....   .X...
+   ..X..   ..X..   .X...   ...X.   .X...   ..X..   .X...   ..X..
+   .X...   ..X..   .X...   ..X..   .X...   .X...   ...X.   ..X..
+   ..X..   ...X.   ..X..   ...X.   ..X..   ...X.   ...X.   ...X.
+   ...X.   ....X   ...X.   ...X.   ..X..   X....   .X...   ...X.
+   ...X.   ....X   ...X.   ...X.   .X...   .X...   .X...   .X...
+   ...X.   .X...   ...X.   .X...   ..X..   .X...   .X...   .X...
+
+    A. Agreeableness: 95 / 120 high
+        1. Trust: 13 / 20 neutral        
+        2. Morality: 20 / 20 high        
+        3. Altruism: 16 / 20 high        
+        4. Cooperation: 18 / 20 high        
+        5. Modesty: 11 / 20 neutral        *** minor inconsistency; scores are 3,2,2,4
+        6. Sympathy: 17 / 20 high        
+
+    E. Extraversion: 81 / 120 neutral
+        1. Friendliness: 14 / 20 neutral        
+        2. Gregariousness: 12 / 20 neutral        *** minor inconsistency; scores are 2,3,3,4
+        3. Assertiveness: 11 / 20 neutral        
+        4. Activity Level: 16 / 20 high        
+        5. Excitement-Seeking: 12 / 20 neutral        *** bad inconsistency; scores are 4,4,2,2
+        6. Cheerfulness: 16 / 20 high        
+
+    N. Neuroticism: 65 / 120 neutral
+        1. Anxiety: 12 / 20 neutral        *** minor inconsistency; scores are 3,3,2,4
+        2. Anger: 12 / 20 neutral        
+        3. Depression: 8 / 20 low        
+        4. Self-Consciousness: 13 / 20 neutral        *** minor inconsistency; scores are 3,3,2,5
+        5. Immoderation: 9 / 20 low        
+        6. Vulnerability: 11 / 20 neutral        
+
+    C. Conscientiousness: 92 / 120 high
+        1. Self-Efficacy: 16 / 20 high        
+        2. Orderliness: 15 / 20 high        
+        3. Dutifulness: 15 / 20 high        
+        4. Achievement-Striving: 17 / 20 high        
+        5. Self-Discipline: 13 / 20 neutral        
+        6. Cautiousness: 16 / 20 high        
+
+    O. Openness To Experience: 95 / 120 high
+        1. Imagination: 16 / 20 high        
+        2. Artistic Interests: 17 / 20 high        
+        3. Emotionality: 15 / 20 high        
+        4. Adventurousness: 17 / 20 high        
+        5. Intellect: 14 / 20 neutral        
+        6. Liberalism: 16 / 20 high        *** minor inconsistency; scores are 5,4,5,2

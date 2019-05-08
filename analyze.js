@@ -128,7 +128,7 @@ function extractQuestionsAndAnswers(csvData) {
 	for (let i = 1; i < lines.length; i++) {
 		// It's a CSV file, so tokens are separated by commas.
 		const tokens = lines[i].split(/,/);
-		const emailAddress = tokens[5];
+		let emailAddress = tokens[5];
 		const startTime = Date.parse(tokens[2]);
 		const endTime = Date.parse(tokens[3]);
 		const elapsedSeconds = (endTime - startTime) / 1000;
@@ -137,6 +137,11 @@ function extractQuestionsAndAnswers(csvData) {
 			const answersForThisUser = [];
 			for (let column of questionColumns) {
 				answersForThisUser.push(tokens[column]);
+			}
+			if (answers[emailAddress]) {
+				// we already have data for this email address
+				// make up a new unique key for this data
+				emailAddress = emailAddress + '-' + startTime;
 			}
 			answers[emailAddress] = {time: startTime, elapsedSeconds: elapsedSeconds, answers: answersForThisUser};
 		}
