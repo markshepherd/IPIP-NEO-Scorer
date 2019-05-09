@@ -73,31 +73,30 @@ async function main() {
 
 	// Create a folder for the results
 	const timeDate = moment(new Date()).format('MMM D Y h.mm a');
-	const outputFolder = path.join(os.homedir(), 'Documents', 'IPIP Scores', timeDate);
 	const oututFolderDescription = `Documents > IPIP Scores > ${timeDate}`;
+	let outputFolder = path.join(os.homedir(), 'Documents', 'IPIP Scores');
 	try {
-		fs.mkdirSync(outputFolder, { recursive: true });
+		fs.mkdirSync(outputFolder);
     } catch (err) {
 		if (err.code !== 'EEXIST') {
 			throw err;
-
-			// Not sure if we need this...
-			// To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.
-			// if (err.code === 'ENOENT') { // Throw the original parentDir error on curDir `ENOENT` failure.
-			// 	`EACCES: permission denied, mkdir '${outputFolder}'`);
-			// }
-
-			// const caughtErr = ['EACCES', 'EPERM', 'EISDIR'].indexOf(err.code) > -1;
-			// if (!caughtErr || caughtErr && curDir === path.resolve(targetDir)) {
-			// 	throw err; // Throw if it's just the last created dir.
-			// }
 		}
-    }
+	}
+	outputFolder = path.join(outputFolder, timeDate);
+	try {
+		fs.mkdirSync(outputFolder);
+    } catch (err) {
+		if (err.code !== 'EEXIST') {
+			throw err;
+		}
+	}
 
 	// Now the action begins ... 
 
 	// Read the data file
 	const csvData = fs.readFileSync(csvPath, 'utf8');
+
+	// Take a copy of the data file
 	fs.writeFile(path.join(outputFolder, 'Survey Answers.csv'), csvData, (err) => {
 		if (err) {
 			console.log(`${highlight2}${err}${reset}`);
@@ -126,9 +125,9 @@ async function main() {
 		}
 	});
 	
+	// Done!
 	console.log(`${highlight2}\n\nResults are in ${highlight}${bright}${oututFolderDescription}${reset}${highlight2}\n${reset}`);
 	console.log(`${highlight}${resultDescription}${reset}`);
-
 }
 /* eslint-enable no-console */
 
