@@ -19,45 +19,45 @@ alixgshepherd@gmail.com  5/3/19 14:19        *** 111 missing answers       *** C
    .....   .....   .....   .....   .....   .....   .....   X....
    .....   X....   X....   .....   .....   .....   .....   .....
 
-    A. Agreeableness: 5 / 5 high
-        1. Trust: 0 / 0 low        
-        2. Morality: 0 / 0 low        
-        3. Altruism: 0 / 0 low        
-        4. Cooperation: 0 / 0 low        
-        5. Modesty: 0 / 0 low        
-        6. Sympathy: 5 / 5 high        
+    A. Agreeableness: 74 / 120 neutral
+        1. Trust: 12 / 20 neutral        
+        2. Morality: 12 / 20 neutral        
+        3. Altruism: 12 / 20 neutral        
+        4. Cooperation: 12 / 20 neutral        
+        5. Modesty: 12 / 20 neutral        
+        6. Sympathy: 14 / 20 neutral        
 
-    E. Extraversion: 0 / 0 low
-        1. Friendliness: 0 / 0 low        
-        2. Gregariousness: 0 / 0 low        
-        3. Assertiveness: 0 / 0 low        
-        4. Activity Level: 0 / 0 low        
-        5. Excitement-Seeking: 0 / 0 low        
-        6. Cheerfulness: 0 / 0 low        
+    E. Extraversion: 72 / 120 neutral
+        1. Friendliness: 12 / 20 neutral        
+        2. Gregariousness: 12 / 20 neutral        
+        3. Assertiveness: 12 / 20 neutral        
+        4. Activity Level: 12 / 20 neutral        
+        5. Excitement-Seeking: 12 / 20 neutral        
+        6. Cheerfulness: 12 / 20 neutral        
 
-    N. Neuroticism: 7 / 15 low
-        1. Anxiety: 0 / 0 low        
-        2. Anger: 5 / 5 high        
-        3. Depression: 1 / 5 low        
-        4. Self-Consciousness: 0 / 0 low        
-        5. Immoderation: 0 / 0 low        
-        6. Vulnerability: 1 / 5 low        
+    N. Neuroticism: 70 / 120 neutral
+        1. Anxiety: 12 / 20 neutral        
+        2. Anger: 14 / 20 neutral        
+        3. Depression: 10 / 20 neutral        
+        4. Self-Consciousness: 12 / 20 neutral        
+        5. Immoderation: 12 / 20 neutral        
+        6. Vulnerability: 10 / 20 neutral        
 
-    C. Conscientiousness: 11 / 15 high
-        1. Self-Efficacy: 5 / 5 high        
-        2. Orderliness: 0 / 0 low        
-        3. Dutifulness: 1 / 5 low        
-        4. Achievement-Striving: 0 / 0 low        
-        5. Self-Discipline: 0 / 0 low        
-        6. Cautiousness: 5 / 5 high        
+    C. Conscientiousness: 74 / 120 neutral
+        1. Self-Efficacy: 14 / 20 neutral        
+        2. Orderliness: 12 / 20 neutral        
+        3. Dutifulness: 10 / 20 neutral        
+        4. Achievement-Striving: 12 / 20 neutral        
+        5. Self-Discipline: 12 / 20 neutral        
+        6. Cautiousness: 14 / 20 neutral        
 
-    O. Openness To Experience: 6 / 10 neutral
-        1. Imagination: 5 / 5 high        
-        2. Artistic Interests: 0 / 0 low        
-        3. Emotionality: 0 / 0 low        
-        4. Adventurousness: 1 / 5 low        
-        5. Intellect: 0 / 0 low        
-        6. Liberalism: 0 / 0 low        
+    O. Openness To Experience: 72 / 120 neutral
+        1. Imagination: 14 / 20 neutral        
+        2. Artistic Interests: 12 / 20 neutral        
+        3. Emotionality: 12 / 20 neutral        
+        4. Adventurousness: 10 / 20 neutral        
+        5. Intellect: 12 / 20 neutral        
+        6. Liberalism: 12 / 20 neutral        
 
 
 

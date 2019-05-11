@@ -55,9 +55,11 @@ function getScoreInfoForAnswer(question, answer) {
 					return [info.domain, info.facet, choice.score];
 				}
 			}
+			// Answer not found
+			return [info.domain, info.facet, -1];
 		}
 	}
-	// Question or answer not found.
+	// Question not found.
 	return [null, null, null];
 }
 
@@ -183,7 +185,7 @@ function extractQuestionsAndAnswers(csvData) {
 // and <count> is the number of answered questions associated with the given domain+facet
 //
 function aggregate(info) {
-	const allScores = [];
+	const allScores = {};
 
 	for (let emailAddress in info.answers) {
 		if (info.answers.hasOwnProperty(emailAddress)) {
@@ -196,7 +198,7 @@ function aggregate(info) {
 			for (let i = 0; i < answersForThisUser.length; i++) {
 				const answer = answersForThisUser[i];
 				const question = info.questions[i];
-				const [domain, facet, score] = getScoreInfoForAnswer(question, answer);
+				let [domain, facet, score] = getScoreInfoForAnswer(question, answer);
 
 				if (domain && facet && score) {
 					// Find the scores for this domain. If it doesn't yet exist, create it.
@@ -215,6 +217,10 @@ function aggregate(info) {
 
 					// Aggregate this answer's score into the facet's score.
 					facetScore.count += 1;
+					if (score <= 0) {
+						score = 3;
+						facetScore.missing = (facetScore.missing || 0) + 1;
+					}
 					facetScore.score += score;
 					facetScore.scores.push(score);
 				}
@@ -225,6 +231,63 @@ function aggregate(info) {
 	}
 
 	return allScores;
+}
+
+// "men over 60 years of age");
+const norm = [
+0,58.42,79.73,79.78,90.20,95.31,15.48,13.63,12.21,11.73,11.99,
+9.81,11.46,8.18,11.08,9.91,8.24,3.54,4.31,3.59,3.82,3.36,3.28,
+14.55,11.19,15.29,12.81,11.03,15.02,3.47,3.58,3.10,3.25,2.88,3.16,
+14.06,14.22,14.34,12.42,14.61,10.11,3.13,3.64,2.90,3.20,3.89,4.02,
+13.96,17.74,15.76,16.18,11.87,14.00,3.13,2.39,2.74,3.41,3.50,3.11,
+16.32,14.41,17.54,16.65,14.98,15.18,2.31,4.49,2.30,2.68,2.76,3.61
+];
+
+const map1 = {
+	'N': 1,
+	'E': 2,
+	'O': 3,
+	'A': 4,
+	'C': 5
+};
+const map2 = {
+	'N': 10,
+	'E': 22,
+	'O': 34,
+	'A': 46,
+	'C': 58
+};
+
+function normalizeScore(score, index1, index2) {
+	score.normalizedScore = (10 * (score.score - norm[index1])/norm[index2]) + 50;
+
+    if (score.normalizedScore < 45) {
+      score.rating = "low"; 
+	} else if (score.normalizedScore > 55) {
+      score.rating = "high"; 
+	} else {
+      score.rating = "average"; 
+	}
+
+	if (score.normalizedScore < 27) {
+		score.percentileScore = 1;
+	} else if (score.normalizedScore > 73) {
+		score.percentileScore = 99;
+	} else {
+		const s = score.normalizedScore;
+		score.percentileScore = Math.trunc(210.335958661391 - (16.7379362643389 * s)
+			+ (0.405936512733332 * (s * s)) - (0.00270624341822222 * (s * s * s)));
+	}
+}
+
+function calcNormalizedScores(scores, domain) {
+	normalizeScore(scores.score, map1[domain], map1[domain] + 5);
+	for (let facet = 1; facet <= 6; facet++) {
+		const facetScore = scores.facets[facet];
+		if (facetScore) {
+			normalizeScore(facetScore, facet + map2[domain], facet + map2[domain] + 6);
+		}
+	}
 }
 
 // Derive various interesting information from the domain & facet scores and input data. Add the info into the allScores data structure.
@@ -238,7 +301,7 @@ function aggregate(info) {
 function analyze(allScores, info) {
 	for (let emailAddress in allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
-			let answerCount = 0;
+			let missingCount = 0;
 			const userData = allScores[emailAddress];
 			const scores = userData.scores;
 
@@ -254,15 +317,16 @@ function analyze(allScores, info) {
 							const facetScore = facets[facet];
 							totalScore += facetScore.score;
 							totalCount += facetScore.count;
-							answerCount += facetScore.count;
+							missingCount += facetScore.missing || 0;
 							facetScore.inconsistency = calcConsistency(facetScore.scores);
 							facetScore.flavor = calculateFlavor(facetScore.score, facetScore.count);
 						}
 					}
 					scores[domain].score = {score: totalScore, count: totalCount, flavor: calculateFlavor(totalScore, totalCount)};
+					calcNormalizedScores(scores[domain], domain);
 				}
 			}
-			userData.missingAnswers = info.questions.length - answerCount;
+			userData.missingAnswers = missingCount; // info.questions.length - answerCount;
 			userData.image = makeAnswerImage(info.answers[emailAddress].answers);
 			// console.log(`elapsedSeconds = ${info.answers[emailAddress].elapsedSeconds}`);
 			if (info.answers[emailAddress].elapsedSeconds < 300) {
