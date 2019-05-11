@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-const analyzeCSV = require('../analyze');
-const { summaryReport, exportScores } = require('../report');
+const analyzeCSV = require('../src/analyze');
+const { summaryReport, exportScores } = require('../src/report');
 
 const fs = require('fs');
 

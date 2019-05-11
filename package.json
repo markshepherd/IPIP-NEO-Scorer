@@ -2,14 +2,14 @@
   "name": "ipip-neo-scorer",
   "version": "1.2.0",
   "description": "Scorer for IPIP NEO survey results.",
-  "main": "cli.js",
+  "main": "src/cli.js",
   "scripts": {
-    "start": "node cli.js",
+    "start": "node src/cli.js",
     "test": "node test/test.js",
-    "dev": "node cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
-    "debug": "node --inspect-brk cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
+    "dev": "node src/cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
+    "debug": "node --inspect-brk src/cli.js \"test/Johnson 120 IPIP-NEO-PI-R.csv\"",
     "package": "source package",
-    "lint": "eslint *.js && eslint test/*.js"
+    "lint": "eslint src/*.js && eslint test/*.js"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,7 @@
 
 const analyzeCSV = require('./analyze');
 const { summaryReport, makePDF, exportScores } = require('./report');
-const packageJson = require('./package.json');
+const packageJson = require('../package.json');
 
 // Here's the main program. This is where we handle all interfacing with the outside world (file system, user interaction, ...)
 const readline = require('readline-sync');
