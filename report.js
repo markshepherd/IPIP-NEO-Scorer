@@ -143,7 +143,7 @@ function summaryReport(allScores) {
 			let userComments = (userData.missingAnswers > 0) ? `       *** ${userData.missingAnswers} missing answers` : '';
 			userComments += userData.suspiciousDuration ? `       *** Completed too quickly - ${userData.suspiciousDuration} seconds.` : '';
 			const time = moment(new Date(userData.time)).format('M/D/YY H:mm');
-			outputString += `\n\n\n${emailAddress}   ${time}   ${userData.sex} age ${userData.age}   ${userComments}\n\n${userData.image}\n`;
+			outputString += `\n\n\n${emailAddress}   ${time}   ${userData.sex} ${userData.age}   ${userComments}\n\n${userData.image}\n`;
 
 			// Fetch the template which contains a list of all the domains and facets, including their human-readable names. 
 			// The order of items in the template defines the order of the report.

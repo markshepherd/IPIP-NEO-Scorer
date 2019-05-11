@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
+const normalizeScore = require('./normalize');
 const { getItems } = require('@alheimsins/b5-johnson-120-ipip-neo-pi-r');
 
 // const choices = require(`@alheimsins/b5-johnson-120-ipip-neo-pi-r/data/en/choices`)
@@ -101,39 +102,54 @@ function extractQuestionsAndAnswers(csvData) {
 	// Split the input csv data into lines.
 	const lines = csvData.split(/[\n\r]+/);
 
-	// The first line of the csv data contains a list of all the questions.
-	const firstLineTokens = lines[0].split(/,/);
+	// The first line of the csv data contains the name of each column.
+	// The first few columns of each line are metadata, including the user's email address.
+	// The rest of the tokens are the responses to each question.
+	const columnNames = lines[0].split(/,/);
+	const emailIndex = columnNames.indexOf("Email Address");
+	const startTimeIndex = columnNames.indexOf("Start Date");
+	const endTimeIndex = columnNames.indexOf("End Date");
+	const ageIndex = columnNames.indexOf("Age");
+	const sexIndex = columnNames.indexOf("Sex");
+	const firstQuestionIndex = columnNames.indexOf("Worry about things");
+
+	// Make a list of questions, and a list of what columns contain answers to questions.
 	const questionColumns = [];
-	for (let k = 9; k < firstLineTokens.length; k++) {
-		if (firstLineTokens[k] !== '') {
+	for (let k = firstQuestionIndex; k < columnNames.length; k++) {
+		if (columnNames[k] !== '') {
 			// We're only interested in columns that have a non-null question.
-			questions.push(firstLineTokens[k]);
+			questions.push(columnNames[k]);
 			questionColumns.push(k);
 		}
 	}
 
 	// Each subsequent line of the csv represents one completed survey by one user. 
-	// The first few tokens are misc metadata, including the user's email address.
-	// The rest of the tokens are the responses to each question.
 	for (let i = 1; i < lines.length; i++) {
 		// It's a CSV file, so tokens are separated by commas.
 		const tokens = lines[i].split(/,/);
-		let emailAddress = tokens[5];
-		const startTime = Date.parse(tokens[2]);
-		const endTime = Date.parse(tokens[3]);
-		const elapsedSeconds = (endTime - startTime) / 1000;
-		
+		let emailAddress = tokens[emailIndex];
 		if (emailAddress) {
+			const startTime = Date.parse(tokens[startTimeIndex]);
+
+			// Make a list of this user's answers.
 			const answersForThisUser = [];
 			for (let column of questionColumns) {
 				answersForThisUser.push(tokens[column]);
 			}
+
+			// Record this user's data into 'answers'.
 			if (answers[emailAddress]) {
 				// we already have data for this email address
 				// make up a new unique key for this data
 				emailAddress = emailAddress + '-' + startTime;
 			}
-			answers[emailAddress] = {time: startTime, elapsedSeconds: elapsedSeconds, answers: answersForThisUser};
+			answers[emailAddress] = {
+				age: tokens[ageIndex], 
+				sex: tokens[sexIndex], 
+				time: startTime, 
+				elapsedSeconds: (Date.parse(tokens[endTimeIndex]) - startTime) / 1000, 
+				answers: answersForThisUser
+			};
 		}
 	}
 
@@ -178,7 +194,7 @@ function aggregate(info) {
 	for (let emailAddress in info.answers) {
 		if (info.answers.hasOwnProperty(emailAddress)) {
 			const answersForThisUser = info.answers[emailAddress].answers;
-			const dataForThisUser = {sex: 'Male', age: 63, scores: {}};		
+			const dataForThisUser = {scores: {}};		
 
 			// Loop over the answers to all the questions. For each answer,
 			// we determine which domain/facet it relates to, then we add that 
@@ -221,53 +237,6 @@ function aggregate(info) {
 	return allScores;
 }
 
-// "men over 60 years of age");
-const norm = [
-0,58.42,79.73,79.78,90.20,95.31,15.48,13.63,12.21,11.73,11.99,
-9.81,11.46,8.18,11.08,9.91,8.24,3.54,4.31,3.59,3.82,3.36,3.28,
-14.55,11.19,15.29,12.81,11.03,15.02,3.47,3.58,3.10,3.25,2.88,3.16,
-14.06,14.22,14.34,12.42,14.61,10.11,3.13,3.64,2.90,3.20,3.89,4.02,
-13.96,17.74,15.76,16.18,11.87,14.00,3.13,2.39,2.74,3.41,3.50,3.11,
-16.32,14.41,17.54,16.65,14.98,15.18,2.31,4.49,2.30,2.68,2.76,3.61
-];
-
-const map1 = {
-	'N': 1,
-	'E': 2,
-	'O': 3,
-	'A': 4,
-	'C': 5
-};
-const map2 = {
-	'N': 10,
-	'E': 22,
-	'O': 34,
-	'A': 46,
-	'C': 58
-};
-
-function normalizeScore(score, index1, index2) {
-	score.normalizedScore = (10 * (score.score - norm[index1])/norm[index2]) + 50;
-
-    if (score.normalizedScore < 45) {
-      score.rating = "low"; 
-	} else if (score.normalizedScore > 55) {
-      score.rating = "high"; 
-	} else {
-      score.rating = "average"; 
-	}
-
-	if (score.normalizedScore < 27) {
-		score.percentileScore = 1;
-	} else if (score.normalizedScore > 73) {
-		score.percentileScore = 99;
-	} else {
-		const s = score.normalizedScore;
-		score.percentileScore = Math.trunc(210.335958661391 - (16.7379362643389 * s)
-			+ (0.405936512733332 * (s * s)) - (0.00270624341822222 * (s * s * s)));
-	}
-}
-
 // Derive various interesting information from the domain & facet scores and input data. Add the info into the allScores data structure.
 //
 // Input: aggregated scores, from aggregate()
@@ -281,6 +250,7 @@ function analyze(allScores, info) {
 		if (allScores.hasOwnProperty(emailAddress)) {
 			let missingCount = 0;
 			const userData = allScores[emailAddress];
+			const answerInfo = info.answers[emailAddress];
 			const scores = userData.scores;
 
 			for (let domain in scores) {
@@ -300,22 +270,23 @@ function analyze(allScores, info) {
 						}
 					}
 					scores[domain].score = {score: totalScore, count: totalCount};
-					normalizeScore(scores[domain].score, map1[domain], map1[domain] + 5);
+					normalizeScore(answerInfo.age, answerInfo.sex, scores[domain].score, domain, null);
 					for (let facet = 1; facet <= 6; facet++) {
 						const facetScore = scores[domain].facets[facet];
 						if (facetScore) {
-							normalizeScore(facetScore, facet + map2[domain], facet + map2[domain] + 6);
+							normalizeScore(answerInfo.age, answerInfo.sex, facetScore, domain, facet);
 						}
 					}
 				}
 			}
-			userData.missingAnswers = missingCount; // info.questions.length - answerCount;
-			userData.image = makeAnswerImage(info.answers[emailAddress].answers);
-			// console.log(`elapsedSeconds = ${info.answers[emailAddress].elapsedSeconds}`);
-			if (info.answers[emailAddress].elapsedSeconds < 300) {
-				userData.suspiciousDuration = info.answers[emailAddress].elapsedSeconds;
+			userData.missingAnswers = missingCount;
+			userData.image = makeAnswerImage(answerInfo.answers);
+			if (answerInfo.elapsedSeconds < 300) {
+				userData.suspiciousDuration = answerInfo.elapsedSeconds;
 			}
-			userData.time = info.answers[emailAddress].time;
+			userData.time = answerInfo.time;
+			userData.age = answerInfo.age;
+			userData.sex = answerInfo.sex;
 		}
 	}
 }
