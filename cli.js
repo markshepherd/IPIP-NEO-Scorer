@@ -106,9 +106,6 @@ async function main() {
 	// Analyze the data
 	const allScores = analyzeCSV(csvData);
 
-	// Make the PDFs
-	await makePDF(allScores, outputFolder);
-
 	// Create the report and write it to the output file
 	const report = summaryReport(allScores);
 	fs.writeFile(path.join(outputFolder, 'Report.txt'), report, (err) => {
@@ -124,7 +121,10 @@ async function main() {
 			console.log(`${highlight2}e${err}${reset}`);
 		}
 	});
-	
+		
+	// Make the PDFs
+	await makePDF(allScores, outputFolder);
+
 	// Done!
 	console.log(`${highlight2}\n\nResults are in ${highlight}${bright}${oututFolderDescription}${reset}${highlight2}\n${reset}`);
 	console.log(`${highlight}${resultDescription}${reset}`);

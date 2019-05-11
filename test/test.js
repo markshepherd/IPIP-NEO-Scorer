@@ -2,12 +2,13 @@
 'use strict';
 
 const analyzeCSV = require('../analyze');
-const { summaryReport } = require('../report');
+const { summaryReport, exportScores } = require('../report');
 
 const fs = require('fs');
 
 const csvPath = "test/Johnson 120 IPIP-NEO-PI-R.csv";
-const expectedPath = "test/Expected IPIP-scores.txt";
+const expectedReportPath = "test/Expected Report.txt";
+const expectedScoresPath = "test/Expected Scores.csv";
 
 const red = "\x1b[31m";
 const green = "\x1b[32m";
@@ -18,18 +19,25 @@ function runTest() {
 	fs.readFile(csvPath, 'utf8', function (err, csvData) {
 		if (err) throw err;
 		const allScores = analyzeCSV(csvData);
+		let failureCount = 0;
+		
 		const report = summaryReport(allScores);
+		const expectedReport = fs.readFileSync(expectedReportPath, 'utf8');
+		if (report !== expectedReport) {
+			failureCount += 1;
+		}
 
-		fs.readFile(expectedPath, 'utf8', function (err, expectedReport) {
-			if (err) throw err;
+		const exportedScores = exportScores(allScores);
+		const expectedScores = fs.readFileSync(expectedScoresPath, 'utf8');
+		if (exportedScores !== expectedScores) {
+			failureCount += 1;
+		}
 
-			const result = report === expectedReport;
-			if (result) {
-				console.log(`${green}Test passed${reset}`);
-			} else {
-				console.log(`${red}Test failed${reset}`);
-			}
-		});
+		if (failureCount === 0) {
+			console.log(`${green}Test passed${reset}`);
+		} else {
+			console.log(`${red}Test failed${reset}`);
+		}
 	});
 }
 /* eslint-enable no-console */

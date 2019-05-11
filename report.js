@@ -16,12 +16,12 @@ const fs = require('fs');
       "name": "Ddddddd",
       "shortDescription": "Xxx. Xxx. Xxx. Xxx. ",
       "longDescription": "Yyy yyy. Yyy yyy. Yyy yyy. Yyy yyy. ",
-      "score": {score: nnn, max: nnn, flavor: 'high'},
+      "score": {score: nnn, max: nnn, rating: 'high'},
       "yourScoreDescription": "Your medium score means xxx.",
       "facets": [
         {
           "name": "Ffffff",
-      	  "score": {score: nnn, max: nnn, flavor: 'high'}
+      	  "score": {score: nnn, max: nnn, rating: 'high'}
           "description": "Zzzzz. Zzzzz. Zzzzz. Zzzzz. ",
         },
 */
@@ -37,16 +37,16 @@ body {
 </style>
 </head>
 <body>
-<h1>IPIP Scores for <%= emailAddress %></h1>
+<h1>IPIP Scores for <%= emailAddress %> <%= sex %> <%= age %> </h1>
 <p><%= time %></p>
 <% domains.forEach(function (domain) { -%>
 	<h2><%= domain.name %></h2>
 	<p><%= domain.shortDescription %></p>
-	<p>Score: <%= domain.score.score %> / <%= domain.score.max %> - <%= domain.score.flavor %><p>
+	<p>Score: <%= domain.score.score %> - <%= domain.score.rating %><p>
 	<p><%= domain.yourScoreDescription %></p>
 	<% domain.facets.forEach(function (facet) { -%>
 		<h4><%= facet.name %></h4>
-		<p>Score: <%= facet.score.score %> / <%= facet.score.max %> - <%= facet.score.flavor %><p>
+		<p>Score: <%= facet.score.score %> - <%= facet.score.rating %><p>
 		<p><%= facet.description %></p>
 	<% }) -%>
 <% }) -%>
@@ -75,19 +75,23 @@ async function makePDF(allScores, outputFolder) {
 			process.stdout.write('. '); // write to the console without a newline
 			const userData = allScores[emailAddress];
 			const time = moment(new Date(userData.time)).format('MMM D, Y h:mma');
-			const params = {emailAddress: emailAddress, time: time, domains: []};
+			const params = {emailAddress: emailAddress, sex: userData.sex, age: userData.age, time: time, domains: []};
 
 			for (let domain in userData.scores) {
 				if (userData.scores.hasOwnProperty(domain)) {
 					const domainData = userData.scores[domain];
 					const domainStrings = getDomain({language: 'en', domain: domain});
 					const yourScoreDescription = domainStrings.results.find(function(info) {
-						return info.score === domainData.score.flavor;
+						if (domainData.score.rating === "average") {
+							return info.score === "neutral";
+						} else {
+							return info.score === domainData.score.rating;
+						}
 					}).text;
 
 					const domainParams = {
 						name: domainStrings.title,
-						score: {score: domainData.score.score, max: domainData.score.count * 5, flavor: domainData.score.flavor},
+						score: {score: domainData.score.percentileScore, rating: domainData.score.rating},
 						shortDescription: domainStrings.shortDescription,
 						longDescription: domainStrings.description,
 						yourScoreDescription: yourScoreDescription,
@@ -101,7 +105,7 @@ async function makePDF(allScores, outputFolder) {
 							const facetParams = {
 								name: facetStrings.title,
 								description: facetStrings.text,
-								score: {score: facetData.score, max: facetData.count * 5, flavor: facetData.flavor},
+								score: {score: facetData.percentileScore, rating: facetData.rating},
 							}
 							domainParams.facets.push(facetParams)
 						}
@@ -139,7 +143,7 @@ function summaryReport(allScores) {
 			let userComments = (userData.missingAnswers > 0) ? `       *** ${userData.missingAnswers} missing answers` : '';
 			userComments += userData.suspiciousDuration ? `       *** Completed too quickly - ${userData.suspiciousDuration} seconds.` : '';
 			const time = moment(new Date(userData.time)).format('M/D/YY H:mm');
-			outputString += `\n\n\n${emailAddress}  ${time} ${userComments}\n\n${userData.image}\n`;
+			outputString += `\n\n\n${emailAddress}   ${time}   ${userData.sex} age ${userData.age}   ${userComments}\n\n${userData.image}\n`;
 
 			// Fetch the template which contains a list of all the domains and facets, including their human-readable names. 
 			// The order of items in the template defines the order of the report.
@@ -149,29 +153,25 @@ function summaryReport(allScores) {
 			for (let i = 0; i < template.length; i++) {
 				const domain = template[i];
 				const scoresForThisDomain = scoresForThisUser[domain.domain] || {};
-				const domainScore = scoresForThisDomain.score || {score: 0, count: 0, flavor: 'low'};
+				const domainScore = scoresForThisDomain.score || {score: 0, count: 0, rating: 'average'};
 				const facetScores = scoresForThisDomain.facets || {};
 
 				// Print the domain summary line
-				outputString += `\n    ${domain.domain}. ${domain.title}: ${domainScore.score} / ${domainScore.count * 5} ${domainScore.flavor}\n`;
+				outputString += `\n    ${domain.domain}. ${domain.title}: ${domainScore.percentileScore} ${domainScore.rating}  (${domainScore.score} / ${domainScore.count * 5})\n`;
 
 				// Iterate over facets and print a line for each facet.
 				for (let k = 0; k < domain.facets.length; k++) {
 					const facet = domain.facets[k];
-					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: [], inconsistency: 'none', flavor: 'low'};
+					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: [], inconsistency: 'none', rating: 'average'};
 					const scoreString = facetScore.inconsistency !== 'none' 
 						? `*** ${facetScore.inconsistency} inconsistency; scores are ${facetScore.scores}` : '';
 					outputString += 
-						`        ${facet.facet}. ${facet.title}: ${facetScore.score} / ${facetScore.count * 5} ${facetScore.flavor}        ${scoreString}\n`;
+						`        ${facet.facet}. ${facet.title}: ${facetScore.percentileScore} ${facetScore.rating}  (${facetScore.score} / ${facetScore.count * 5})      ${scoreString}\n`;
 				}
 			}
 		}
 	}
 	return outputString;
-}
-
-function percentScore(score) {
-	return Math.round((score.count ? (score.score / (score.count * 5)) : 0) * 100);
 }
 
 // Create a summary report of scores and warnings for all users. We return the report in the form of a character string.
@@ -208,15 +208,15 @@ function exportScores(allScores) {
 			for (let i = 0; i < template.length; i++) {
 				const domain = template[i];
 				const scoresForThisDomain = scoresForThisUser[domain.domain] || {};
-				const domainScore = scoresForThisDomain.score || {score: 0, count: 0, flavor: 'low'};
+				const domainScore = scoresForThisDomain.score || {percentileScore: 0};
 				const facetScores = scoresForThisDomain.facets || {};
 
-				values.push(percentScore(domainScore));
+				values.push(domainScore.percentileScore);
 
 				for (let k = 0; k < domain.facets.length; k++) {
 					const facet = domain.facets[k];
-					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: []};
-					values.push(percentScore(facetScore));
+					const facetScore = facetScores[facet.facet] || {percentileScore: 0};
+					values.push(facetScore.percentileScore);
 				}
 			}
 
