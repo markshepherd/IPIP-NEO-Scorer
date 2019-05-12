@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+
 
 // Code to normalize domain and facet scores. This is an implementation of the
 // the normalization algorithm that scores the IPIP test on Dr. J. Johson's web site
@@ -103,19 +103,19 @@ const normData = [
 
 // These tables help unravel the data in "normData". 
 const map1 = {
-	'N': 1,
-	'E': 2,
-	'O': 3,
-	'A': 4,
-	'C': 5
+	"N": 1,
+	"E": 2,
+	"O": 3,
+	"A": 4,
+	"C": 5
 };
 
 const map2 = {
-	'N': 10,
-	'E': 22,
-	'O': 34,
-	'A': 46,
-	'C': 58
+	"N": 10,
+	"E": 22,
+	"O": 34,
+	"A": 46,
+	"C": 58
 };
 
 // Input: a score object like {score: xxxx}, where 'xxxx' is a raw domain or facet score,

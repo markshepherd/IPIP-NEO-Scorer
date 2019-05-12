@@ -1,31 +1,30 @@
 #!/usr/bin/env node
-'use strict';
 
-const normalizeScore = require('./normalize');
-const { getItems } = require('@alheimsins/b5-johnson-120-ipip-neo-pi-r');
+
+const normalizeScore = require("./normalize");
+const {getItems} = require("@alheimsins/b5-johnson-120-ipip-neo-pi-r");
 
 // const choices = require(`@alheimsins/b5-johnson-120-ipip-neo-pi-r/data/en/choices`)
-// pkg doesn't handle the above require(), so we'll just do brute force
-const choices = ['Very Inaccurate', 'Moderately Inaccurate', 'Neither Accurate Nor Inaccurate', 'Moderately Accurate', 'Very Accurate'];
+// Pkg doesn't handle the above require(), so we'll just do brute force
+const choices = ["Very Inaccurate", "Moderately Inaccurate", "Neither Accurate Nor Inaccurate", "Moderately Accurate", "Very Accurate"];
 
-// questionInfo contains information about each question:
+// QuestionInfo contains information about each question:
 // - what domain and facet the question is associated with
 // - what score is assigned to each possible answer
-const questionInfo = getItems('en');
+const questionInfo = getItems("en");
 
-// returns true if consistent, false if inconsistent
-// todo: generalize this so it works for any survey, not just johnson 120.
+// Returns true if consistent, false if inconsistent
+// Someday, we should generalize this so it works for any survey, not just johnson 120.
 function calcConsistency(arrayOfNumbers) {
 	const mid = 3;
-	// const 
 	let lowCount = 0;
 	let highCount = 0;
 	for (let number of arrayOfNumbers) {
 		if (number < mid) lowCount++;
 		if (number > mid) highCount++;
 	}
-	if (lowCount === 0 || highCount === 0) return 'none';
-	return (lowCount === 2 && highCount === 2) ? 'bad' : 'minor';
+	if (lowCount === 0 || highCount === 0) return "none";
+	return (lowCount === 2 && highCount === 2) ? "bad" : "minor";
 }
 
 // For a given question and answer to that question, 
@@ -72,10 +71,10 @@ function makeAnswerImage(answers) {
 	for (;;) {
 		for (let i = 0; i < height; i++) {	
 			const index = getAnswerIndex(answers[nextAnswerIndex++]);
-			image[i] += "   " + ((index < 0) ? '.....' : (".".repeat(index) + "X" + ".".repeat(4 - index)));
+			image[i] += "   " + ((index < 0) ? "....." : (".".repeat(index) + "X" + ".".repeat(4 - index)));
 
 			if (nextAnswerIndex >= answers.length) {
-				return image.join('\n');
+				return image.join("\n");
 			}
 		}
 	}
@@ -116,7 +115,7 @@ function extractQuestionsAndAnswers(csvData) {
 	// Make a list of questions, and a list of what columns contain answers to questions.
 	const questionColumns = [];
 	for (let k = firstQuestionIndex; k < columnNames.length; k++) {
-		if (columnNames[k] !== '') {
+		if (columnNames[k] !== "") {
 			// We're only interested in columns that have a non-null question.
 			questions.push(columnNames[k]);
 			questionColumns.push(k);
@@ -139,9 +138,9 @@ function extractQuestionsAndAnswers(csvData) {
 
 			// Record this user's data into 'answers'.
 			if (answers[emailAddress]) {
-				// we already have data for this email address
-				// make up a new unique key for this data
-				emailAddress = emailAddress + '-' + startTime;
+				// We already have data for this email address.
+				// Make up a new unique key for this data.
+				emailAddress = emailAddress + "-" + startTime;
 			}
 			answers[emailAddress] = {
 				age: tokens[ageIndex], 
@@ -185,8 +184,8 @@ function extractQuestionsAndAnswers(csvData) {
 //      email2: { ... }
 //      ...
 // }
-// where <score> is the total score across all questions for the given domain+facet
-// and <count> is the number of answered questions associated with the given domain+facet
+// Where <score> is the total score across all questions for the given domain+facet
+// And <count> is the number of answered questions associated with the given domain+facet
 //
 function aggregate(info) {
 	const allScores = {};

@@ -1,6 +1,6 @@
 {
+    // guide to configuring ... https://eslint.org/docs/user-guide/configuring
     "env": {
-        "commonjs": true,
         "es6": true,
         "node": true
     },
@@ -10,8 +10,18 @@
         "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
-        "ecmaVersion": 2018
+        "ecmaVersion": 2018,
+        "sourceType": "module"
     },
     "rules": {
+        "comma-dangle": ["warn", "never"],
+        "camelcase": ["error", {"properties": "always"}],
+        "strict": "warn",
+        "quotes": "warn",
+        "object-curly-spacing": "warn",
+        // "capitalized-comments": "warn",
+        "no-warning-comments": "warn",
+        "space-before-function-paren": "warn",
+        "indent": ["error", "tab"]
     }
 }

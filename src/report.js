@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-'use strict';
 
-const { getTemplate, getDomain } = require('@alheimsins/b5-result-text');
-const moment = require('moment');
-const puppeteer = require('puppeteer');
-const ejs = require('ejs');
-const path = require('path');
-const fs = require('fs');
+
+const {getTemplate, getDomain} = require("@alheimsins/b5-result-text");
+const moment = require("moment");
+const puppeteer = require("puppeteer");
+const ejs = require("ejs");
+const path = require("path");
+const fs = require("fs");
 
 /*
   "emailAddress": "alixgshepherd@gmail.com",
@@ -61,10 +61,10 @@ async function makePDF(allScores, outputFolder) {
 	// As a workaround, our 'package' script explicitly copies the chromium folder into the folder
 	// that contains the executable, and the following code tells puppeteer where to find chromium.
 	// This workaround was inspired by https://github.com/rocklau/pkg-puppeteer/blob/master/index.js
-	const chromiumExecutablePath = (typeof process.pkg !== 'undefined')
+	const chromiumExecutablePath = (typeof process.pkg !== "undefined")
 	? puppeteer.executablePath().replace(
 		/^.*?\/node_modules\/puppeteer\/\.local-chromium/,
-		path.join(path.dirname(process.execPath), 'chromium'))
+		path.join(path.dirname(process.execPath), "chromium"))
 	: puppeteer.executablePath();
 
 	const browser = await puppeteer.launch({executablePath: chromiumExecutablePath, headless: true});
@@ -72,15 +72,15 @@ async function makePDF(allScores, outputFolder) {
 
 	for (let emailAddress in allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
-			process.stdout.write('. '); // write to the console without a newline
+			process.stdout.write(". "); // Write to the console without a newline
 			const userData = allScores[emailAddress];
-			const time = moment(new Date(userData.time)).format('MMM D, Y h:mma');
+			const time = moment(new Date(userData.time)).format("MMM D, Y h:mma");
 			const params = {emailAddress: emailAddress, sex: userData.sex, age: userData.age, time: time, domains: []};
 
 			for (let domain in userData.scores) {
 				if (userData.scores.hasOwnProperty(domain)) {
 					const domainData = userData.scores[domain];
-					const domainStrings = getDomain({language: 'en', domain: domain});
+					const domainStrings = getDomain({language: "en", domain: domain});
 					const yourScoreDescription = domainStrings.results.find(function(info) {
 						if (domainData.score.rating === "average") {
 							return info.score === "neutral";
@@ -105,7 +105,7 @@ async function makePDF(allScores, outputFolder) {
 							const facetParams = {
 								name: facetStrings.title,
 								description: facetStrings.text,
-								score: {score: facetData.percentileScore, rating: facetData.rating},
+								score: {score: facetData.percentileScore, rating: facetData.rating}
 							}
 							domainParams.facets.push(facetParams)
 						}
@@ -116,15 +116,15 @@ async function makePDF(allScores, outputFolder) {
 			}
 
 			const html = ejs.render(oneUserPDFTemplate, params, {});
-			const outputFileName = path.join(outputFolder, emailAddress.replace("@", "_")); // uniqueFilename(os.tmpdir()) + '.html';
-			const err = fs.writeFileSync(outputFileName + '.html', html);
+			const outputFileName = path.join(outputFolder, emailAddress.replace("@", "_"));
+			const err = fs.writeFileSync(outputFileName + ".html", html);
 			if (err) {
 				console.log(err);
 			} else {
-				const gotoFile = 'file://' + outputFileName + '.html';
-				await page.goto(gotoFile, {waitUntil: 'networkidle2'});
-				await page.pdf({path: outputFileName + '.pdf', format: 'Letter'});
-				fs.unlinkSync(outputFileName + '.html');
+				const gotoFile = "file://" + outputFileName + ".html";
+				await page.goto(gotoFile, {waitUntil: "networkidle2"});
+				await page.pdf({path: outputFileName + ".pdf", format: "Letter"});
+				fs.unlinkSync(outputFileName + ".html");
 			}
 		}
 	}
@@ -140,9 +140,9 @@ function summaryReport(allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
 			const userData = allScores[emailAddress];
 			const scoresForThisUser = userData.scores;
-			let userComments = (userData.missingAnswers > 0) ? `       *** ${userData.missingAnswers} missing answers` : '';
-			userComments += userData.suspiciousDuration ? `       *** Completed too quickly - ${userData.suspiciousDuration} seconds.` : '';
-			const time = moment(new Date(userData.time)).format('M/D/YY H:mm');
+			let userComments = (userData.missingAnswers > 0) ? `       *** ${userData.missingAnswers} missing answers` : "";
+			userComments += userData.suspiciousDuration ? `       *** Completed too quickly - ${userData.suspiciousDuration} seconds.` : "";
+			const time = moment(new Date(userData.time)).format("M/D/YY H:mm");
 			outputString += `\n\n\n${emailAddress}   ${time}   ${userData.sex} ${userData.age}   ${userComments}\n\n${userData.image}\n`;
 
 			// Fetch the template which contains a list of all the domains and facets, including their human-readable names. 
@@ -153,7 +153,7 @@ function summaryReport(allScores) {
 			for (let i = 0; i < template.length; i++) {
 				const domain = template[i];
 				const scoresForThisDomain = scoresForThisUser[domain.domain] || {};
-				const domainScore = scoresForThisDomain.score || {score: 0, count: 0, rating: 'average'};
+				const domainScore = scoresForThisDomain.score || {score: 0, count: 0, rating: "average"};
 				const facetScores = scoresForThisDomain.facets || {};
 
 				// Print the domain summary line
@@ -162,9 +162,9 @@ function summaryReport(allScores) {
 				// Iterate over facets and print a line for each facet.
 				for (let k = 0; k < domain.facets.length; k++) {
 					const facet = domain.facets[k];
-					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: [], inconsistency: 'none', rating: 'average'};
-					const scoreString = facetScore.inconsistency !== 'none' 
-						? `*** ${facetScore.inconsistency} inconsistency; scores are ${facetScore.scores}` : '';
+					const facetScore = facetScores[facet.facet] || {score: 0, count: 0, scores: [], inconsistency: "none", rating: "average"};
+					const scoreString = facetScore.inconsistency !== "none" 
+						? `*** ${facetScore.inconsistency} inconsistency; scores are ${facetScore.scores}` : "";
 					outputString += 
 						`        ${facet.facet}. ${facet.title}: ${facetScore.percentileScore} ${facetScore.rating}  (${facetScore.score} / ${facetScore.count * 5})      ${scoreString}\n`;
 				}
@@ -180,8 +180,8 @@ function exportScores(allScores) {
 
 	// Create the title line
 	const values = [];
-	values.push('');
-	values.push('');
+	values.push("");
+	values.push("");
 	const template = getTemplate();
 	for (let i = 0; i < template.length; i++) {
 		const domain = template[i];
@@ -193,7 +193,7 @@ function exportScores(allScores) {
 			values.push(facet.title);
 		}
 	}
-	lines.push(values.join(','));
+	lines.push(values.join(","));
 
 	for (let emailAddress in allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
@@ -202,7 +202,7 @@ function exportScores(allScores) {
 			const scoresForThisUser = userData.scores;
 
 			values.push(emailAddress);
-			values.push(moment(new Date(userData.time)).format('M/D/Y HH:mm'));
+			values.push(moment(new Date(userData.time)).format("M/D/Y HH:mm"));
 
 			const template = getTemplate();
 			for (let i = 0; i < template.length; i++) {
@@ -220,10 +220,10 @@ function exportScores(allScores) {
 				}
 			}
 
-			lines.push(values.join(','));
+			lines.push(values.join(","));
 		}
 	}
-	return lines.join('\n');
+	return lines.join("\n");
 }
 
 module.exports = {summaryReport, makePDF, exportScores};

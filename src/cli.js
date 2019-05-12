@@ -1,16 +1,16 @@
 #!/usr/bin/env node
-'use strict';
 
-const analyzeCSV = require('./analyze');
-const { summaryReport, makePDF, exportScores } = require('./report');
-const packageJson = require('../package.json');
+
+const analyzeCSV = require("./analyze");
+const {summaryReport, makePDF, exportScores} = require("./report");
+const packageJson = require("../package.json");
 
 // Here's the main program. This is where we handle all interfacing with the outside world (file system, user interaction, ...)
-const readline = require('readline-sync');
-const moment = require('moment');
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+const readline = require("readline-sync");
+const moment = require("moment");
+const fs = require("fs");
+const path = require("path");
+const os = require("os");
 
 const instructions = `
 This app analyzes user responses to the 
@@ -67,18 +67,18 @@ async function main() {
 		csvPath = process.argv[2];
 	} else {
 		csvPath = readline.question(`${highlight}Please enter location of csv file:${reset}`);
-		// remove any extra backslash characters that are added into the path string when a user drags a file from finder to consolewindow.
+		// Remove any extra backslash characters that are added into the path string when a user drags a file from finder to consolewindow.
 		csvPath = csvPath.split("\\").join(""); 
 	}
 
 	// Create a folder for the results
-	const timeDate = moment(new Date()).format('MMM D Y h.mm a');
+	const timeDate = moment(new Date()).format("MMM D Y h.mm a");
 	const oututFolderDescription = `Documents > IPIP Scores > ${timeDate}`;
-	let outputFolder = path.join(os.homedir(), 'Documents', 'IPIP Scores');
+	let outputFolder = path.join(os.homedir(), "Documents", "IPIP Scores");
 	try {
 		fs.mkdirSync(outputFolder);
     } catch (err) {
-		if (err.code !== 'EEXIST') {
+		if (err.code !== "EEXIST") {
 			throw err;
 		}
 	}
@@ -86,7 +86,7 @@ async function main() {
 	try {
 		fs.mkdirSync(outputFolder);
     } catch (err) {
-		if (err.code !== 'EEXIST') {
+		if (err.code !== "EEXIST") {
 			throw err;
 		}
 	}
@@ -94,10 +94,10 @@ async function main() {
 	// Now the action begins ... 
 
 	// Read the data file
-	const csvData = fs.readFileSync(csvPath, 'utf8');
+	const csvData = fs.readFileSync(csvPath, "utf8");
 
 	// Take a copy of the data file
-	fs.writeFile(path.join(outputFolder, 'Survey Answers.csv'), csvData, (err) => {
+	fs.writeFile(path.join(outputFolder, "Survey Answers.csv"), csvData, (err) => {
 		if (err) {
 			console.log(`${highlight2}${err}${reset}`);
 		}
@@ -108,7 +108,7 @@ async function main() {
 
 	// Create the report and write it to the output file
 	const report = summaryReport(allScores);
-	fs.writeFile(path.join(outputFolder, 'Report.txt'), report, (err) => {
+	fs.writeFile(path.join(outputFolder, "Report.txt"), report, (err) => {
 		if (err) {
 			console.log(`${highlight2}e${err}${reset}`);
 		}
@@ -116,7 +116,7 @@ async function main() {
 
 	// Export the raw data in csv format
 	const exportedScores = exportScores(allScores);
-	fs.writeFile(path.join(outputFolder, 'Scores.csv'), exportedScores, (err) => {
+	fs.writeFile(path.join(outputFolder, "Scores.csv"), exportedScores, (err) => {
 		if (err) {
 			console.log(`${highlight2}e${err}${reset}`);
 		}
