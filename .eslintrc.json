@@ -1,27 +1,68 @@
 {
-    // guide to configuring ... https://eslint.org/docs/user-guide/configuring
-    "env": {
-        "es6": true,
-        "node": true
-    },
-    "extends": "eslint:recommended",
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "rules": {
-        "comma-dangle": ["warn", "never"],
-        "camelcase": ["error", {"properties": "always"}],
-        "strict": "warn",
-        "quotes": "warn",
-        "object-curly-spacing": "warn",
-        // "capitalized-comments": "warn",
-        "no-warning-comments": "warn",
-        "space-before-function-paren": "warn",
-        "indent": ["error", "tab"]
-    }
+	// guide to configuring ... https://eslint.org/docs/user-guide/configuring
+	"env": {
+		"es6": true,
+		"node": true
+	},
+	"extends": "eslint:all",
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"rules": {
+		"comma-dangle": ["error", "never"],
+		"camelcase": ["error", {"properties": "always"}],
+		"strict": "error",
+		"quotes": "error",
+		"object-curly-spacing": "error",
+		"no-warning-comments": "error",
+		"space-before-function-paren": "error",
+		"indent": ["error", "tab"],
+		"max-lines": "off",
+		"capitalized-comments": "off",
+		"multiline-comment-style": "off",
+		"max-len": "off",
+		"one-var": "off",
+		"array-element-newline": "off",
+		"padded-blocks": "off",
+		"quote-props": "off",
+		"no-tabs": "off",
+		"func-style": "off",
+		"no-plusplus": "off",
+		"brace-style": "off",
+		"max-statements-per-line": "off",
+		"no-ternary": "off",
+		"multiline-ternary": "off",
+		"id-length": "off",
+		"object-property-newline": "off",
+		"no-prototype-builtins": "off",
+		"max-depth": "off",
+		"max-lines-per-function": "off",
+		"init-declarations": "off",
+		"no-sync": "off",
+		"array-bracket-newline": "off",
+		"max-params": "off",
+		"max-statements": "off",
+		"max-lines-per-function": "off",
+		"sort-keys": "off",
+		"no-magic-numbers": "off",
+		"no-extra-parens": "off",
+		"prefer-destructuring": "off",
+		"no-negated-condition": "off",
+		"no-else-return": "off",
+		"object-shorthand": "off",
+		"function-paren-newline": "off",
+		"no-await-in-loop": "off"
+	}
 }
+
+
+
+ 
+ 
+ 
+ 

@@ -50,7 +50,7 @@ Survey Answers.csv
 `;
 
 /* eslint-disable no-console */
-async function main() {
+async function main () {
 	// We color our messages so that they stand out from all the spam that appears in the console window
 	// of the standalone app created by 'pkg'.
 	// For more colors, see https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
@@ -68,7 +68,7 @@ async function main() {
 	} else {
 		csvPath = readline.question(`${highlight}Please enter location of csv file:${reset}`);
 		// Remove any extra backslash characters that are added into the path string when a user drags a file from finder to consolewindow.
-		csvPath = csvPath.split("\\").join(""); 
+		csvPath = csvPath.split("\\").join("");
 	}
 
 	// Create a folder for the results
@@ -77,7 +77,7 @@ async function main() {
 	let outputFolder = path.join(os.homedir(), "Documents", "IPIP Scores");
 	try {
 		fs.mkdirSync(outputFolder);
-    } catch (err) {
+	} catch (err) {
 		if (err.code !== "EEXIST") {
 			throw err;
 		}
@@ -85,13 +85,13 @@ async function main() {
 	outputFolder = path.join(outputFolder, timeDate);
 	try {
 		fs.mkdirSync(outputFolder);
-    } catch (err) {
+	} catch (err) {
 		if (err.code !== "EEXIST") {
 			throw err;
 		}
 	}
 
-	// Now the action begins ... 
+	// Now the action begins ...
 
 	// Read the data file
 	const csvData = fs.readFileSync(csvPath, "utf8");
@@ -121,7 +121,7 @@ async function main() {
 			console.log(`${highlight2}e${err}${reset}`);
 		}
 	});
-		
+
 	// Make the PDFs
 	await makePDF(allScores, outputFolder);
 

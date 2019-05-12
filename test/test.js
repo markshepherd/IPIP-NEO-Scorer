@@ -15,12 +15,12 @@ const green = "\x1b[32m";
 const reset = "\x1b[0m";
 
 /* eslint-disable no-console */
-function runTest() {
-	fs.readFile(csvPath, "utf8", function (err, csvData) {
-		if (err) throw err;
+function runTest () {
+	fs.readFile(csvPath, "utf8", (err, csvData) => {
+		if (err) { throw err; }
 		const allScores = analyzeCSV(csvData);
 		let failureCount = 0;
-		
+
 		const report = summaryReport(allScores);
 		const expectedReport = fs.readFileSync(expectedReportPath, "utf8");
 		if (report !== expectedReport) {

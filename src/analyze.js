@@ -15,22 +15,22 @@ const questionInfo = getItems("en");
 
 // Returns true if consistent, false if inconsistent
 // Someday, we should generalize this so it works for any survey, not just johnson 120.
-function calcConsistency(arrayOfNumbers) {
+function calcConsistency (arrayOfNumbers) {
 	const mid = 3;
 	let lowCount = 0;
 	let highCount = 0;
-	for (let number of arrayOfNumbers) {
-		if (number < mid) lowCount++;
-		if (number > mid) highCount++;
+	for (const number of arrayOfNumbers) {
+		if (number < mid) { lowCount++; }
+		if (number > mid) { highCount++; }
 	}
-	if (lowCount === 0 || highCount === 0) return "none";
-	return (lowCount === 2 && highCount === 2) ? "bad" : "minor";
+	if (lowCount === 0 || highCount === 0) { return "none"; }
+	return lowCount === 2 && highCount === 2 ? "bad" : "minor";
 }
 
-// For a given question and answer to that question, 
+// For a given question and answer to that question,
 // find the domain & facet that the question pertains to, and determine
 // the score for the answer. The return value is a 3-item array [<domain>, <facet>, <score>].
-function getScoreInfoForAnswer(question, answer) {
+function getScoreInfoForAnswer (question, answer) {
 	// Search questionInfo for the question
 	for (let i = 0; i < questionInfo.length; i++) {
 		const info = questionInfo[i];
@@ -52,7 +52,7 @@ function getScoreInfoForAnswer(question, answer) {
 }
 
 // For a given answer, find out it's index, where "Very Inaccurate" is 1, "Moderately Inaccurate" is 2, and so on.
-function getAnswerIndex(answer) {
+function getAnswerIndex (answer) {
 	for (let i = 0; i < choices.length; i++) {
 		if (choices[i] === answer) {
 			return i;
@@ -63,16 +63,16 @@ function getAnswerIndex(answer) {
 
 // Create a schematic image of all the answers so a user can see illegal patterns in the answers. The image
 // is in the form of an ASCII-art character string.
-function makeAnswerImage(answers) {
+function makeAnswerImage (answers) {
 	const height = 15;
 	const image = Array(height).fill("");
 	let nextAnswerIndex = 0;
 
 	for (;;) {
-		for (let i = 0; i < height; i++) {	
+		for (let i = 0; i < height; i++) {
 			const index = getAnswerIndex(answers[nextAnswerIndex++]);
+			// eslint-disable-next-line
 			image[i] += "   " + ((index < 0) ? "....." : (".".repeat(index) + "X" + ".".repeat(4 - index)));
-
 			if (nextAnswerIndex >= answers.length) {
 				return image.join("\n");
 			}
@@ -86,25 +86,25 @@ function makeAnswerImage(answers) {
 //
 // Output: info extracted from csv data, in the form:
 //  {
-//		questions: [question1, question2, ...], 
+//		questions: [question1, question2, ...],
 //		answers: {
-//			user1: {time: xxx, elapsedSeconds: nnn, answers: [answer1, answer2, ...]}, 
+//			user1: {time: xxx, elapsedSeconds: nnn, answers: [answer1, answer2, ...]},
 //			user2: etc...
 //		}
 //	}
 //
 // We only extract data for users for which there is an email address.
-function extractQuestionsAndAnswers(csvData) {
+function extractQuestionsAndAnswers (csvData) {
 	const questions = [];
 	const answers = {};
 
 	// Split the input csv data into lines.
-	const lines = csvData.split(/[\n\r]+/);
+	const lines = csvData.split(/[\n\r]+/u);
 
 	// The first line of the csv data contains the name of each column.
 	// The first few columns of each line are metadata, including the user's email address.
 	// The rest of the tokens are the responses to each question.
-	const columnNames = lines[0].split(/,/);
+	const columnNames = lines[0].split(/,/u);
 	const emailIndex = columnNames.indexOf("Email Address");
 	const startTimeIndex = columnNames.indexOf("Start Date");
 	const endTimeIndex = columnNames.indexOf("End Date");
@@ -122,17 +122,17 @@ function extractQuestionsAndAnswers(csvData) {
 		}
 	}
 
-	// Each subsequent line of the csv represents one completed survey by one user. 
+	// Each subsequent line of the csv represents one completed survey by one user.
 	for (let i = 1; i < lines.length; i++) {
 		// It's a CSV file, so tokens are separated by commas.
-		const tokens = lines[i].split(/,/);
+		const tokens = lines[i].split(/,/u);
 		let emailAddress = tokens[emailIndex];
 		if (emailAddress) {
 			const startTime = Date.parse(tokens[startTimeIndex]);
 
 			// Make a list of this user's answers.
 			const answersForThisUser = [];
-			for (let column of questionColumns) {
+			for (const column of questionColumns) {
 				answersForThisUser.push(tokens[column]);
 			}
 
@@ -140,13 +140,13 @@ function extractQuestionsAndAnswers(csvData) {
 			if (answers[emailAddress]) {
 				// We already have data for this email address.
 				// Make up a new unique key for this data.
-				emailAddress = emailAddress + "-" + startTime;
+				emailAddress = `${emailAddress}-${startTime}`;
 			}
 			answers[emailAddress] = {
-				age: tokens[ageIndex], 
-				sex: tokens[sexIndex], 
-				time: startTime, 
-				elapsedSeconds: (Date.parse(tokens[endTimeIndex]) - startTime) / 1000, 
+				age: tokens[ageIndex],
+				sex: tokens[sexIndex],
+				time: startTime,
+				elapsedSeconds: (Date.parse(tokens[endTimeIndex]) - startTime) / 1000,
 				answers: answersForThisUser
 			};
 		}
@@ -175,7 +175,7 @@ function extractQuestionsAndAnswers(csvData) {
 //                  ...
 //                }
 //             },
-//             domain2: { 
+//             domain2: {
 //                score: ....,
 //                facets: ....
 //             }
@@ -187,21 +187,21 @@ function extractQuestionsAndAnswers(csvData) {
 // Where <score> is the total score across all questions for the given domain+facet
 // And <count> is the number of answered questions associated with the given domain+facet
 //
-function aggregate(info) {
+function aggregate (info) {
 	const allScores = {};
 
-	for (let emailAddress in info.answers) {
+	for (const emailAddress in info.answers) {
 		if (info.answers.hasOwnProperty(emailAddress)) {
 			const answersForThisUser = info.answers[emailAddress].answers;
-			const dataForThisUser = {scores: {}};		
+			const dataForThisUser = {scores: {}};
 
 			// Loop over the answers to all the questions. For each answer,
-			// we determine which domain/facet it relates to, then we add that 
+			// we determine which domain/facet it relates to, then we add that
 			// answer's score into the total score for that domain/facet for that user.
 			for (let i = 0; i < answersForThisUser.length; i++) {
 				const answer = answersForThisUser[i];
 				const question = info.questions[i];
-				let [domain, facet, score] = getScoreInfoForAnswer(question, answer);
+				const [domain, facet, score] = getScoreInfoForAnswer(question, answer);
 
 				if (domain && facet && score) {
 					// Find the scores for this domain. If it doesn't yet exist, create it.
@@ -220,12 +220,13 @@ function aggregate(info) {
 
 					// Aggregate this answer's score into the facet's score.
 					facetScore.count += 1;
+					let s = score;
 					if (score <= 0) {
-						score = 3;
+						s = 3;
 						facetScore.missing = (facetScore.missing || 0) + 1;
 					}
-					facetScore.score += score;
-					facetScore.scores.push(score);
+					facetScore.score += s;
+					facetScore.scores.push(s);
 				}
 			}
 
@@ -239,27 +240,27 @@ function aggregate(info) {
 // Derive various interesting information from the domain & facet scores and input data. Add the info into the allScores data structure.
 //
 // Input: aggregated scores, from aggregate()
-// 
+//
 // Output: various items added to allScores
 // - results of checks for missing answers, suspicious duration, and answer consistency
 // - a schematic image of all the answers so a user can see illegal patterns in the answers.
 // - score totals for each domain
-function analyze(allScores, info) {
-	for (let emailAddress in allScores) {
+function analyze (allScores, info) {
+	for (const emailAddress in allScores) {
 		if (allScores.hasOwnProperty(emailAddress)) {
 			let missingCount = 0;
 			const userData = allScores[emailAddress];
 			const answerInfo = info.answers[emailAddress];
 			const scores = userData.scores;
 
-			for (let domain in scores) {
+			for (const domain in scores) {
 				if (scores.hasOwnProperty(domain)) {
 					const facets = scores[domain].facets;
 
 					let totalScore = 0;
 					let totalCount = 0;
 
-					for (let facet in facets) {
+					for (const facet in facets) {
 						if (facets.hasOwnProperty(facet)) {
 							const facetScore = facets[facet];
 							totalScore += facetScore.score;
@@ -291,7 +292,7 @@ function analyze(allScores, info) {
 }
 
 // Analyze the answers and return a summary report.
-function analyzeCSV(csvData) {
+function analyzeCSV (csvData) {
 	const info = extractQuestionsAndAnswers(csvData);
 
 	const allScores = aggregate(info);
