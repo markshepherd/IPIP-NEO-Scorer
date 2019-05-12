@@ -143,6 +143,7 @@ function summaryReport (allScores) {
 			const scoresForThisUser = userData.scores;
 			let userComments = (userData.missingAnswers > 0) ? `       *** ${userData.missingAnswers} missing answers` : "";
 			userComments += userData.suspiciousDuration ? `       *** Completed too quickly - ${userData.suspiciousDuration} seconds.` : "";
+			userComments += (!userData.age || !userData.sex) ? "       *** age or sex not specified" : "";
 			const time = moment(new Date(userData.time)).format("M/D/YY H:mm");
 			outputString += `\n\n\n${emailAddress}   ${time}   ${userData.sex} ${userData.age}   ${userComments}\n\n${userData.image}\n`;
 

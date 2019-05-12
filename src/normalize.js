@@ -103,7 +103,7 @@ const normData = [
 	}
 ];
 
-// These tables help unravel the data in "normData".
+// These tables help locate the data in "normData".
 const map1 = {
 	"N": 1,
 	"E": 2,
@@ -133,7 +133,7 @@ function normalizeScore (age, sex, score, domain, facet) {
 		index2 = map1[domain] + 5;
 	}
 
-	const norm = normData.find((item) => sex === item.sex && age <= item.maxAge).norm;
+	const norm = normData.find((item) => (sex || "Female") === item.sex && (age || 33) <= item.maxAge).norm;
 	score.normalizedScore = (10 * (score.score - norm[index1]) / norm[index2]) + 50;
 	const ns = score.normalizedScore;
 
