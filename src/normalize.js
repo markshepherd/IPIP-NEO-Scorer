@@ -124,6 +124,7 @@ const map2 = {
 //
 // This function adds normalizedScore, percentileScore and rating to the score object.
 function normalizeScore (age, sex, score, domain, facet) {
+	// Choose normalization coefficients based on domain and facet
 	let index1, index2;
 	if (facet) {
 		index1 = facet + map2[domain];
@@ -133,10 +134,12 @@ function normalizeScore (age, sex, score, domain, facet) {
 		index2 = map1[domain] + 5;
 	}
 
+	// Calculate the normalized score, using normalization data appropriate for the user's age and sex.
 	const norm = normData.find((item) => (sex || "Female") === item.sex && (age || 33) <= item.maxAge).norm;
 	score.normalizedScore = (10 * (score.score - norm[index1]) / norm[index2]) + 50;
 	const ns = score.normalizedScore;
 
+	// Calculate the percentile score, using some kind of cubic formula.
 	if (ns < 27) {
 		score.percentileScore = 1;
 	} else if (ns > 73) {
@@ -146,6 +149,7 @@ function normalizeScore (age, sex, score, domain, facet) {
 			(0.405936512733332 * (ns * ns)) - (0.00270624341822222 * (ns * ns * ns)));
 	}
 
+	// Calculate the rating (low - average - high).
 	if (ns < 45) {
 		score.rating = "low";
 	} else if (ns > 55) {

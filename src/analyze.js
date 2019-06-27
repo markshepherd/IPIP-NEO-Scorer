@@ -13,7 +13,7 @@ const choices = ["Very Inaccurate", "Moderately Inaccurate", "Neither Accurate N
 // - what score is assigned to each possible answer
 const questionInfo = getItems("en");
 
-// Returns true if consistent, false if inconsistent
+// Returns "none", "minor", or "bad" depending on inconsistent the set of scores is.
 // Someday, we should generalize this so it works for any survey, not just johnson 120.
 function calcConsistency (arrayOfNumbers) {
 	const mid = 3;
@@ -44,10 +44,16 @@ function getScoreInfoForAnswer (question, answer) {
 				}
 			}
 			// Answer not found
+			if (answer !== "") {
+				// eslint-disable-next-line no-console
+				console.log(`Unrecognized answer '${answer}' for question '${question}'`);
+			}
 			return [info.domain, info.facet, -1];
 		}
 	}
 	// Question not found.
+	// eslint-disable-next-line no-console
+	console.log(`Unrecognized question '${question}'`);
 	return [null, null, null];
 }
 
@@ -114,12 +120,17 @@ function extractQuestionsAndAnswers (csvData) {
 
 	// Make a list of questions, and a list of what columns contain answers to questions.
 	const questionColumns = [];
-	for (let k = firstQuestionIndex; k < columnNames.length; k++) {
+	for (let k = firstQuestionIndex; (k < columnNames.length) && (questions.length < questionInfo.length); k++) {
 		if (columnNames[k] !== "") {
 			// We're only interested in columns that have a non-null question.
 			questions.push(columnNames[k]);
 			questionColumns.push(k);
 		}
+	}
+
+	if (questions.length !== questionInfo.length) {
+		// eslint-disable-next-line no-console
+		console.log(`Expected ${questionInfo.length} personality questions but found ${questions.length}.`);
 	}
 
 	// Each subsequent line of the csv represents one completed survey by one user.
