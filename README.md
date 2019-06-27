@@ -3,6 +3,8 @@ This is a command-line app that analyzes user responses to the SurveyMonkey surv
 
 This app is written in NodeJS. It was developed and tested on Macintosh but I think it should work with little or no change on Windows and *nix.
 
+The IPIP-NEO personality survey was created by Dr. J. Johnson of Penn State University. This app uses scoring algorithms based in part on the cgi code of Johnson's web site, at http://www.personal.psu.edu/~j5j/IPIP/.
+
 Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") project, which provided a couple of node modules - `@alheimsins/b5-johnson-120-ipip-neo-pi-r` and `@alheimsins/b5-result-text` - that we use. These modules define the 120 questions and how they map to domains and facets. They also provide the full text of questions, answers, domain/descriptions, and facet names/descriptions.
 
 # To install the app:
