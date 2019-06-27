@@ -61,5 +61,5 @@ This will create a folder called `IPIP Scores` in your Documents folder. Each ti
 
 `npm run debug` runs the analyzer on the input file `test/Johnson xxxx.csv`, connects to debugger
 
-`npm run package` creates a stand-alone mac app packaged in a zip file. When you unzip, you get a folder containing (1) the mac executable `IPIP-Scorer`, and (2) a sub-folder called chromium. These 2 items must be kept together in the same folder; the executable expects to find chromium there. If you want executables for windows or linux, take a look at `pkg --help`.
+`npm run package` creates a stand-alone mac app packaged in a zip file in the `build` folder. When you unzip, you get a folder containing (1) the mac executable `IPIP-Scorer`, and (2) a sub-folder called chromium. These 2 items must be kept together in the same folder; the executable expects to find chromium there. If you want executables for windows or linux, take a look at `pkg --help`. It is always safe to delete the entire `build` folder, it is re-created whenever you `npm run package`.
 
