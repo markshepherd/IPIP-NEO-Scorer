@@ -23,11 +23,6 @@ Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") proje
     1. `cd IPIP-NEO-Scorer`
     1. `npm install`
 
-# To run the app in the development environment
-
-1. in Terminal do `cd ~/Documents/IPIP-NEO-Scorer`
-1. do `./cli.js`
-
 # To extract data from Survey Monkey:
 
 1. Extract the data from survey monkey
@@ -47,7 +42,15 @@ Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") proje
     
 # Using the app
 
-When the app runs, it prompts for a filename. You should drag in the file `Johnson 120 IPIP-NEO-PI-R.csv` from the `CSV` folder, and hit Return. The app will then create a folder called `IPIP Scores` in your Documents folder. Each time you run the app it creates a new sub-folder with a unique timestamp name, and adds various documents derived from the survey answers:
+Start the app, either:
+1. from the development environment:
+    1. in Terminal do `cd ~/Documents/IPIP-NEO-Scorer`
+    1. do `./cli.js`
+1. by launching the standalone app `IPIP-Scorer`
+
+The app will prompt for a filename. You should drag in the file `Johnson 120 IPIP-NEO-PI-R.csv` from the `CSV` folder, and hit Return. 
+
+The app will create a folder called `IPIP Scores` in your Documents folder. Each time you run the app it creates a new sub-folder with a unique timestamp name. The folder contains various documents derived from the survey answers:
 * Scores.csv - a concise data file giving each user's 5 domain scores and 30 facet scores
 * Report.txt - a summary report giving each user's domain and facet scores, along with annotations that help you evaluate how reliable the answers are.
 * *email-address*.pdf - for each user there is a PDF file with the email address as the file name. This is a detailed report, custom-generated for each user, that explains each of the user's domain and facet scores.
