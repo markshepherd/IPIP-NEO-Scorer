@@ -9,7 +9,7 @@ const path = require("path");
 const fs = require("fs");
 
 /*
-  "emailAddress": "alixgshepherd@gmail.com",
+  "userId": "ab1234",
   "time": "5/3/19 14:19",
   "domains": [
 	{
@@ -29,7 +29,7 @@ const fs = require("fs");
 const oneUserPDFTemplate = `
 <html>
 <head>
-<title>IPIP Scores for <%= emailAddress %> - <%= time %></title>
+<title>IPIP Scores for <%= userId %> - <%= time %></title>
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -37,7 +37,7 @@ body {
 </style>
 </head>
 <body>
-<h1>IPIP Scores for <%= emailAddress %> <%= sex %> <%= age %> </h1>
+<h1>IPIP Scores for <%= userId %> <%= sex %> <%= age %> </h1>
 <p><%= time %></p>
 <% domains.forEach(function (domain) { -%>
 	<h2><%= domain.name %></h2>
@@ -70,13 +70,13 @@ async function makePDF (allScores, outputFolder) {
 	const browser = await puppeteer.launch({executablePath: chromiumExecutablePath, headless: true});
 	const page = await browser.newPage();
 
-	for (const emailAddress in allScores) {
-		if (allScores.hasOwnProperty(emailAddress)) {
+	for (const userId in allScores) {
+		if (allScores.hasOwnProperty(userId)) {
 			// Write a dot to the console without a newline
 			process.stdout.write(". ");
-			const userData = allScores[emailAddress];
+			const userData = allScores[userId];
 			const time = moment(new Date(userData.time)).format("MMM D, Y h:mma");
-			const params = {emailAddress, sex: userData.sex, age: userData.age, time, domains: []};
+			const params = {userId, sex: userData.sex, age: userData.age, time, domains: []};
 
 			for (const domain in userData.scores) {
 				if (userData.scores.hasOwnProperty(domain)) {
@@ -117,7 +117,7 @@ async function makePDF (allScores, outputFolder) {
 			}
 
 			const html = ejs.render(oneUserPDFTemplate, params, {});
-			const outputFileName = path.join(outputFolder, emailAddress.replace("@", "_"));
+			const outputFileName = path.join(outputFolder, userId.replace("@", "_"));
 			const err = fs.writeFileSync(`${outputFileName}.html`, html);
 			if (err) {
 				console.log(err);
@@ -136,16 +136,22 @@ async function makePDF (allScores, outputFolder) {
 // Create a summary report of scores and warnings for all users. We return the report in the form of a character string.
 function summaryReport (allScores) {
 	let outputString = "";
+	const inconsistencyRatings = {};
 
-	for (const emailAddress in allScores) {
-		if (allScores.hasOwnProperty(emailAddress)) {
-			const userData = allScores[emailAddress];
+	for (const userId in allScores) {
+		if (allScores.hasOwnProperty(userId)) {
+			const userData = allScores[userId];
 			const scoresForThisUser = userData.scores;
 			let userComments = (userData.missingAnswers > 0) ? `       *** ${userData.missingAnswers} missing answers` : "";
 			userComments += userData.suspiciousDuration ? `       *** Completed too quickly - ${userData.suspiciousDuration} seconds.` : "";
 			userComments += (!userData.age || !userData.sex) ? "       *** age or sex not specified" : "";
+			const inconsistencyRating = (2 * userData.inconsistencies.bad) + userData.inconsistencies.minor;
+			if (inconsistencyRating > 0) {
+				userComments += `       *** inconsistencies: bad ${userData.inconsistencies.bad}, minor ${userData.inconsistencies.minor}, rating ${inconsistencyRating}`;
+			}
+			inconsistencyRatings[inconsistencyRating] = (inconsistencyRatings[inconsistencyRating] || 0) + 1;
 			const time = moment(new Date(userData.time)).format("M/D/YY H:mm");
-			outputString += `\n\n\n${emailAddress}   ${time}   ${userData.sex} ${userData.age}   ${userComments}\n\n${userData.image}\n`;
+			outputString += `\n\n\n${userId}   ${time}   ${userData.sex} ${userData.age}   ${userComments}\n\n${userData.image}\n`;
 
 			// Fetch the template which contains a list of all the domains and facets, including their human-readable names.
 			// The order of items in the template defines the order of the report.
@@ -173,6 +179,14 @@ function summaryReport (allScores) {
 			}
 		}
 	}
+
+	outputString += `\nInconsistency rating:count - `;
+	for (const rating in inconsistencyRatings) {
+		if (inconsistencyRatings.hasOwnProperty(rating)) {
+			outputString += `\n${rating}: ${inconsistencyRatings[rating]}`;
+		}
+	}
+	outputString += `\n`;
 	return outputString;
 }
 
@@ -197,13 +211,13 @@ function exportScores (allScores) {
 	}
 	lines.push(values.join(","));
 
-	for (const emailAddress in allScores) {
-		if (allScores.hasOwnProperty(emailAddress)) {
+	for (const userId in allScores) {
+		if (allScores.hasOwnProperty(userId)) {
 			values = [];
-			const userData = allScores[emailAddress];
+			const userData = allScores[userId];
 			const scoresForThisUser = userData.scores;
 
-			values.push(emailAddress);
+			values.push(userId);
 			values.push(moment(new Date(userData.time)).format("M/D/Y HH:mm"));
 
 			for (let i = 0; i < template.length; i++) {

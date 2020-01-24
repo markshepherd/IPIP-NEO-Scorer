@@ -3,6 +3,7 @@
 
 const normalizeScore = require("./normalize");
 const {getItems} = require("@alheimsins/b5-johnson-120-ipip-neo-pi-r");
+const _ = require("lodash");
 
 // const choices = require(`@alheimsins/b5-johnson-120-ipip-neo-pi-r/data/en/choices`)
 // Pkg doesn't handle the above require(), so we'll just do brute force
@@ -77,13 +78,67 @@ function makeAnswerImage (answers) {
 	for (;;) {
 		for (let i = 0; i < height; i++) {
 			const index = getAnswerIndex(answers[nextAnswerIndex++]);
-			// eslint-disable-next-line
 			image[i] += "   " + ((index < 0) ? "....." : (".".repeat(index) + "X" + ".".repeat(4 - index)));
 			if (nextAnswerIndex >= answers.length) {
 				return image.join("\n");
 			}
 		}
 	}
+}
+
+// Given a character string in the form 'mmyy' which represents somebody's birth date, return the
+// person's age as of 2020. Validate the input date and complain to the console if it's not valid.
+function findAge (mmyy) {
+	// find the 2 numbers 'mm' and 'yy'
+	const matchResult = (mmyy || "").toString().match(/^(?<mm>\d{1,2})(?<yy>\d{2})$/u);
+	if (!matchResult) {
+		// eslint-disable-next-line no-console
+		console.log(`findAge failed, mmyy '${mmyy}' is not 3 or 4 digits.`);
+		return null;
+	}
+	
+	// convert the string to an integer and calculate the birth year.
+	let year = parseInt(matchResult.groups.yy, 10);
+	if (year < 20) {
+		year += 2000;
+	} else {
+		year += 1900;
+	}
+	
+	// calculate the age as of 2020
+	return 2020 - year;
+}
+
+// Determine a user's UserID. Validate the input date and complain to the console if it's not valid.
+// @param firstTwoLetters the user's response to the "first two letters" question
+// @param mmyy the user's response to the "4-digit birthdate" question
+// @return <string> the user's unique(ish) UserID 
+function makeUserId (firstTwoLetters, mmyy) {
+	const firstTwoLettersString = (firstTwoLetters || "").toString().toLowerCase().trim();
+	let mmyyString = (mmyy || "").toString().trim();
+	if (firstTwoLettersString.length === 0) {
+		return null;
+	}
+
+	if (!firstTwoLettersString.match(/^[a-z][a-z]$/u)) {
+		// eslint-disable-next-line no-console
+		console.log(`makeUserId failed, firstTwoLetters '${firstTwoLetters}' is not 2 letters.`);
+		return null;
+	}
+
+	if (mmyyString.match(/^\d\d\d$/u)) {
+		mmyyString = `0${mmyyString}`;
+	}
+	if (!mmyyString.match(/^\d\d\d\d$/u)) {
+		// eslint-disable-next-line no-console
+		console.log(`makeUserId failed, mmyy '${mmyy}' is not 3 or 4 digits.`);
+		return null;
+	}
+
+	const result = `${firstTwoLettersString}${mmyyString}`;
+	// eslint-disable-next-line no-console
+	// console.log(`makeUserId firstTwoLetters: '${firstTwoLetters}', mmyy: '${mmyy}', result: '${result}'`);
+	return result;
 }
 
 // Parse the input data and put it into a usable format.
@@ -99,7 +154,7 @@ function makeAnswerImage (answers) {
 //		}
 //	}
 //
-// We only extract data for users for which there is an email address.
+// We only extract data for users who have a user ID
 function extractQuestionsAndAnswers (csvData) {
 	const questions = [];
 	const answers = {};
@@ -108,14 +163,14 @@ function extractQuestionsAndAnswers (csvData) {
 	const lines = csvData.split(/[\n\r]+/u);
 
 	// The first line of the csv data contains the name of each column.
-	// The first few columns of each line are metadata, including the user's email address.
+	// The first few columns of each line are metadata.
 	// The rest of the tokens are the responses to each question.
 	const columnNames = lines[0].split(/,/u);
-	const emailIndex = columnNames.indexOf("Email Address");
+	const mmyyIndex = _.findIndex(columnNames, (n) => n.match(/Please enter four digits/u));
+	const firstTwoLettersIndex = _.findIndex(columnNames, (n) => n.match(/This question will allow us/u));
 	const startTimeIndex = columnNames.indexOf("Start Date");
 	const endTimeIndex = columnNames.indexOf("End Date");
-	const ageIndex = columnNames.indexOf("Age");
-	const sexIndex = columnNames.indexOf("Sex");
+	const sexIndex = columnNames.indexOf("What is your gender?");
 	const firstQuestionIndex = columnNames.indexOf("Worry about things");
 
 	// Make a list of questions, and a list of what columns contain answers to questions.
@@ -133,12 +188,15 @@ function extractQuestionsAndAnswers (csvData) {
 		console.log(`Expected ${questionInfo.length} personality questions but found ${questions.length}.`);
 	}
 
-	// Each subsequent line of the csv represents one completed survey by one user.
-	for (let i = 1; i < lines.length; i++) {
+	// Each line of the csv, starting from the 3rd line, represents one completed survey by one user.
+	let numberWithUserId = 0;
+	let numberWithoutUserId = 0;
+
+	for (let i = 2; i < lines.length; i++) {
 		// It's a CSV file, so tokens are separated by commas.
 		const tokens = lines[i].split(/,/u);
-		let emailAddress = tokens[emailIndex];
-		if (emailAddress) {
+		const userId = makeUserId(tokens[firstTwoLettersIndex], tokens[mmyyIndex]);
+		if (userId) {
 			const startTime = Date.parse(tokens[startTimeIndex]);
 
 			// Make a list of this user's answers.
@@ -148,20 +206,27 @@ function extractQuestionsAndAnswers (csvData) {
 			}
 
 			// Record this user's data into 'answers'.
-			if (answers[emailAddress]) {
-				// We already have data for this email address.
-				// Make up a new unique key for this data.
-				emailAddress = `${emailAddress}-${startTime}`;
+			if (answers[userId]) {
+				// We already have data for this userId
+				// eslint-disable-next-line no-console
+				console.log(`*** More than one record for User ID ${userId}. Ignoring all but first.`);
+			} else {
+				answers[userId] = {
+					age: findAge(tokens[mmyyIndex]),
+					sex: tokens[sexIndex],
+					time: startTime,
+					elapsedSeconds: (Date.parse(tokens[endTimeIndex]) - startTime) / 1000,
+					answers: answersForThisUser
+				};
+				numberWithUserId += 1;
 			}
-			answers[emailAddress] = {
-				age: tokens[ageIndex],
-				sex: tokens[sexIndex],
-				time: startTime,
-				elapsedSeconds: (Date.parse(tokens[endTimeIndex]) - startTime) / 1000,
-				answers: answersForThisUser
-			};
+		} else {
+			numberWithoutUserId += 1;
 		}
 	}
+
+	// eslint-disable-next-line no-console
+	console.log(`${numberWithUserId} responses had a valid user id. ${numberWithoutUserId} did not.`);
 
 	return {questions, answers};
 }
@@ -172,7 +237,7 @@ function extractQuestionsAndAnswers (csvData) {
 //
 // Output: for each user, the aggregated score for each domain and facet, in the form
 // {
-//     email1: {
+//     userId1: {
 //         time: time,
 //         missingAnswers: number,
 //         image: string,
@@ -192,7 +257,7 @@ function extractQuestionsAndAnswers (csvData) {
 //             }
 //          },
 //      },
-//      email2: { ... }
+//      userId2: { ... }
 //      ...
 // }
 // Where <score> is the total score across all questions for the given domain+facet
@@ -201,9 +266,9 @@ function extractQuestionsAndAnswers (csvData) {
 function aggregate (info) {
 	const allScores = {};
 
-	for (const emailAddress in info.answers) {
-		if (info.answers.hasOwnProperty(emailAddress)) {
-			const answersForThisUser = info.answers[emailAddress].answers;
+	for (const userId in info.answers) {
+		if (info.answers.hasOwnProperty(userId)) {
+			const answersForThisUser = info.answers[userId].answers;
 			const dataForThisUser = {scores: {}};
 
 			// Loop over the answers to all the questions. For each answer,
@@ -241,7 +306,7 @@ function aggregate (info) {
 				}
 			}
 
-			allScores[emailAddress] = dataForThisUser;
+			allScores[userId] = dataForThisUser;
 		}
 	}
 
@@ -257,12 +322,13 @@ function aggregate (info) {
 // - a schematic image of all the answers so a user can see illegal patterns in the answers.
 // - score totals for each domain
 function analyze (allScores, info) {
-	for (const emailAddress in allScores) {
-		if (allScores.hasOwnProperty(emailAddress)) {
+	for (const userId in allScores) {
+		if (allScores.hasOwnProperty(userId)) {
 			let missingCount = 0;
-			const userData = allScores[emailAddress];
-			const answerInfo = info.answers[emailAddress];
+			const userData = allScores[userId];
+			const answerInfo = info.answers[userId];
 			const scores = userData.scores;
+			userData.inconsistencies = {none: 0, minor: 0, bad: 0};
 
 			for (const domain in scores) {
 				if (scores.hasOwnProperty(domain)) {
@@ -278,6 +344,7 @@ function analyze (allScores, info) {
 							totalCount += facetScore.count;
 							missingCount += facetScore.missing || 0;
 							facetScore.inconsistency = calcConsistency(facetScore.scores);
+							userData.inconsistencies[facetScore.inconsistency] += 1;
 						}
 					}
 					scores[domain].score = {score: totalScore, count: totalCount};

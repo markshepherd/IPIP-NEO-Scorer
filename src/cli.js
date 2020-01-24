@@ -14,24 +14,23 @@ const os = require("os");
 
 const instructions = `
 This app analyzes user responses to the 
-SurveyMonkey survey "Johnson 120 IPIP-NEO-PI-R". 
+SurveyMonkey survey "Personality and Motivation in Persons with Alcohol Problems". 
 The result is a report that gives each user's 
 score for the Big 5 personality traits and the 30 facets.
 
 To get the data:
 - log in to https://www.surveymonkey.com
-- go to the "Johnson 120 IPIP-NEO-PI-R" project
+- go to the "Personality and Motivation in Persons with Alcohol Problems" project
 - go to Analyze Results
 - do Save As > Export File > All individual responses
-- select File Format XLS
+- select File Format CSV
 - do Export
 - when it says Your export is complete, click Download
 - in Finder, go to the Downloads folder
 - locate the file you just downloaded, something like Data_All_190503.zip
 - double click the downloaded file to unzip it
-- open the resulting folder, something like Data_All_190503
 - open the CSV folder
-- drag the file "Johnson 120 IPIP-NEO-PI-R.csv" to this window
+- drag the file "Personality and Motivation in Persons with Alcohol Problems.csv" to this window
 - click in this window, then press Return
 `;
 
@@ -42,7 +41,7 @@ Scores.csv
 Report.txt
 - a report giving each user's scores, annotated to help evaluate reliability
 
-<email-address>.pdf
+<UserID>.pdf
 - for each user, a detailed custom report explaining the user's scores
 
 Survey Answers.csv

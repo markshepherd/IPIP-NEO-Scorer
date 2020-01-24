@@ -1,5 +1,5 @@
 # IPIP-NEO-Scorer
-This is a command-line app that analyzes user responses to the SurveyMonkey survey "Johnson 120 IPIP-NEO-PI-R". The result is a report that gives each user's score for the [Big 5](https://en.wikipedia.org/wiki/Big_Five_personality_traits) personality traits and their 30 facets.
+This is a command-line app that analyzes user responses to the SurveyMonkey survey "Personality and Motivation in Persons with Alcohol Problems". The result is a report that gives each user's score for the [Big 5](https://en.wikipedia.org/wiki/Big_Five_personality_traits) personality traits and their 30 facets.
 
 This app is written in NodeJS. It was developed and tested on Macintosh but I think it should work with little or no change on Windows and *nix.
 
@@ -27,17 +27,17 @@ Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") proje
 
 1. Extract the data from survey monkey
     1. go to https://www.surveymonkey.com
-    1. go to the `Johnson 120 IPIP-NEO-PI-R` project
+    1. go to the `Personality and Motivation in Persons with Alcohol Problems` project
     1. go to `Analyze Results`
+    1. create a Rule to show only certain questions. The rule should include every question except Q155 which collects email addresses.
     1. do `Save As > Export File > All individual responses`
-    1. select File Format `XLS`
+    1. select File Format `CSV`
     1. do `Export`
-    1. when it says `Your export is complete`, click `Download`
+    1. after a few moments it will say `Your export is complete`. Click `Download`.
 1. Find the data file
     1. in Finder, go to the `Downloads` folder
     1. locate the file you just downloaded, it will be called something like `Data_All_190503.zip`
     1. double click the downloaded file to unzip it
-    1. open the resulting folder, it will be called something like `Data_All_190503`
     1. open the `CSV` folder
     
 # Using the app
@@ -45,15 +45,15 @@ Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") proje
 Start the app, either:
 1. from the development environment:
     1. in Terminal do `cd ~/Documents/IPIP-NEO-Scorer`
-    1. do `./cli.js`
+    1. do `./src/cli.js`
 1. by launching the standalone app `IPIP-Scorer`
 
-The app will prompt for a filename. You should drag in the file `Johnson 120 IPIP-NEO-PI-R.csv` from the `CSV` folder, and hit Return. 
+The app will prompt for a filename. You should drag in the file `Personality and Motivation in Persons with Alcohol Problems.csv` from the `CSV` folder, and hit Return. 
 
 The app will create a folder called `IPIP Scores` in your Documents folder. Each time you run the app it creates a new sub-folder with a unique timestamp name. The folder contains various documents derived from the survey answers:
-* Scores.csv - a concise data file giving each user's 5 domain scores and 30 facet scores
+* Scores.csv - a concise data file giving each user's 5 domain scores and 30 facet scores. Users are identified by a 6-character UserID in the form *ccmmyy*, where *cc* is the first 2 letters of a city name, and *mm* and *yy* are the month and year the user was born
 * Report.txt - a summary report giving each user's domain and facet scores, along with annotations that help you evaluate how reliable the answers are.
-* *email-address*.pdf - for each user there is a PDF file with the email address as the file name. This is a detailed report, custom-generated for each user, that explains each of the user's domain and facet scores.
+* *UserID*.pdf - for each user there is a PDF file with the UserID as the file name. This is a detailed report, custom-generated for each user, that explains each of the user's domain and facet scores.
 * Survey Answers.csv - a copy of the input data file
 
 # To package the app for distribution
@@ -72,8 +72,8 @@ Running the mac executable `IPIP-Scorer` produces results as described above.
 
 `npm test` runs the test suite, and gives a pass/fail result on the console. DO THIS BEFORE EVERY COMMIT!
 
-`npm run dev` runs the analyzer on the input file `test/Johnson xxxx.csv`
+`npm run dev` runs the analyzer on the input file `test/Personality and Motivation xxxx.csv`
 
-`npm run debug` runs the analyzer on the input file `test/Johnson xxxx.csv`, connects to debugger
+`npm run debug` runs the analyzer on the input file `test/Personality and Motivation xxxx.csv`, connects to debugger
 
 `npm run package` creates a stand-alone mac app packaged in a zip file, as described above.
