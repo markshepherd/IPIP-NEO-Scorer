@@ -136,7 +136,7 @@ async function makePDF (allScores, outputFolder) {
 // Create a summary report of scores and warnings for all users. We return the report in the form of a character string.
 function summaryReport (allScores) {
 	let outputString = "";
-	const inconsistencyRatings = {};
+	const inconsistencyCounts = {};
 
 	for (const userId in allScores) {
 		if (allScores.hasOwnProperty(userId)) {
@@ -145,11 +145,11 @@ function summaryReport (allScores) {
 			let userComments = (userData.missingAnswers > 0) ? `       *** ${userData.missingAnswers} missing answers` : "";
 			userComments += userData.suspiciousDuration ? `       *** Completed too quickly - ${userData.suspiciousDuration} seconds.` : "";
 			userComments += (!userData.age || !userData.sex) ? "       *** age or sex not specified" : "";
-			const inconsistencyRating = (2 * userData.inconsistencies.bad) + userData.inconsistencies.minor;
-			if (inconsistencyRating > 0) {
-				userComments += `       *** inconsistencies: bad ${userData.inconsistencies.bad}, minor ${userData.inconsistencies.minor}, rating ${inconsistencyRating}`;
+			const inconsistencyCount = userData.inconsistencies.bad + userData.inconsistencies.minor;
+			if (inconsistencyCount > 0) {
+				userComments += `       *** inconsistencies: bad ${userData.inconsistencies.bad}, minor ${userData.inconsistencies.minor}, total ${inconsistencyCount}`;
 			}
-			inconsistencyRatings[inconsistencyRating] = (inconsistencyRatings[inconsistencyRating] || 0) + 1;
+			inconsistencyCounts[inconsistencyCount] = (inconsistencyCounts[inconsistencyCount] || 0) + 1;
 			const time = moment(new Date(userData.time)).format("M/D/YY H:mm");
 			outputString += `\n\n\n${userId}   ${time}   ${userData.sex} ${userData.age}   ${userComments}\n\n${userData.image}\n`;
 
@@ -180,10 +180,10 @@ function summaryReport (allScores) {
 		}
 	}
 
-	outputString += `\nInconsistency rating:count - `;
-	for (const rating in inconsistencyRatings) {
-		if (inconsistencyRatings.hasOwnProperty(rating)) {
-			outputString += `\n${rating}: ${inconsistencyRatings[rating]}`;
+	outputString += `\n<Inconsistency count>:<number of users> - `;
+	for (const count in inconsistencyCounts) {
+		if (inconsistencyCounts.hasOwnProperty(count)) {
+			outputString += `\n${count}: ${inconsistencyCounts[count]}`;
 		}
 	}
 	outputString += `\n`;
