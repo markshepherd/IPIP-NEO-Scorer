@@ -90,6 +90,15 @@ async function main () {
 		}
 	}
 
+	let usersFolder = path.join(outputFolder, "users");
+	try {
+		fs.mkdirSync(usersFolder);
+	} catch (err) {
+		if (err.code !== "EEXIST") {
+			throw err;
+		}
+	}
+
 	// Now the action begins ...
 
 	// Read the data file
@@ -122,7 +131,7 @@ async function main () {
 	});
 
 	// Make the PDFs
-	await makePDF(allScores, outputFolder);
+	await makePDF(allScores, usersFolder);
 
 	// Done!
 	console.log(`${highlight2}\n\nResults are in ${highlight}${bright}${oututFolderDescription}${reset}${highlight2}\n${reset}`);
