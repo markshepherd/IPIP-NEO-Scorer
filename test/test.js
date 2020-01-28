@@ -22,12 +22,14 @@ function runTest () {
 		let failureCount = 0;
 
 		const report = summaryReport(allScores);
+		fs.writeFileSync("./Actual Report.txt", report, {flag: "w"});
 		const expectedReport = fs.readFileSync(expectedReportPath, "utf8");
 		if (report !== expectedReport) {
 			failureCount += 1;
 		}
 
 		const exportedScores = exportScores(allScores);
+		fs.writeFileSync("./Actual Scores.txt", exportedScores, {flag: "w"});
 		const expectedScores = fs.readFileSync(expectedScoresPath, "utf8");
 		if (exportedScores !== expectedScores) {
 			failureCount += 1;

@@ -1,7 +1,7 @@
 
 
 
-alixgshepherd@gmail.com   5/3/19 14:19   Female 22          *** 111 missing answers       *** Completed too quickly - 10 seconds.
+aa1198   5/3/19 14:19   Female 22          *** 111 missing answers       *** Completed too quickly - 10 seconds.
 
    .....   .....   .....   .....   .....   .....   .....   .....
    .....   .....   .....   .....   .....   .....   .....   .....
@@ -61,7 +61,7 @@ alixgshepherd@gmail.com   5/3/19 14:19   Female 22          *** 111 missing answ
 
 
 
-mark.e.shepherd@gmail.com   5/3/19 9:09              *** Completed too quickly - 174 seconds.       *** age or sex not specified
+bb1198   5/3/19 9:09   Female 22          *** Completed too quickly - 174 seconds.       *** inconsistencies: bad 10, minor 11, total 21
 
    ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
    ....X   ....X   ....X   ....X   ....X   ....X   ....X   ....X
@@ -121,7 +121,7 @@ mark.e.shepherd@gmail.com   5/3/19 9:09              *** Completed too quickly -
 
 
 
-mark.skiview.loop@gmail.com   5/2/19 19:32   Male 44          *** Completed too quickly - 201 seconds.
+cc1176   5/2/19 19:32   Male 44          *** Completed too quickly - 201 seconds.       *** inconsistencies: bad 10, minor 11, total 21
 
    X....   X....   X....   X....   X....   X....   X....   X....
    X....   X....   X....   X....   X....   X....   X....   X....
@@ -181,7 +181,7 @@ mark.skiview.loop@gmail.com   5/2/19 19:32   Male 44          *** Completed too 
 
 
 
-marke.junkmail@gmail.com   5/2/19 19:16   Female 55   
+dd1165   5/2/19 19:16   Female 55   
 
    ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
    ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..   ..X..
@@ -241,7 +241,7 @@ marke.junkmail@gmail.com   5/2/19 19:16   Female 55
 
 
 
-bob.e.shepherd@gmail.com   5/3/19 9:09   Male 66          *** Completed too quickly - 174 seconds.
+ee1154   5/3/19 9:09   Male 66          *** Completed too quickly - 174 seconds.       *** inconsistencies: bad 10, minor 11, total 21
 
    ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
    ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.   ...X.
@@ -301,7 +301,7 @@ bob.e.shepherd@gmail.com   5/3/19 9:09   Male 66          *** Completed too quic
 
 
 
-bob.skiview.loop@gmail.com   5/2/19 19:32   Female 55          *** Completed too quickly - 201 seconds.
+ff1165   5/2/19 19:32   Female 55          *** Completed too quickly - 201 seconds.       *** inconsistencies: bad 10, minor 11, total 21
 
    .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
    .X...   .X...   .X...   .X...   .X...   .X...   .X...   .X...
@@ -361,7 +361,7 @@ bob.skiview.loop@gmail.com   5/2/19 19:32   Female 55          *** Completed too
 
 
 
-a@b.com   5/4/19 18:51   Male 63   
+gg1157   5/4/19 18:51   Male 63          *** inconsistencies: bad 1, minor 8, total 9
 
    ..X..   ...X.   ..X..   ..X..   .X...   .X...   ...X.   .X...
    ..X..   ...X.   ...X.   ...X.   ..X..   ...X.   ..X..   ..X..
@@ -421,7 +421,7 @@ a@b.com   5/4/19 18:51   Male 63
 
 
 
-random@random.com   5/5/19 10:39   Female 44   
+hh1176   5/5/19 10:39   Female 44          *** inconsistencies: bad 7, minor 18, total 25
 
    ..X..   ....X   .X...   X....   X....   ...X.   X....   X....
    ...X.   ..X..   ...X.   .X...   .X...   ....X   ...X.   X....
@@ -481,7 +481,7 @@ random@random.com   5/5/19 10:39   Female 44
 
 
 
-c@d.com   5/4/19 18:51   Female 33   
+ii1187   5/4/19 18:51   Female 33          *** inconsistencies: bad 1, minor 8, total 9
 
    ..X..   .X...   ..X..   ..X..   ...X.   ...X.   .X...   ...X.
    ..X..   .X...   .X...   .X...   ..X..   .X...   ..X..   ..X..
@@ -541,7 +541,7 @@ c@d.com   5/4/19 18:51   Female 33
 
 
 
-mark.e.shepherd@gmail.com-1557338316000   5/8/19 10:58   Male 63   
+jj1157   5/8/19 10:58   Male 63          *** inconsistencies: bad 1, minor 5, total 6
 
    ..X..   ..X..   ..X..   ..X..   .X...   .X...   ...X.   X....
    ..X..   ...X.   ...X.   ...X.   ..X..   ...X.   .X...   .X...
@@ -598,3 +598,10 @@ mark.e.shepherd@gmail.com-1557338316000   5/8/19 10:58   Male 63
         4. Adventurousness: 93 high  (17 / 20)      
         5. Intellect: 44 average  (14 / 20)      
         6. Liberalism: 93 high  (16 / 20)      *** minor inconsistency; scores are 5,4,5,2
+        
+<Inconsistency count>:<number of users> - 
+0: 2
+6: 1
+9: 2
+21: 4
+25: 1
