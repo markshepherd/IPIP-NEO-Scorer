@@ -210,11 +210,11 @@ function extractQuestionsAndAnswers (csvData) {
 		const tokens = lines[i].split(/,/u);
 		const userId = makeUserId(tokens[firstTwoLettersIndex], tokens[mmyyIndex]);
 		gotUser: if (userId) {
-			const gender = tokens[sexIndex].toLowerCase();
-			if ((gender !== "male") && (gender !== "female")) {
+			let gender = {male: "Male", female: "Female"}[tokens[sexIndex].toLowerCase()];
+			if (!gender) {
 				// eslint-disable-next-line no-console
-				console.log(`*** User ID ${userId} has unrecognized gender "${gender}".`);
-				break gotUser;
+				console.log(`*** User ID ${userId} has unrecognized gender "${tokens[sexIndex]}".`);
+				gender = 'Female';
 			}	
 			const age = findAge(tokens[mmyyIndex]);
 			if (!(Number.isInteger(age) && age > 16 && age < 999)) {
