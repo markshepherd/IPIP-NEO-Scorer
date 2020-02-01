@@ -22,6 +22,9 @@ To get the data:
 - log in to https://www.surveymonkey.com
 - go to the "Personality and Motivation in Persons with Alcohol Problems" project
 - go to Analyze Results
+- create a Rule to show only certain questions. The rule should include
+  every question except "Q155", the question that collects email addresses.
+  Don't forget to click Apply.
 - do Save As > Export File > All individual responses
 - select File Format CSV
 - do Export
