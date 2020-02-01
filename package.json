@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/cli.js",
     "test": "node test/test.js",
+    "testdebug": "node --inspect-brk test/test.js",
     "dev": "node src/cli.js \"test/Personality and Motivation in Persons with Alcohol Problems.csv\"",
     "debug": "node --inspect-brk src/cli.js \"test/Personality and Motivation in Persons with Alcohol Problems.csv\"",
     "package": "source package",

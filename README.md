@@ -29,7 +29,7 @@ Thanks to the [bigfive](https://github.com/Alheimsins/bigfive-web "title") proje
     1. go to https://www.surveymonkey.com
     1. go to the `Personality and Motivation in Persons with Alcohol Problems` project
     1. go to `Analyze Results`
-    1. create a Rule to show only certain questions. The rule should include every question except Q155 which collects email addresses.
+    1. create a Rule to show only certain questions. The rule should include every question except Q155 which collects email addresses. Don't forget to click Apply.
     1. do `Save As > Export File > All individual responses`
     1. select File Format `CSV`
     1. do `Export`
