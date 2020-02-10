@@ -134,6 +134,7 @@ async function main () {
 	});
 
 	// Make the PDFs
+	console.log(`Now writing individual user PDFs. This will take a few moments...`);
 	await makePDF(allScores, usersFolder);
 
 	// Done!
