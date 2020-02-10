@@ -14,6 +14,14 @@ const choices = ["Very Inaccurate", "Moderately Inaccurate", "Neither Accurate N
 // - what score is assigned to each possible answer
 const questionInfo = getItems("en");
 
+// We use this counter to generate userids.
+let useridSerial = 0;
+
+// Create a new unique 6-character userid for data records that don't have one.
+function makeUniqueUserId() {
+	return `XX${String(++useridSerial).padStart(4, '0')}`;
+}
+
 // Returns "none", "minor", or "bad" depending on inconsistent the set of scores is.
 // Someday, we should generalize this so it works for any survey, not just johnson 120.
 function calcConsistency (arrayOfNumbers) {
@@ -88,13 +96,14 @@ function makeAnswerImage (answers) {
 
 // Given a character string in the form 'mmyy' which represents somebody's birth date, return the
 // person's age as of 2020. Validate the input date and complain to the console if it's not valid.
-function findAge (mmyy) {
+function findAge (respondentId, mmyy) {
 	// find the 2 numbers 'mm' and 'yy'
 	const matchResult = (mmyy || "").toString().match(/^(?<mm>\d{1,2})(?<yy>\d{2})$/u);
 	if (!matchResult) {
 		// eslint-disable-next-line no-console
-		console.log(`findAge failed, mmyy '${mmyy}' is not 3 or 4 digits.`);
-		return null;
+		console.log(`${respondentId} Failed to determine age because mmyy '${mmyy}' is not 3 or 4 digits. Assuming 30.`);
+		// return null;
+		return 30;
 	}
 	
 	// convert the string to an integer and calculate the birth year.
@@ -113,7 +122,7 @@ function findAge (mmyy) {
 // @param firstTwoLetters the user's response to the "first two letters" question
 // @param mmyy the user's response to the "4-digit birthdate" question
 // @return <string> the user's unique(ish) UserID 
-function makeUserId (firstTwoLetters, mmyy) {
+function makeUserId (respondentId, firstTwoLetters, mmyy) {
 	const firstTwoLettersString = (firstTwoLetters || "").toString().toLowerCase().trim();
 	let mmyyString = (mmyy || "").toString().trim();
 	if (firstTwoLettersString.length === 0) {
@@ -122,7 +131,7 @@ function makeUserId (firstTwoLetters, mmyy) {
 
 	if (!firstTwoLettersString.match(/^[a-z][a-z]$/u)) {
 		// eslint-disable-next-line no-console
-		console.log(`makeUserId failed, firstTwoLetters '${firstTwoLetters}' is not 2 letters.`);
+		console.log(`${respondentId} Failed to make user ID, first two letters '${_.truncate(firstTwoLetters, {length: 40})}' is not 2 letters.`);
 		return null;
 	}
 
@@ -131,7 +140,7 @@ function makeUserId (firstTwoLetters, mmyy) {
 	}
 	if (!mmyyString.match(/^\d\d\d\d$/u)) {
 		// eslint-disable-next-line no-console
-		console.log(`makeUserId failed, mmyy '${mmyy}' is not 3 or 4 digits.`);
+		console.log(`${respondentId} Failed to make user ID, mmyy '${_.truncate(mmyy, {length: 40})}' is not 3 or 4 digits.`);
 		return null;
 	}
 
@@ -184,6 +193,7 @@ function extractQuestionsAndAnswers (csvData) {
 	const endTimeIndex = columnNames.indexOf("End Date");
 	const sexIndex = columnNames.indexOf("What is your gender?");
 	const firstQuestionIndex = columnNames.indexOf("Worry about things");
+	const respondentIdIndex = columnNames.indexOf("Respondent ID");
 
 	// Starting at firstQuestionIndex, the next 120 columns are the responses to each Johnson question.
 	// We'll make a list of questions, and a list of what columns contains the answer to each question.
@@ -205,53 +215,58 @@ function extractQuestionsAndAnswers (csvData) {
 	let numberWithUserId = 0;
 	let numberWithoutUserId = 0;
 
-	for (let i = 2; i < lines.length; i++) {
+	loop: for (let i = 2; i < lines.length; i++) {
 		// It's a CSV file, so tokens are separated by commas.
+		if (!lines[i].trim()) {
+			continue loop;
+		}
 		const tokens = lines[i].split(/,/u);
-		const userId = makeUserId(tokens[firstTwoLettersIndex], tokens[mmyyIndex]);
-		gotUser: if (userId) {
-			let gender = {male: "Male", female: "Female"}[tokens[sexIndex].toLowerCase()];
-			if (!gender) {
-				// eslint-disable-next-line no-console
-				console.log(`*** User ID ${userId} has unrecognized gender "${tokens[sexIndex]}".`);
-				gender = 'Female';
-			}	
-			const age = findAge(tokens[mmyyIndex]);
-			if (!(Number.isInteger(age) && age > 16 && age < 999)) {
-				// eslint-disable-next-line no-console
-				console.log(`*** User ID ${userId} has out-of-range age "${age}".`);
-				break gotUser;
-			}
-			const startTime = Date.parse(tokens[startTimeIndex]);
-
-			// Make a list of this user's answers.
-			const answersForThisUser = [];
-			for (const column of questionColumns) {
-				answersForThisUser.push(tokens[column]);
-			}
-
-			// Record this user's data into 'answers'.
+		const respondentId = tokens[respondentIdIndex];
+		let userId = makeUserId(respondentId, tokens[firstTwoLettersIndex], tokens[mmyyIndex]);
+		if (userId) {
 			if (answers[userId]) {
 				// We already have data for this userId
 				// eslint-disable-next-line no-console
-				console.log(`*** More than one record for User ID ${userId}. Ignoring all but first.`);
-			} else {
-				answers[userId] = {
-					age: age,
-					sex: gender,
-					time: startTime,
-					elapsedSeconds: (Date.parse(tokens[endTimeIndex]) - startTime) / 1000,
-					answers: answersForThisUser
-				};
-				numberWithUserId += 1;
+				console.log(`${respondentId} Error: user ID ${userId} already in use. Ignoring this record.`);
+				continue loop;
 			}
+			numberWithUserId += 1;
 		} else {
+			userId = makeUniqueUserId();
 			numberWithoutUserId += 1;
 		}
+
+		let gender = {male: "Male", female: "Female"}[tokens[sexIndex].toLowerCase()];
+		if (!gender) {
+			// eslint-disable-next-line no-console
+			console.log(`${respondentId} Unrecognized gender "${tokens[sexIndex]}". Assuming female.`);
+			gender = 'Female';
+		}	
+		const age = findAge(respondentId, tokens[mmyyIndex]);
+		if (!(Number.isInteger(age) && age > 16 && age < 999)) {
+			// eslint-disable-next-line no-console
+		}
+		const startTime = Date.parse(tokens[startTimeIndex]);
+
+		// Make a list of this user's answers.
+		const answersForThisUser = [];
+		for (const column of questionColumns) {
+			answersForThisUser.push(tokens[column]);
+		}
+
+		// Record this user's data into 'answers'.
+		answers[userId] = {
+			age: age,
+			sex: gender,
+			time: startTime,
+			elapsedSeconds: (Date.parse(tokens[endTimeIndex]) - startTime) / 1000,
+			respondentId: respondentId,
+			answers: answersForThisUser
+		};
 	}
 
 	// eslint-disable-next-line no-console
-	console.log(`${numberWithUserId} responses had a valid user id. ${numberWithoutUserId} did not.`);
+	console.log(`${numberWithUserId} user ids were valid, ${numberWithoutUserId} were blank or invalid.`);
 
 	return {questions, answers};
 }
@@ -390,6 +405,8 @@ function analyze (allScores, info) {
 			userData.time = answerInfo.time;
 			userData.age = answerInfo.age;
 			userData.sex = answerInfo.sex;
+			userData.respondentId = answerInfo.respondentId;
+			userData.elapsedSeconds = answerInfo.elapsedSeconds;
 		}
 	}
 }

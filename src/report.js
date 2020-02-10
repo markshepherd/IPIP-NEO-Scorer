@@ -151,7 +151,8 @@ function summaryReport (allScores) {
 			}
 			inconsistencyCounts[inconsistencyCount] = (inconsistencyCounts[inconsistencyCount] || 0) + 1;
 			const time = moment(new Date(userData.time)).format("M/D/YY H:mm");
-			outputString += `\n\n\n${userId}   ${time}   ${userData.sex} ${userData.age}   ${userComments}\n\n${userData.image}\n`;
+			const minutes = Math.round(userData.elapsedSeconds / 60);
+			outputString += `\n\n\n${userData.respondentId}   ${userId}   ${time}   ${minutes} minutes    ${userData.sex} ${userData.age}   ${userComments}\n\n${userData.image}\n`;
 
 			// Fetch the template which contains a list of all the domains and facets, including their human-readable names.
 			// The order of items in the template defines the order of the report.
@@ -196,8 +197,9 @@ function exportScores (allScores) {
 
 	// Create the title line
 	let values = [];
-	values.push("");
-	values.push("");
+	values.push("Respondent ID");
+	values.push("User ID");
+	values.push("Time");
 	const template = getTemplate();
 	for (let i = 0; i < template.length; i++) {
 		const domain = template[i];
@@ -217,6 +219,7 @@ function exportScores (allScores) {
 			const userData = allScores[userId];
 			const scoresForThisUser = userData.scores;
 
+			values.push(userData.respondentId);
 			values.push(userId);
 			values.push(moment(new Date(userData.time)).format("M/D/Y HH:mm"));
 
