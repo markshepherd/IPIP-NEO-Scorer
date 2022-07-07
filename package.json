@@ -31,7 +31,7 @@
     "@alheimsins/b5-result-text": "^1.7.1",
     "ejs": "^2.6.1",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "puppeteer": "^1.15.0",
     "readline-sync": "^1.4.9"
   },
